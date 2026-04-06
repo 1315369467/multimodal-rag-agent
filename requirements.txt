@@ -1,0 +1,47 @@
+# Core Framework
+langchain>=0.3.0
+langchain-community>=0.3.0
+langchain-core>=0.3.0
+langchain-chroma>=0.1.4
+openai>=1.50.0
+
+# Document Parsing
+pymupdf>=1.24.0          # fitz - PDF text/image extraction
+pdfplumber>=0.11.0       # Table extraction from PDF
+python-docx>=1.1.0       # DOCX support
+pillow>=10.0.0           # Image processing
+pdf2image>=1.17.0        # PDF page to image conversion
+
+# Vector Store
+chromadb>=0.5.0
+
+# Sparse Retrieval
+rank-bm25>=0.2.2
+
+# API & Serving
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+python-multipart>=0.0.9
+
+# Utilities
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
+python-dotenv>=1.0.0
+numpy>=1.26.0
+tqdm>=4.66.0
+loguru>=0.7.0
+tenacity>=8.2.0          # Retry logic
+httpx>=0.27.0
+
+# Evaluation
+datasets>=2.20.0
+evaluate>=0.4.0
+
+# Frontend
+streamlit>=1.38.0
+requests>=2.31.0
+
+# Testing
+pytest>=8.0.0
+pytest-asyncio>=0.23.0
+pytest-mock>=3.14.0

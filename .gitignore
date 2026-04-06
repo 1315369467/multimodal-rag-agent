@@ -1,0 +1,14 @@
+.claude/
+.idea/
+.pytest_cache/
+.vscode/
+data/
+*.pyc
+__pycache__/
+.env
+*.egg-info/
+dist/
+build/
+chroma_db/
+**/chroma_db/
+*.sqlite3
