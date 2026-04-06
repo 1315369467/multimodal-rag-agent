@@ -1,0 +1,92 @@
+"""
+FastAPI 请求/响应层的 Pydantic 数据模型定义。
+"""
+from __future__ import annotations
+
+from typing import Any, Optional
+
+from pydantic import BaseModel, Field
+
+
+# ── 请求模型 ───────────────────────────────────────────────────────────────
+
+class ChatMessage(BaseModel):
+    role: str = Field(..., pattern="^(user|assistant)$")
+    content: str
+
+
+class QueryRequest(BaseModel):
+    question: str = Field(..., min_length=1, max_length=4096)
+    chat_history: list[ChatMessage] = Field(default_factory=list)
+    top_k: Optional[int] = Field(None, ge=1, le=20)
+
+
+class IngestRequest(BaseModel):
+    file_paths: list[str] = Field(..., min_length=1)
+    collection_name: Optional[str] = None
+
+
+# ── 响应模型 ───────────────────────────────────────────────────────────────
+
+class SourceReference(BaseModel):
+    source: str
+    page: str
+    block_type: str
+
+
+class QueryResponse(BaseModel):
+    answer: str
+    sources: list[SourceReference]
+    question: str
+    total_sources: int
+
+    @classmethod
+    def from_agent_result(cls, question: str, result: dict[str, Any]) -> "QueryResponse":
+        sources = [SourceReference(**s) for s in result.get("sources", [])]
+        return cls(
+            answer=result["answer"],
+            sources=sources,
+            question=question,
+            total_sources=len(sources),
+        )
+
+
+class IngestResponse(BaseModel):
+    status: str
+    documents_ingested: int
+    chunks_created: int
+    files_processed: list[str]
+
+
+class HealthResponse(BaseModel):
+    status: str
+    model: str
+    collection: str
+    document_count: int
+    version: str = "1.0.0"
+
+
+class ErrorResponse(BaseModel):
+    detail: str
+    error_type: str
+
+
+# ── 文档管理模型 ─────────────────────────────────────────────────────────
+
+class DocumentItem(BaseModel):
+    """单个文档条目，包含 Chroma ID、内容与元数据。"""
+    id: str
+    content: str
+    metadata: dict[str, Any] = Field(default_factory=dict)
+
+
+class DocumentListResponse(BaseModel):
+    """分页文档列表响应，包含文档条目和总数。"""
+    items: list[DocumentItem]
+    total: int
+
+
+class DocumentUpdateRequest(BaseModel):
+    """文档更新请求，内容和元数据均为可选字段。"""
+    content: Optional[str] = None
+    metadata: Optional[dict[str, Any]] = None
