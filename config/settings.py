@@ -24,7 +24,10 @@ class Settings(BaseSettings):
     # ── 模型名称 ───────────────────────────────────────────────────────────
     llm_model: str = "qwen3-235b-a22b"          # Qwen3.5 主力 LLM
     vl_model: str = "qwen-vl-max"               # Qwen3-VL 多模态视觉
-    embedding_model: str = "text-embedding-v3"  # Qwen3-Embedding
+    embedding_mode: str = "local"              # "local" 或 "api"
+    embedding_model: str = "text-embedding-v3"  # API 模式使用的模型名称
+    local_embedding_model: str = "Qwen/Qwen3-Embedding-0.6B"  # 本地模型路径
+    embedding_dim: int = 1024                   # 向量维度
     reranker_model: str = "gte-rerank"          # Qwen3-Reranker
 
     # ── 向量数据库 ─────────────────────────────────────────────────────────

@@ -1,14 +1,11 @@
 """
-Qwen3-Embedding（DashScope / OpenAI 兼容接口）
+Qwen3-Embedding（支持本地部署 / DashScope API 两种模式）
 ──────────────────────────────────────────────────────────────────────────────
-将 DashScope text-embedding-v3 模型封装为 LangChain Embeddings 对象。
+提供两种 LangChain Embeddings 实现：
+• QwenLocalEmbeddings  — 本地 transformers 推理，默认 Qwen/Qwen3-Embedding-0.6B。
+• QwenAPIEmbeddings    — 通过 DashScope / OpenAI 兼容 API 远程调用。
 
-特性
-────
-• 批量编码，可配置批大小（API 上限：25 条/次）。
-• 通过 tenacity 对瞬时 HTTP 错误自动重试。
-• 可选 L2 归一化，使输出向量直接适配余弦相似度计算。
-• 线程安全（__init__ 后无状态）。
+通过工厂函数 ``QwenEmbeddings()`` 根据配置自动选择后端。
 """
 from __future__ import annotations
 
@@ -17,7 +14,6 @@ from typing import List
 import numpy as np
 from langchain_core.embeddings import Embeddings
 from loguru import logger
-from openai import OpenAI
 from tenacity import retry, stop_after_attempt, wait_exponential
 
 from config.settings import get_settings
@@ -27,9 +23,119 @@ settings = get_settings()
 _BATCH_SIZE = 25  # DashScope 单次 API 调用的文本条数上限
 
 
-class QwenEmbeddings(Embeddings):
+# ═══════════════════════════════════════════════════════════════════════════
+# 本地模型实现
+# ═══════════════════════════════════════════════════════════════════════════
+
+class QwenLocalEmbeddings(Embeddings):
     """
-    基于 DashScope Qwen3-Embedding 的 LangChain 兼容 Embedding 类。
+    基于 transformers 本地推理的 Embedding 类。
+
+    参数
+    ----
+    model_name_or_path : HuggingFace 模型名称或本地路径（默认从 settings 读取）。
+    dimensions         : 输出向量维度，-1 表示使用模型原始维度。
+    max_length         : tokenizer 最大长度。
+    batch_size         : 推理时的批大小。
+    instruction        : query 编码时的指令前缀。
+    """
+
+    def __init__(
+        self,
+        model_name_or_path: str | None = None,
+        dimensions: int = 1024,
+        max_length: int = 8192,
+        batch_size: int = 8,
+        instruction: str | None = None,
+    ) -> None:
+        import torch
+        from transformers import AutoTokenizer, AutoModel
+        from transformers.utils import is_flash_attn_2_available
+
+        self.model_name = model_name_or_path or settings.local_embedding_model
+        self.dimensions = dimensions
+        self.max_length = max_length
+        self.batch_size = batch_size
+        self.instruction = instruction or "Given a web search query, retrieve relevant passages that answer the query"
+
+        use_cuda = torch.cuda.is_available()
+        if is_flash_attn_2_available() and use_cuda:
+            self._model = AutoModel.from_pretrained(
+                self.model_name, trust_remote_code=True,
+                attn_implementation="flash_attention_2", torch_dtype=torch.float16,
+            )
+        else:
+            self._model = AutoModel.from_pretrained(
+                self.model_name, trust_remote_code=True, torch_dtype=torch.float16,
+            )
+        if use_cuda:
+            self._model = self._model.cuda()
+
+        self._tokenizer = AutoTokenizer.from_pretrained(
+            self.model_name, trust_remote_code=True, padding_side="left",
+        )
+        logger.info(f"[Embedding] 本地模型已加载: {self.model_name} (cuda={use_cuda})")
+
+    # ── LangChain 接口 ────────────────────────────────────────────────────
+
+    def embed_documents(self, texts: List[str]) -> List[List[float]]:
+        if not texts:
+            return []
+        return self._encode(texts, is_query=False)
+
+    def embed_query(self, text: str) -> List[float]:
+        return self._encode([text], is_query=True)[0]
+
+    # ── 内部方法 ──────────────────────────────────────────────────────────
+
+    def _encode(self, sentences: list[str], is_query: bool) -> list[list[float]]:
+        import torch
+        import torch.nn.functional as F
+
+        if is_query:
+            sentences = [
+                f"Instruct: {self.instruction}\nQuery:{s}" for s in sentences
+            ]
+
+        all_vectors: list[list[float]] = []
+        for i in range(0, len(sentences), self.batch_size):
+            batch = sentences[i : i + self.batch_size]
+            inputs = self._tokenizer(
+                batch, padding=True, truncation=True,
+                max_length=self.max_length, return_tensors="pt",
+            )
+            inputs = inputs.to(self._model.device)
+            with torch.no_grad():
+                outputs = self._model(**inputs)
+                hidden = outputs.last_hidden_state
+                pooled = self._last_token_pool(hidden, inputs["attention_mask"])
+                if self.dimensions != -1:
+                    pooled = pooled[:, : self.dimensions]
+                pooled = F.normalize(pooled, p=2, dim=1)
+            all_vectors.extend(pooled.cpu().tolist())
+
+        return all_vectors
+
+    @staticmethod
+    def _last_token_pool(last_hidden_states, attention_mask):
+        left_padding = attention_mask[:, -1].sum() == attention_mask.shape[0]
+        if left_padding:
+            return last_hidden_states[:, -1]
+        sequence_lengths = attention_mask.sum(dim=1) - 1
+        batch_size = last_hidden_states.shape[0]
+        return last_hidden_states[
+            __import__("torch").arange(batch_size, device=last_hidden_states.device),
+            sequence_lengths,
+        ]
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# API 模型实现
+# ═══════════════════════════════════════════════════════════════════════════
+
+class QwenAPIEmbeddings(Embeddings):
+    """
+    基于 DashScope Qwen3-Embedding 的 LangChain 兼容 Embedding 类（API 模式）。
 
     参数
     ----
@@ -46,6 +152,8 @@ class QwenEmbeddings(Embeddings):
         batch_size: int = _BATCH_SIZE,
         dimensions: int = 1024,
     ) -> None:
+        from openai import OpenAI
+
         self.model = model or settings.embedding_model
         self.normalize = normalize
         self.batch_size = min(batch_size, _BATCH_SIZE)
@@ -110,3 +218,27 @@ class QwenEmbeddings(Embeddings):
         if norm == 0:
             return vector
         return (arr / norm).tolist()
+
+
+# ═══════════════════════════════════════════════════════════════════════════
+# 工厂函数 — 根据 settings.embedding_mode 自动选择后端
+# ═══════════════════════════════════════════════════════════════════════════
+
+def QwenEmbeddings(mode: str | None = None, **kwargs) -> Embeddings:
+    """
+    根据配置返回对应的 Embedding 实例。
+
+    参数
+    ----
+    mode : "local" 或 "api"，为 None 时读取 settings.embedding_mode。
+    **kwargs : 透传给具体实现类的构造参数。
+    """
+    mode = (mode or settings.embedding_mode).lower()
+    if mode == "local":
+        logger.info("[Embedding] 使用本地模型模式")
+        return QwenLocalEmbeddings(**kwargs)
+    elif mode == "api":
+        logger.info("[Embedding] 使用 API 模式")
+        return QwenAPIEmbeddings(**kwargs)
+    else:
+        raise ValueError(f"不支持的 embedding_mode: {mode!r}，请使用 'local' 或 'api'")

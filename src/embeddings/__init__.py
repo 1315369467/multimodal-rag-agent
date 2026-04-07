@@ -1,3 +1,3 @@
-from .qwen_embedding import QwenEmbeddings
+from .qwen_embedding import QwenEmbeddings, QwenLocalEmbeddings, QwenAPIEmbeddings
 
-__all__ = ["QwenEmbeddings"]
+__all__ = ["QwenEmbeddings", "QwenLocalEmbeddings", "QwenAPIEmbeddings"]
