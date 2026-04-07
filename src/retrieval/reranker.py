@@ -227,7 +227,13 @@ def QwenReranker(mode: str | None = None, **kwargs):
     ----
     mode : "local" 或 "api"，为 None 时读取 settings.reranker_mode。
     **kwargs : 透传给具体实现类的构造参数。
+
+    当 settings.enable_rerank 为 False 时直接返回 None，不加载任何模型。
     """
+    if not settings.enable_rerank:
+        logger.info("[Reranker] 精排已禁用（enable_rerank=False），跳过模型加载")
+        return None
+
     mode = (mode or settings.reranker_mode).lower()
     if mode == "local":
         logger.info("[Reranker] 使用本地模型模式")

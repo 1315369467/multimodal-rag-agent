@@ -28,7 +28,8 @@ class Settings(BaseSettings):
     embedding_model: str = "text-embedding-v3"  # API 模式使用的模型名称
     local_embedding_model: str = "Qwen/Qwen3-Embedding-0.6B"  # 本地模型路径
     embedding_dim: int = 1024                   # 向量维度
-    reranker_mode: str = "local"                # "local" 或 "api"
+    enable_rerank: bool = False                   # 是否启用精排（False 则跳过 reranker）
+    reranker_mode: str = "api"                # "local" 或 "api"
     reranker_model: str = "gte-rerank"          # API 模式使用的模型名称
     local_reranker_model: str = "Qwen/Qwen3-Reranker-0.6B"  # 本地模型路径
 
