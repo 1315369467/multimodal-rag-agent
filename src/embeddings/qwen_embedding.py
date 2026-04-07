@@ -242,3 +242,86 @@ def QwenEmbeddings(mode: str | None = None, **kwargs) -> Embeddings:
         return QwenAPIEmbeddings(**kwargs)
     else:
         raise ValueError(f"不支持的 embedding_mode: {mode!r}，请使用 'local' 或 'api'")
+
+
+if __name__ == "__main__":
+    import time
+
+    model_path = "Qwen/Qwen3-Embedding-0.6B"
+    dim = 1024
+
+    queries = ["What is the capital of China?", "Explain gravity"]
+    documents = [
+        "The capital of China is Beijing.",
+        "Gravity is a force that attracts two bodies towards each other. "
+        "It gives weight to physical objects and is responsible for the movement of planets around the sun.",
+        "Python is a high-level programming language known for its readability.",
+        "Machine learning is a subset of artificial intelligence.",
+        "The Great Wall of China is one of the greatest wonders of the world.",
+        "The capital of China is Beijing.",
+        "Gravity is a force that attracts two bodies towards each other. "
+        "It gives weight to physical objects and is responsible for the movement of planets around the sun.",
+        "Python is a high-level programming language known for its readability.",
+        "Machine learning is a subset of artificial intelligence.",
+        "The Great Wall of China is one of the greatest wonders of the world.",
+    ]
+
+    # ── 加载模型 ──────────────────────────────────────────────────────────
+    print(f"正在加载模型: {model_path}")
+    t0 = time.perf_counter()
+    model = QwenLocalEmbeddings(model_name_or_path=model_path, dimensions=dim)
+    load_time = time.perf_counter() - t0
+    print(f"模型加载耗时: {load_time:.2f}s\n")
+
+    # ── Query 编码 ────────────────────────────────────────────────────────
+    print(f"编码 {len(queries)} 条 query ...")
+    t0 = time.perf_counter()
+    query_vecs = model.embed_documents(queries)  # 走 is_query=False 的通用路径
+    query_time = time.perf_counter() - t0
+    print(f"  耗时: {query_time * 1000:.1f}ms  ({query_time / len(queries) * 1000:.1f}ms/条)")
+
+    # 也测试 embed_query（带 instruction 前缀）
+    t0 = time.perf_counter()
+    query_vecs_with_inst = [model.embed_query(q) for q in queries]
+    query_inst_time = time.perf_counter() - t0
+    print(f"  带 instruction 编码: {query_inst_time * 1000:.1f}ms  ({query_inst_time / len(queries) * 1000:.1f}ms/条)")
+
+    # ── Document 编码 ─────────────────────────────────────────────────────
+    print(f"\n编码 {len(documents)} 条 document ...")
+    t0 = time.perf_counter()
+    doc_vecs = model.embed_documents(documents)
+    doc_time = time.perf_counter() - t0
+    print(f"  耗时: {doc_time * 1000:.1f}ms  ({doc_time / len(documents) * 1000:.1f}ms/条)")
+
+    # ── 向量维度验证 ──────────────────────────────────────────────────────
+    print(f"\n向量维度: {len(doc_vecs[0])} (期望 {dim})")
+
+    # ── 相似度矩阵 ───────────────────────────────────────────────────────
+    q_arr = np.array(query_vecs_with_inst)
+    d_arr = np.array(doc_vecs)
+    scores = (q_arr @ d_arr.T) * 100
+    print("\n相似度矩阵 (query x document, ×100):")
+    header = "".ljust(30) + "".join(f"doc{j:<8d}" for j in range(len(documents)))
+    print(header)
+    for i, q in enumerate(queries):
+        row = q[:28].ljust(30) + "".join(f"{scores[i][j]:<12.2f}" for j in range(len(documents)))
+        print(row)
+
+    # ── 吞吐量估算（较大批量）────────────────────────────────────────────
+    large_batch = documents * 20  # 100 条
+    print(f"\n吞吐量测试: {len(large_batch)} 条文本 ...")
+    t0 = time.perf_counter()
+    _ = model.embed_documents(large_batch)
+    throughput_time = time.perf_counter() - t0
+    throughput = len(large_batch) / throughput_time
+    print(f"  耗时: {throughput_time:.2f}s  |  吞吐量: {throughput:.0f} 条/s")
+
+    # ── 汇总 ──────────────────────────────────────────────────────────────
+    print("\n" + "=" * 60)
+    print("性能汇总")
+    print("=" * 60)
+    print(f"  模型加载      : {load_time:.2f}s")
+    print(f"  Query 编码    : {query_time / len(queries) * 1000:.1f}ms/条")
+    print(f"  Document 编码 : {doc_time / len(documents) * 1000:.1f}ms/条")
+    print(f"  批量吞吐量    : {throughput:.0f} 条/s ({len(large_batch)} 条)")
+    print(f"  向量维度      : {len(doc_vecs[0])}")
