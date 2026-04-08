@@ -1,32 +1,32 @@
 {
   "summary": {
-    "Recall@1": 0.8846153846153846,
-    "MRR@1": 0.8846153846153846,
-    "Precision@1": 0.8846153846153846,
-    "NDCG@1": 0.8846153846153846,
+    "Recall@1": 0.8942307692307693,
+    "MRR@1": 0.8942307692307693,
+    "Precision@1": 0.8942307692307693,
+    "NDCG@1": 0.8942307692307693,
     "Recall@3": 0.9711538461538461,
-    "MRR@3": 0.9230769230769229,
-    "Precision@3": 0.8141025641025639,
-    "NDCG@3": 0.9354382550137377,
+    "MRR@3": 0.9262820512820511,
+    "Precision@3": 0.7916666666666667,
+    "NDCG@3": 0.9377280674450558,
     "Recall@5": 0.9903846153846154,
-    "MRR@5": 0.9274038461538461,
-    "Precision@5": 0.7288461538461534,
-    "NDCG@5": 0.9432991142955447,
+    "MRR@5": 0.9306089743589742,
+    "Precision@5": 0.7307692307692304,
+    "NDCG@5": 0.9455889267268629,
     "Recall@10": 1.0,
-    "MRR@10": 0.9286057692307691,
-    "Precision@10": 0.605769230769231,
-    "NDCG@10": 0.9463324304184844
+    "MRR@10": 0.9315705128205126,
+    "Precision@10": 0.6163461538461537,
+    "NDCG@10": 0.9483683962106887
   },
   "category_summary": {
     "factual": {
-      "recall@1": 0.9125,
-      "mrr@1": 0.9125,
+      "recall@1": 0.925,
+      "mrr@1": 0.925,
       "recall@3": 0.9875,
-      "mrr@3": 0.9458333333333332,
+      "mrr@3": 0.9499999999999998,
       "recall@5": 1.0,
-      "mrr@5": 0.9483333333333333,
+      "mrr@5": 0.9524999999999999,
       "recall@10": 1.0,
-      "mrr@10": 0.9483333333333333,
+      "mrr@10": 0.9524999999999999,
       "count": 80
     },
     "reasoning": {
@@ -59,7 +59,7 @@
       "recall@5": 0.875,
       "mrr@5": 0.7291666666666666,
       "recall@10": 1.0,
-      "mrr@10": 0.7447916666666666,
+      "mrr@10": 0.7416666666666666,
       "count": 8
     }
   },
@@ -311,7 +311,7 @@
       "retrieved_top3": [
         "hr_policy.md",
         "rag_evaluation.md",
-        "hr_policy.md"
+        "rag_evaluation.md"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -551,7 +551,7 @@
       "retrieved_top3": [
         "tech_arch.md",
         "ops_manual.md",
-        "tech_arch.md"
+        "gpt_claude_models.md"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -743,7 +743,7 @@
       "retrieved_top3": [
         "financial_report.md",
         "financial_report.md",
-        "ops_manual.md"
+        "rag_evaluation.md"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -815,7 +815,7 @@
       "retrieved_top3": [
         "financial_report.md",
         "hr_policy.md",
-        "financial_report.md"
+        "legal_compliance.md"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -838,8 +838,8 @@
       "category": "factual",
       "retrieved_top3": [
         "financial_report.md",
-        "financial_report.md",
-        "legal_compliance.md"
+        "legal_compliance.md",
+        "rag_evaluation.md"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -910,7 +910,7 @@
       "category": "factual",
       "retrieved_top3": [
         "financial_report.md",
-        "rag_evaluation.md",
+        "ai_research.md",
         "rag_evaluation.md"
       ],
       "metrics": {
@@ -935,7 +935,7 @@
       "retrieved_top3": [
         "financial_report.md",
         "financial_report.md",
-        "financial_report.md"
+        "rag_evaluation.md"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -983,7 +983,7 @@
       "retrieved_top3": [
         "legal_compliance.md",
         "legal_compliance.md",
-        "legal_compliance.md"
+        "ai_research.md"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -1175,7 +1175,7 @@
       "retrieved_top3": [
         "legal_compliance.md",
         "legal_compliance.md",
-        "hr_policy.md"
+        "rag_evaluation.md"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -1414,7 +1414,7 @@
       "category": "factual",
       "retrieved_top3": [
         "rag_evaluation.md",
-        "gpt_claude_models.md",
+        "rag_evaluation.md",
         "gpt_claude_models.md"
       ],
       "metrics": {
@@ -1422,14 +1422,14 @@
         "mrr@1": 0.0,
         "ndcg@1": 0.0,
         "recall@3": 1.0,
-        "mrr@3": 0.5,
-        "ndcg@3": 0.6309297535714575,
+        "mrr@3": 0.3333333333333333,
+        "ndcg@3": 0.5,
         "recall@5": 1.0,
-        "mrr@5": 0.5,
-        "ndcg@5": 0.6309297535714575,
+        "mrr@5": 0.3333333333333333,
+        "ndcg@5": 0.5,
         "recall@10": 1.0,
-        "mrr@10": 0.5,
-        "ndcg@10": 0.6309297535714575
+        "mrr@10": 0.3333333333333333,
+        "ndcg@10": 0.5
       }
     },
     {
@@ -1511,7 +1511,7 @@
       "retrieved_top3": [
         "llama_qwen_models.md",
         "llama_qwen_models.md",
-        "rag_evaluation.md"
+        "llama_qwen_models.md"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -1703,7 +1703,7 @@
       "retrieved_top3": [
         "embedding_reranking.md",
         "embedding_reranking.md",
-        "ai_research.md"
+        "embedding_reranking.md"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -1751,7 +1751,7 @@
       "retrieved_top3": [
         "embedding_reranking.md",
         "embedding_reranking.md",
-        "rag_evaluation.md"
+        "embedding_reranking.md"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -1799,7 +1799,7 @@
       "retrieved_top3": [
         "embedding_reranking.md",
         "llama_qwen_models.md",
-        "embedding_reranking.md"
+        "llama_qwen_models.md"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -1894,8 +1894,8 @@
       "category": "factual",
       "retrieved_top3": [
         "ai_research.md",
-        "financial_report.md",
-        "ai_research.md"
+        "ai_research.md",
+        "financial_report.md"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -1943,7 +1943,7 @@
       "retrieved_top3": [
         "ai_research.md",
         "ai_research.md",
-        "ai_research.md"
+        "rag_evaluation.md"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -1965,23 +1965,23 @@
       "ground_truth_source": "ai_research.md",
       "category": "factual",
       "retrieved_top3": [
-        "rag_evaluation.md",
         "ai_research.md",
-        "llama_qwen_models.md"
+        "rag_evaluation.md",
+        "ai_research.md"
       ],
       "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
         "recall@3": 1.0,
-        "mrr@3": 0.5,
-        "ndcg@3": 0.6309297535714575,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
         "recall@5": 1.0,
-        "mrr@5": 0.5,
-        "ndcg@5": 0.6309297535714575,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
         "recall@10": 1.0,
-        "mrr@10": 0.5,
-        "ndcg@10": 0.6309297535714575
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
@@ -2196,8 +2196,8 @@
         "mrr@5": 0.0,
         "ndcg@5": 0.0,
         "recall@10": 1.0,
-        "mrr@10": 0.125,
-        "ndcg@10": 0.31546487678572877
+        "mrr@10": 0.1,
+        "ndcg@10": 0.2890648263178879
       }
     },
     {
@@ -2206,7 +2206,7 @@
       "category": "multi-hop",
       "retrieved_top3": [
         "gpt_claude_models.md",
-        "gpt_claude_models.md",
+        "rag_evaluation.md",
         "gpt_claude_models.md"
       ],
       "metrics": {
@@ -2230,8 +2230,8 @@
       "category": "multi-hop",
       "retrieved_top3": [
         "llama_qwen_models.md",
-        "gpt_claude_models.md",
-        "llama_qwen_models.md"
+        "llama_qwen_models.md",
+        "gpt_claude_models.md"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -2325,8 +2325,8 @@
       "ground_truth_source": "gpt_claude_models.md",
       "category": "multi-hop",
       "retrieved_top3": [
-        "llama_qwen_models.md",
         "rag_evaluation.md",
+        "llama_qwen_models.md",
         "gpt_claude_models.md"
       ],
       "metrics": {
@@ -2469,8 +2469,8 @@
       "ground_truth_source": "rag_evaluation.md",
       "category": "reasoning",
       "retrieved_top3": [
-        "embedding_reranking.md",
         "gpt_claude_models.md",
+        "embedding_reranking.md",
         "embedding_reranking.md"
       ],
       "metrics": {
@@ -2495,7 +2495,7 @@
       "retrieved_top3": [
         "gpt_claude_models.md",
         "gpt_claude_models.md",
-        "gpt_claude_models.md"
+        "rag_evaluation.md"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -2573,7 +2573,7 @@
       10
     ],
     "num_queries": 104,
-    "elapsed_seconds": 5.93,
+    "elapsed_seconds": 5.88,
     "ablation": null
   }
 }

@@ -113,15 +113,11 @@ def ndcg_at_k(
 
 # ── 离线语料库加载 ────────────────────────────────────────────────────────
 
-# 支持的 chunk 切分策略名称
-CHUNK_STRATEGIES = ["fixed", "sentence", "paragraph", "markdown", "recursive"]
-# 5 种切分策略（evaluate.py:138-210）
-# 策略	说明
-# fixed	固定字符数切分（无重叠），1 token ≈ 2 中文字符
-# sentence	按中文/英文句子边界切分，每 chunk 最多 5 句
-# paragraph	按连续空行切分，短段自动合并
-# markdown	按 ##/### 标题切分（原有默认策略）
-# recursive	LangChain RecursiveCharacterTextSplitter，优先段落→句子→字符边界
+from src.document_parser.chunker import STRATEGY_FN as _STRATEGY_FN, STRATEGY_LABEL as _STRATEGY_LABEL, chunk_text
+
+# 支持的 chunk 切分策略名称（不含 semantic，evaluate 仅用文本级策略）
+CHUNK_STRATEGIES = [s for s in ["fixed", "sentence", "paragraph", "markdown", "recursive"] if s in _STRATEGY_FN]
+
 
 def _load_files(corpus_dir: Path):
     """返回 (file_path, text) 列表，目录不存在时退出。"""
@@ -131,107 +127,6 @@ def _load_files(corpus_dir: Path):
         logger.error(f"语料库目录 {corpus_dir} 中无 .txt/.md 文件")
         sys.exit(1)
     return [(p, p.read_text(encoding="utf-8")) for p in files]
-
-
-def _make_doc(content: str, source: str):
-    from langchain_core.documents import Document
-    return Document(page_content=content, metadata={"source": source, "page_num": 0})
-
-
-# ── 切分策略实现 ──────────────────────────────────────────────────────────
-
-def _chunk_fixed(text: str, source: str, chunk_size: int = 256) -> list:
-    """按固定字符数切分（无重叠）。chunk_size 单位：字符数。"""
-    docs = []
-    char_size = chunk_size * 2  # 粗略：1 token ≈ 2 中文字符
-    start = 0
-    while start < len(text):
-        segment = text[start: start + char_size].strip()
-        if segment:
-            docs.append(_make_doc(segment, source))
-        start += char_size
-    return docs
-
-
-def _chunk_sentence(text: str, source: str, max_sentences: int = 5) -> list:
-    """
-    按中文句子边界（。！？… 及英文 .!?）切分，
-    每个 chunk 包含至多 max_sentences 句。
-    """
-    import re
-    sentences = re.split(r"(?<=[。！？…\.!?])\s*", text)
-    sentences = [s.strip() for s in sentences if s.strip()]
-    docs = []
-    for i in range(0, len(sentences), max_sentences):
-        segment = "".join(sentences[i: i + max_sentences]).strip()
-        if segment:
-            docs.append(_make_doc(segment, source))
-    return docs
-
-
-def _chunk_paragraph(text: str, source: str, min_len: int = 20) -> list:
-    """
-    按段落（连续空行）切分，段落太短时与下一段合并。
-    """
-    paragraphs = [p.strip() for p in text.split("\n\n") if p.strip()]
-    docs = []
-    buffer = ""
-    for para in paragraphs:
-        buffer = (buffer + "\n\n" + para).strip() if buffer else para
-        if len(buffer) >= min_len:
-            docs.append(_make_doc(buffer, source))
-            buffer = ""
-    if buffer:
-        docs.append(_make_doc(buffer, source))
-    return docs
-
-
-def _chunk_markdown(text: str, source: str, min_len: int = 20) -> list:
-    """
-    按 Markdown 二级/三级标题（##/###）切分（当前离线默认策略）。
-    """
-    import re
-    sections = re.split(r"\n(?=#{2,3}\s)", text)
-    docs = []
-    for section in sections:
-        section = section.strip()
-        if section and len(section) >= min_len:
-            docs.append(_make_doc(section, source))
-    return docs
-
-
-def _chunk_recursive(text: str, source: str, chunk_size: int = 256) -> list:
-    """
-    使用 LangChain RecursiveCharacterTextSplitter，
-    优先在段落/句子/字符边界处切分。
-    """
-    from langchain_text_splitters import RecursiveCharacterTextSplitter
-    splitter = RecursiveCharacterTextSplitter(
-        chunk_size=chunk_size * 2,   # 粗略字符数
-        chunk_overlap=chunk_size // 4 * 2,
-        separators=["\n\n", "\n", "。", "！", "？", "，", " ", ""],
-    )
-    chunks = splitter.split_text(text)
-    return [_make_doc(c.strip(), source) for c in chunks if c.strip()]
-
-
-# ── 策略分发 ─────────────────────────────────────────────────────────────
-
-_STRATEGY_FN = {
-    "fixed":     _chunk_fixed,
-    "sentence":  _chunk_sentence,
-    "paragraph": _chunk_paragraph,
-    "markdown":  _chunk_markdown,
-    "recursive": _chunk_recursive,
-}
-
-_STRATEGY_LABEL = {
-    "fixed":     "Fixed-size",
-    "sentence":  "Sentence",
-    "paragraph": "Paragraph",
-    "markdown":  "Markdown-header",
-    "recursive": "Recursive",
-}
 
 
 def load_corpus_from_directory(
@@ -267,17 +162,13 @@ def load_corpus_from_directory(
         logger.error(f"未知切分策略：{strategy}，可选：{list(_STRATEGY_FN)}")
         sys.exit(1)
 
-    chunk_fn = _STRATEGY_FN[strategy]
     all_docs = []
     source_map = {}
 
     for file_path, text in _load_files(corpus_dir):
         logger.info(f"[Corpus/{strategy}] 解析：{file_path.name}")
         source_map[file_path.name] = text
-        kwargs: dict = {}
-        if strategy in ("fixed", "recursive"):
-            kwargs["chunk_size"] = chunk_size
-        chunks = chunk_fn(text, file_path.name, **kwargs)
+        chunks = chunk_text(text, file_path.name, strategy, chunk_size)
         all_docs.extend(chunks)
 
     logger.info(
@@ -538,11 +429,11 @@ def print_results(output: dict, k_values: list[int], mode: str, elapsed: float) 
     # 分类细分
     cat_summary = output.get("category_summary", {})
     if cat_summary:
-        print(f"\n  分类细分（K={k_values[-1]}）:")
+        print(f"\n  分类细分（K={k_values[0]}）:")
         print("  ┌─────────────┬──────┬──────────┬──────────┐")
         print("  │ 分类        │ 数量 │ Recall   │ MRR      │")
         print("  ├─────────────┼──────┼──────────┼──────────┤")
-        k_last = k_values[-1]
+        k_last = k_values[0]
         for cat, data in sorted(cat_summary.items()):
             cnt = data.get("count", 0)
             recall = data.get(f"recall@{k_last}", 0)

@@ -14,6 +14,9 @@ python scripts/ingest_documents.py --files report.pdf scan.png table.pdf
 
 # 先清空集合再入库
 python scripts/ingest_documents.py --input-dir ./data/eval_corpus --reset
+
+# 指定切分策略（fixed / sentence / paragraph / markdown / recursive / semantic）
+python scripts/ingest_documents.py --input-dir ./data/eval_corpus --chunk-strategy recursive
 """
 from __future__ import annotations
 
@@ -28,7 +31,7 @@ from loguru import logger
 from tqdm import tqdm
 
 from config.settings import get_settings
-from src.document_parser.chunker import SemanticChunker
+from src.document_parser.chunker import SUPPORTED_STRATEGIES, chunk_blocks
 from src.document_parser.router import DocumentRouter
 from src.retrieval.sparse_retriever import SparseRetriever
 from src.vectorstore.chroma_store import ChromaVectorStore
@@ -72,6 +75,13 @@ def parse_args() -> argparse.Namespace:
         default=settings.chunk_overlap,
         help=f"chunk 重叠量（近似 token 数，默认：{settings.chunk_overlap}）。",
     )
+    parser.add_argument(
+        "--chunk-strategy",
+        type=str,
+        default=settings.chunk_strategy,
+        choices=sorted(SUPPORTED_STRATEGIES),
+        help=f"切分策略（默认：{settings.chunk_strategy}）。",
+    )
     return parser.parse_args()
 
 
@@ -112,15 +122,18 @@ def main() -> None:
     total_chunks = 0
     failed: list[str] = []
 
+    logger.info(f"切分策略：{args.chunk_strategy}")
+
     for file_path in tqdm(files, desc="入库中", unit="文件"):
         try:
             blocks = router.route(file_path)
-            chunker = SemanticChunker(
+            chunks = chunk_blocks(
+                blocks=blocks,
+                strategy=args.chunk_strategy,
                 chunk_size=args.chunk_size,
                 chunk_overlap=args.chunk_overlap,
                 source_name=file_path.name,
             )
-            chunks = chunker.chunk(blocks)
 
             if chunks:
                 store.add_documents(chunks)

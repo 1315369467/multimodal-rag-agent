@@ -38,10 +38,10 @@ class Settings(BaseSettings):
     chroma_collection_name: str = "multimodal_rag"
 
     # ── 文档处理 ───────────────────────────────────────────────────────────
-    # chunk 切分策略： fixed | sentence | paragraph | markdown | recursive
-    chunk_strategy: str = "markdown"
-    chunk_size: int = 512
-    chunk_overlap: int = 64
+    # chunk 切分策略： fixed | sentence | paragraph | markdown | recursive | semantic
+    chunk_strategy: str = "semantic"
+    chunk_size: int = 256
+    chunk_overlap: int = 32
     max_workers: int = 4
     # PDF 页面文字字符数低于此值时，降级到视觉解析通道
     min_text_chars_for_text_path: int = 100
