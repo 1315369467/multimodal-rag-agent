@@ -252,13 +252,13 @@ async def list_documents(
     """
     分页获取文档列表。
 
-    返回每条文档的 ID、内容预览（前 200 字符）和元数据，以及文档总数。
+    返回每条文档的 ID、完整内容和元数据，以及文档总数。
     """
     data = store.get_documents_paginated(offset=offset, limit=limit)
     items = [
         DocumentItem(
             id=doc_id,
-            content=(text or "")[:200],
+            content=text or "",
             metadata=meta or {},
         )
         for doc_id, text, meta in zip(
