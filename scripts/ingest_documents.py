@@ -13,7 +13,7 @@ python scripts/ingest_documents.py --input-dir ./data/eval_corpus
 python scripts/ingest_documents.py --files report.pdf scan.png table.pdf
 
 # 先清空集合再入库
-python scripts/ingest_documents.py --input-dir ./data/documents --reset
+python scripts/ingest_documents.py --input-dir ./data/eval_corpus --reset
 """
 from __future__ import annotations
 

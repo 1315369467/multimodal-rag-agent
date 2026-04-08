@@ -38,6 +38,8 @@ class Settings(BaseSettings):
     chroma_collection_name: str = "multimodal_rag"
 
     # ── 文档处理 ───────────────────────────────────────────────────────────
+    # chunk 切分策略： fixed | sentence | paragraph | markdown | recursive
+    chunk_strategy: str = "markdown"
     chunk_size: int = 512
     chunk_overlap: int = 64
     max_workers: int = 4

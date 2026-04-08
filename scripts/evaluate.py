@@ -35,12 +35,19 @@ RAG 检索评估脚本
   # 在线模式（完整 RAG 流水线）
   python scripts/evaluate.py --online --dataset data/eval_dataset.jsonl
 
-  # 多个 K 值对比
-  python scripts/evaluate.py --k 3 5 10
+
 
   # 消融实验：仅 Dense / 仅 Sparse
   python scripts/evaluate.py --online --ablation dense
   python scripts/evaluate.py --online --ablation sparse
+
+  # Chunk 切分方法消融（离线模式，对比各切分策略）
+  python scripts/evaluate.py --chunk-ablation fixed
+  python scripts/evaluate.py --chunk-ablation sentence
+  python scripts/evaluate.py --chunk-ablation paragraph
+  python scripts/evaluate.py --chunk-ablation markdown
+  python scripts/evaluate.py --chunk-ablation recursive
+  python scripts/evaluate.py --chunk-ablation all      # 对比全部方法，输出汇总表
 """
 from __future__ import annotations
 
@@ -106,56 +113,183 @@ def ndcg_at_k(
 
 # ── 离线语料库加载 ────────────────────────────────────────────────────────
 
-def load_corpus_from_directory(corpus_dir: Path) -> dict:
-    """
-    从目录加载 .txt/.md 文件，按章节切分为 LangChain Document。
+# 支持的 chunk 切分策略名称
+CHUNK_STRATEGIES = ["fixed", "sentence", "paragraph", "markdown", "recursive"]
+# 5 种切分策略（evaluate.py:138-210）
+# 策略	说明
+# fixed	固定字符数切分（无重叠），1 token ≈ 2 中文字符
+# sentence	按中文/英文句子边界切分，每 chunk 最多 5 句
+# paragraph	按连续空行切分，短段自动合并
+# markdown	按 ##/### 标题切分（原有默认策略）
+# recursive	LangChain RecursiveCharacterTextSplitter，优先段落→句子→字符边界
 
-    使用基于 Markdown 标题（## / ###）的章节切分，而非 token 估算，
-    确保中文文档也能产生合理粒度的文档块。
+def _load_files(corpus_dir: Path):
+    """返回 (file_path, text) 列表，目录不存在时退出。"""
+    corpus_dir = Path(corpus_dir)
+    files = sorted(corpus_dir.glob("*.txt")) + sorted(corpus_dir.glob("*.md"))
+    if not files:
+        logger.error(f"语料库目录 {corpus_dir} 中无 .txt/.md 文件")
+        sys.exit(1)
+    return [(p, p.read_text(encoding="utf-8")) for p in files]
+
+
+def _make_doc(content: str, source: str):
+    from langchain_core.documents import Document
+    return Document(page_content=content, metadata={"source": source, "page_num": 0})
+
+
+# ── 切分策略实现 ──────────────────────────────────────────────────────────
+
+def _chunk_fixed(text: str, source: str, chunk_size: int = 256) -> list:
+    """按固定字符数切分（无重叠）。chunk_size 单位：字符数。"""
+    docs = []
+    char_size = chunk_size * 2  # 粗略：1 token ≈ 2 中文字符
+    start = 0
+    while start < len(text):
+        segment = text[start: start + char_size].strip()
+        if segment:
+            docs.append(_make_doc(segment, source))
+        start += char_size
+    return docs
+
+
+def _chunk_sentence(text: str, source: str, max_sentences: int = 5) -> list:
+    """
+    按中文句子边界（。！？… 及英文 .!?）切分，
+    每个 chunk 包含至多 max_sentences 句。
+    """
+    import re
+    sentences = re.split(r"(?<=[。！？…\.!?])\s*", text)
+    sentences = [s.strip() for s in sentences if s.strip()]
+    docs = []
+    for i in range(0, len(sentences), max_sentences):
+        segment = "".join(sentences[i: i + max_sentences]).strip()
+        if segment:
+            docs.append(_make_doc(segment, source))
+    return docs
+
+
+def _chunk_paragraph(text: str, source: str, min_len: int = 20) -> list:
+    """
+    按段落（连续空行）切分，段落太短时与下一段合并。
+    """
+    paragraphs = [p.strip() for p in text.split("\n\n") if p.strip()]
+    docs = []
+    buffer = ""
+    for para in paragraphs:
+        buffer = (buffer + "\n\n" + para).strip() if buffer else para
+        if len(buffer) >= min_len:
+            docs.append(_make_doc(buffer, source))
+            buffer = ""
+    if buffer:
+        docs.append(_make_doc(buffer, source))
+    return docs
+
+
+def _chunk_markdown(text: str, source: str, min_len: int = 20) -> list:
+    """
+    按 Markdown 二级/三级标题（##/###）切分（当前离线默认策略）。
+    """
+    import re
+    sections = re.split(r"\n(?=#{2,3}\s)", text)
+    docs = []
+    for section in sections:
+        section = section.strip()
+        if section and len(section) >= min_len:
+            docs.append(_make_doc(section, source))
+    return docs
+
+
+def _chunk_recursive(text: str, source: str, chunk_size: int = 256) -> list:
+    """
+    使用 LangChain RecursiveCharacterTextSplitter，
+    优先在段落/句子/字符边界处切分。
+    """
+    from langchain_text_splitters import RecursiveCharacterTextSplitter
+    splitter = RecursiveCharacterTextSplitter(
+        chunk_size=chunk_size * 2,   # 粗略字符数
+        chunk_overlap=chunk_size // 4 * 2,
+        separators=["\n\n", "\n", "。", "！", "？", "，", " ", ""],
+    )
+    chunks = splitter.split_text(text)
+    return [_make_doc(c.strip(), source) for c in chunks if c.strip()]
+
+
+# ── 策略分发 ─────────────────────────────────────────────────────────────
+
+_STRATEGY_FN = {
+    "fixed":     _chunk_fixed,
+    "sentence":  _chunk_sentence,
+    "paragraph": _chunk_paragraph,
+    "markdown":  _chunk_markdown,
+    "recursive": _chunk_recursive,
+}
+
+_STRATEGY_LABEL = {
+    "fixed":     "Fixed-size",
+    "sentence":  "Sentence",
+    "paragraph": "Paragraph",
+    "markdown":  "Markdown-header",
+    "recursive": "Recursive",
+}
+
+
+def load_corpus_from_directory(
+    corpus_dir: Path,
+    strategy: str | None = None,
+    chunk_size: int | None = None,
+) -> dict:
+    """
+    从目录加载 .txt/.md 文件，使用指定切分策略生成 LangChain Document 列表。
+
+    参数
+    ----
+    strategy   : 切分策略，可选 fixed / sentence / paragraph / markdown / recursive。
+    chunk_size : 固定切分和递归切分时的近似 token 大小。
 
     返回
     ----
     {
-        "documents": list[Document],  # 全部切分后的文档块
-        "source_map": dict,           # source_name -> 原始内容
+        "documents": list[Document],
+        "source_map": dict,
+        "strategy":   str,
+        "num_chunks": int,
     }
     """
-    import re
-    from langchain_core.documents import Document
+    from config.settings import get_settings
+    _settings = get_settings()
+    if strategy is None:
+        strategy = _settings.chunk_strategy
+    if chunk_size is None:
+        chunk_size = _settings.chunk_size
 
+    if strategy not in _STRATEGY_FN:
+        logger.error(f"未知切分策略：{strategy}，可选：{list(_STRATEGY_FN)}")
+        sys.exit(1)
+
+    chunk_fn = _STRATEGY_FN[strategy]
     all_docs = []
     source_map = {}
 
-    corpus_dir = Path(corpus_dir)
-    files = sorted(corpus_dir.glob("*.txt")) + sorted(corpus_dir.glob("*.md"))
-
-    if not files:
-        logger.error(f"语料库目录 {corpus_dir} 中无 .txt/.md 文件")
-        sys.exit(1)
-
-    for file_path in files:
-        logger.info(f"[Corpus] 解析：{file_path.name}")
-        text = file_path.read_text(encoding="utf-8")
+    for file_path, text in _load_files(corpus_dir):
+        logger.info(f"[Corpus/{strategy}] 解析：{file_path.name}")
         source_map[file_path.name] = text
-
-        # 按二级/三级标题切分（### 优先于 ##）
-        sections = re.split(r"\n(?=#{2,3}\s)", text)
-        for section in sections:
-            section = section.strip()
-            if not section or len(section) < 20:
-                continue
-            all_docs.append(
-                Document(
-                    page_content=section,
-                    metadata={"source": file_path.name, "page_num": 0},
-                )
-            )
+        kwargs: dict = {}
+        if strategy in ("fixed", "recursive"):
+            kwargs["chunk_size"] = chunk_size
+        chunks = chunk_fn(text, file_path.name, **kwargs)
+        all_docs.extend(chunks)
 
     logger.info(
-        f"[Corpus] 共加载 {len(files)} 个文件，"
+        f"[Corpus/{strategy}] 共加载 {len(source_map)} 个文件，"
         f"切分为 {len(all_docs)} 个文档块"
     )
-    return {"documents": all_docs, "source_map": source_map}
+    return {
+        "documents":  all_docs,
+        "source_map": source_map,
+        "strategy":   strategy,
+        "num_chunks": len(all_docs),
+    }
 
 
 # ── 在线检索器初始化 ──────────────────────────────────────────────────────
@@ -325,6 +459,56 @@ def evaluate(
     }
 
 
+# ── 消融结果对比表 ────────────────────────────────────────────────────────
+
+def print_chunk_ablation_table(
+    results: list[dict],
+    k_values: list[int],
+) -> None:
+    """
+    打印多个切分策略的评估结果对比表。
+
+    参数
+    ----
+    results  : 每个元素形如
+               {"strategy": str, "label": str, "num_chunks": int,
+                "summary": dict, "elapsed": float}
+    k_values : 要展示的 K 值列表
+    """
+    # 选取最后一个 K 作为主展示列，同时也显示 K=1
+    k_main = k_values[-1]
+    sep = "─" * 80
+
+    print("\n" + "=" * 80)
+    print("  Chunk 切分方法消融实验 — 对比报告")
+    print("=" * 80)
+
+    for k in k_values:
+        print(f"\n  ── K = {k} ──")
+        print(f"  {'策略':<20} {'Chunks':>7} {'Recall':>9} {'MRR':>9} {'Precision':>10} {'NDCG':>9} {'耗时(s)':>8}")
+        print(f"  {sep}")
+        for r in results:
+            s = r["summary"]
+            label   = _STRATEGY_LABEL.get(r["strategy"], r["strategy"])
+            chunks  = r["num_chunks"]
+            recall  = s.get(f"Recall@{k}", 0)
+            mrr     = s.get(f"MRR@{k}", 0)
+            prec    = s.get(f"Precision@{k}", 0)
+            ndcg    = s.get(f"NDCG@{k}", 0)
+            elapsed = r["elapsed"]
+            print(
+                f"  {label:<20} {chunks:>7} {recall:>8.1%} {mrr:>9.4f}"
+                f" {prec:>9.1%} {ndcg:>9.4f} {elapsed:>7.2f}s"
+            )
+
+    # 最优策略提示（按 Recall@K_main）
+    best = max(results, key=lambda r: r["summary"].get(f"Recall@{k_main}", 0))
+    print(f"\n  最优策略（按 Recall@{k_main}）："
+          f"{_STRATEGY_LABEL.get(best['strategy'], best['strategy'])} "
+          f"({best['summary'].get(f'Recall@{k_main}', 0):.1%})")
+    print("=" * 80)
+
+
 # ── 结果展示 ──────────────────────────────────────────────────────────────
 
 def print_results(output: dict, k_values: list[int], mode: str, elapsed: float) -> None:
@@ -348,7 +532,7 @@ def print_results(output: dict, k_values: list[int], mode: str, elapsed: float) 
         m = summary[f"MRR@{k}"]
         p = summary[f"Precision@{k}"]
         nd = summary[f"NDCG@{k}"]
-        print(f"  │  K = {k:<6} │ {r:>7.1%} │ {m:>7.4f} │ {p:>7.1%} │ {nd:>7.4f} │")
+        print(f"  │  K = {k:<6} │ {r:>7.2%}  │ {m:>7.4f}  │ {p:>7.2%}  │ {nd:>7.4f}  │")
     print("  └─────────────┴──────────┴──────────┴──────────┴──────────┘")
 
     # 分类细分
@@ -364,7 +548,7 @@ def print_results(output: dict, k_values: list[int], mode: str, elapsed: float) 
             recall = data.get(f"recall@{k_last}", 0)
             mrr = data.get(f"mrr@{k_last}", 0)
             print(
-                f"  │ {cat:<11} │ {cnt:>4} │ {recall:>7.1%} │ {mrr:>7.4f} │"
+                f"  │ {cat:<11} │ {cnt:>4} │ {recall:>7.2%}  │ {mrr:>7.4f}  │"
             )
         print("  └─────────────┴──────┴──────────┴──────────┘")
 
@@ -431,6 +615,17 @@ def parse_args() -> argparse.Namespace:
         default=256,
         help="离线模式的切分大小（默认：256 tokens）",
     )
+    parser.add_argument(
+        "--chunk-ablation",
+        choices=CHUNK_STRATEGIES + ["all"],
+        default=None,
+        metavar="{" + ",".join(CHUNK_STRATEGIES) + ",all}",
+        help=(
+            "Chunk 切分方法消融实验（仅离线模式）。"
+            "可选：fixed / sentence / paragraph / markdown / recursive / all。"
+            "'all' 依次运行全部策略并打印对比表。"
+        ),
+    )
     return parser.parse_args()
 
 
@@ -449,6 +644,75 @@ def main() -> None:
             if line:
                 queries.append(json.loads(line))
     logger.info(f"已加载 {len(queries)} 条评估查询")
+
+    # ── Chunk 消融实验分支 ────────────────────────────────────────────────
+    if args.chunk_ablation:
+        if args.online:
+            logger.warning("--chunk-ablation 仅在离线模式下有效，忽略 --online。")
+        if not args.corpus.exists():
+            logger.error(f"语料库目录不存在：{args.corpus}")
+            sys.exit(1)
+
+        strategies = (
+            CHUNK_STRATEGIES if args.chunk_ablation == "all" else [args.chunk_ablation]
+        )
+        k_values = sorted(args.k)
+        ablation_records = []
+
+        for strategy in strategies:
+            logger.info(f"[消融] 切分策略：{_STRATEGY_LABEL[strategy]}")
+            corpus_data = load_corpus_from_directory(
+                args.corpus, strategy=strategy, chunk_size=args.chunk_size
+            )
+            sparse = SparseRetriever()
+            sparse.build_index(corpus_data["documents"])
+
+            def _make_retrieve_fn(s):
+                def fn(query: str, k: int):
+                    return retrieve_offline(s, query, k)
+                return fn
+
+            t0 = time.perf_counter()
+            result = evaluate(queries, _make_retrieve_fn(sparse), k_values)
+            elapsed = time.perf_counter() - t0
+
+            label = _STRATEGY_LABEL[strategy]
+            mode_str = f"离线/BM25（切分：{label}）"
+            print_results(result, k_values, mode_str, elapsed)
+
+            ablation_records.append({
+                "strategy":   strategy,
+                "label":      label,
+                "num_chunks": corpus_data["num_chunks"],
+                "summary":    result["summary"],
+                "elapsed":    round(elapsed, 2),
+            })
+
+        if args.chunk_ablation == "all":
+            print_chunk_ablation_table(ablation_records, k_values)
+
+        # 保存消融结果
+        output_path = args.output.with_stem(args.output.stem + "_chunk_ablation")
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(
+            json.dumps(
+                {
+                    "meta": {
+                        "dataset":    str(args.dataset),
+                        "k_values":   k_values,
+                        "num_queries": len(queries),
+                        "chunk_size": args.chunk_size,
+                    },
+                    "ablation_results": ablation_records,
+                },
+                ensure_ascii=False,
+                indent=2,
+                default=str,
+            ),
+            encoding="utf-8",
+        )
+        print(f"\n  消融实验结果已保存至：{output_path}")
+        return
 
     # ── 初始化检索器 ──────────────────────────────────────────────────────
     if args.online:
