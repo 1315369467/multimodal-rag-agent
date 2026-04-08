@@ -34,20 +34,30 @@ class SourceReference(BaseModel):
     block_type: str
 
 
+class ToolCallStep(BaseModel):
+    """Agent 单次工具调用的摘要，用于前端展示思考过程。"""
+    tool: str                          # 工具名称
+    args: dict[str, Any]               # 调用参数
+    result_summary: str = ""           # 结果摘要（可读文本）
+
+
 class QueryResponse(BaseModel):
     answer: str
     sources: list[SourceReference]
     question: str
     total_sources: int
+    tool_steps: list[ToolCallStep] = Field(default_factory=list)
 
     @classmethod
     def from_agent_result(cls, question: str, result: dict[str, Any]) -> "QueryResponse":
         sources = [SourceReference(**s) for s in result.get("sources", [])]
+        tool_steps = [ToolCallStep(**s) for s in result.get("tool_steps", [])]
         return cls(
             answer=result["answer"],
             sources=sources,
             question=question,
             total_sources=len(sources),
+            tool_steps=tool_steps,
         )
 
 

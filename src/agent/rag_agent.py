@@ -42,6 +42,38 @@ from .tools import build_retrieval_tools
 
 settings = get_settings()
 
+
+def _summarize_tool_result(tool_name: str, raw: str) -> str:
+    """将工具返回的 JSON 转为一句人可读的摘要，用于前端展示。"""
+    try:
+        data = json.loads(raw)
+    except (json.JSONDecodeError, TypeError):
+        return raw[:120] if raw else ""
+
+    results = data.get("results", [])
+    message = data.get("message", "")
+
+    if tool_name == "query_rewrite":
+        queries = data.get("rewritten_queries", [])
+        return f"生成 {len(queries)} 个子查询：" + "、".join(f'"{q}"' for q in queries[:3])
+
+    if tool_name in ("knowledge_base_search", "multi_round_search",
+                     "knowledge_base_search_with_filter"):
+        if not results:
+            return message or "未找到相关内容"
+        total = data.get("total_queries")
+        prefix = f"（共 {total} 轮检索）" if total else ""
+        snippets = "；".join(
+            r.get("content", "")[:40] for r in results[:2]
+        )
+        return f"找到 {len(results)} 个片段{prefix}：{snippets}…"
+
+    # 通用兜底
+    if results:
+        return f"返回 {len(results)} 条结果"
+    return raw[:120]
+
+
 _SYSTEM_PROMPT = """\
 你是一个专业的企业知识库智能助手，具备多模态文档理解能力。你的职责是：
 1. 根据用户问题，精确检索知识库中的相关内容（含文本、表格、图表等）。
@@ -50,9 +82,10 @@ _SYSTEM_PROMPT = """\
 4. 引用来源时注明文档名称和页码，增强可信度。
 
 检索策略：
-- 先用 knowledge_base_search 检索通用答案。
-- 如用户指定了文件，改用 knowledge_base_search_with_filter。
-- 必要时可多次检索以获取不同角度的信息。
+- 简单问题：直接用 knowledge_base_search 检索。
+- 复杂/多概念问题：先用 query_rewrite 生成子查询，再用 multi_round_search 多轮检索。
+- 用户指定文件：改用 knowledge_base_search_with_filter。
+- 单次检索结果不理想时，可调整查询后重试或切换多轮检索。
 
 回答格式：
 - 使用 Markdown 格式，结构清晰。
@@ -81,7 +114,7 @@ class MultimodalRAGAgent:
             max_tokens=settings.llm_max_tokens,
             request_timeout=settings.llm_request_timeout,
         )
-        self._tools = build_retrieval_tools(retriever)
+        self._tools = build_retrieval_tools(retriever, llm=self._llm)
         self._agent = create_react_agent(
             model=self._llm,
             tools=self._tools,
@@ -125,13 +158,17 @@ class MultimodalRAGAgent:
                 answer = msg.content
                 break
 
-        # 从 ToolMessage 中提取来源引用
+        # 从消息历史中提取来源引用和工具调用步骤
         sources = self._extract_sources(output_messages)
+        tool_steps = self._extract_tool_steps(output_messages)
 
-        logger.info(f"[RAGAgent] 答案：{len(answer)} 字 | 来源：{sources}")
+        logger.info(
+            f"[RAGAgent] 答案：{len(answer)} 字 | 来源：{len(sources)} | 工具调用：{len(tool_steps)}"
+        )
         return {
             "answer": answer,
             "sources": sources,
+            "tool_steps": tool_steps,
             "intermediate_steps": [],
         }
 
@@ -153,6 +190,39 @@ class MultimodalRAGAgent:
             elif role == "assistant":
                 messages.append(AIMessage(content=content))
         return messages
+
+    @staticmethod
+    def _extract_tool_steps(messages: list) -> list[dict]:
+        """
+        从 LangGraph 消息列表中提取工具调用步骤，用于前端展示思考过程。
+
+        匹配逻辑：AIMessage.tool_calls 中的每个调用通过 tool_call_id
+        与对应的 ToolMessage 关联，从而附上可读的结果摘要。
+        """
+        steps: list[dict] = []
+        id_to_step: dict[str, dict] = {}
+
+        for msg in messages:
+            if isinstance(msg, AIMessage) and msg.tool_calls:
+                for call in msg.tool_calls:
+                    step = {
+                        "tool": call["name"],
+                        "args": call.get("args", {}),
+                        "result_summary": "",
+                    }
+                    steps.append(step)
+                    id_to_step[call["id"]] = step
+
+            elif isinstance(msg, ToolMessage):
+                step = id_to_step.get(msg.tool_call_id)
+                if step is None:
+                    continue
+                content = msg.content if isinstance(msg.content, str) else ""
+                step["result_summary"] = _summarize_tool_result(
+                    step["tool"], content
+                )
+
+        return steps
 
     @staticmethod
     def _extract_sources(messages: list) -> list[dict[str, str]]:

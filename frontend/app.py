@@ -242,25 +242,65 @@ elif page == "智能问答":
     st.header("💬 智能问答")
     st.caption("基于知识库进行多模态检索增强问答。")
 
+    # 工具名称 → 可读标签 + 图标
+    _TOOL_LABELS = {
+        "knowledge_base_search": ("🔍", "知识库检索"),
+        "knowledge_base_search_with_filter": ("📄", "按文件检索"),
+        "query_rewrite": ("✏️", "查询改写"),
+        "multi_round_search": ("🔄", "多轮检索"),
+    }
+
+    def _render_tool_steps(tool_steps: list[dict]) -> None:
+        """在 st.status 容器内渲染工具调用步骤列表。"""
+        for idx, step in enumerate(tool_steps, 1):
+            tool_name = step.get("tool", "")
+            args = step.get("args", {})
+            summary = step.get("result_summary", "")
+            icon, label = _TOOL_LABELS.get(tool_name, ("🛠️", tool_name))
+
+            st.markdown(f"**步骤 {idx}　{icon} {label}**")
+
+            # 参数展示
+            if args:
+                arg_lines = []
+                for k, v in args.items():
+                    v_str = str(v)
+                    arg_lines.append(f"- `{k}`: {v_str[:120]}" + ("…" if len(v_str) > 120 else ""))
+                st.markdown("\n".join(arg_lines))
+
+            # 结果摘要
+            if summary:
+                st.caption(f"↳ {summary}")
+
+            if idx < len(tool_steps):
+                st.divider()
+
+    def _render_sources(sources: list[dict]) -> None:
+        with st.expander("📎 参考来源"):
+            for i, src in enumerate(sources, 1):
+                st.markdown(
+                    f"**来源 {i}：** {src.get('source', '未知')} "
+                    f"(页码: {src.get('page', '-')}, "
+                    f"类型: {src.get('block_type', '-')})"
+                )
+                st.divider()
+
     # 初始化聊天历史
     if "chat_history" not in st.session_state:
         st.session_state.chat_history = []  # [{role, content}]
     if "chat_display" not in st.session_state:
-        st.session_state.chat_display = []  # [{role, content, sources}]
+        st.session_state.chat_display = []  # [{role, content, sources, tool_steps}]
 
     # 显示历史消息
     for msg in st.session_state.chat_display:
         with st.chat_message(msg["role"]):
+            # 历史 assistant 消息：先展示工具步骤（折叠），再展示回答
+            if msg["role"] == "assistant" and msg.get("tool_steps"):
+                with st.expander(f"🧠 思考过程（{len(msg['tool_steps'])} 步）", expanded=False):
+                    _render_tool_steps(msg["tool_steps"])
             st.markdown(msg["content"])
             if msg.get("sources"):
-                with st.expander("📎 参考来源"):
-                    for i, src in enumerate(msg["sources"], 1):
-                        st.markdown(
-                            f"**来源 {i}：** {src.get('source', '未知')} "
-                            f"(页码: {src.get('page', '-')}, "
-                            f"类型: {src.get('block_type', '-')})"
-                        )
-                        st.divider()
+                _render_sources(msg["sources"])
 
     # 输入区域
     question = st.chat_input("请输入您的问题…")
@@ -271,9 +311,9 @@ elif page == "智能问答":
         with st.chat_message("user"):
             st.markdown(question)
 
-        # 调用后端
+        # 调用后端，用 st.status 实时展示"正在思考"状态
         with st.chat_message("assistant"):
-            with st.spinner("正在思考中…"):
+            with st.status("Agent 正在思考…", expanded=True) as status:
                 result = api_post(
                     "/v1/query",
                     json_body={
@@ -282,29 +322,36 @@ elif page == "智能问答":
                     },
                 )
 
+                if result:
+                    tool_steps = result.get("tool_steps", [])
+                    if tool_steps:
+                        _render_tool_steps(tool_steps)
+                    status.update(
+                        label=f"思考完成（{len(tool_steps)} 步工具调用）",
+                        state="complete",
+                        expanded=False,
+                    )
+                else:
+                    status.update(label="请求失败", state="error", expanded=False)
+
             if result:
                 answer = result.get("answer", "未能获取回答。")
                 sources = result.get("sources", [])
+                tool_steps = result.get("tool_steps", [])
 
                 st.markdown(answer)
 
                 if sources:
-                    with st.expander("📎 参考来源"):
-                        for i, src in enumerate(sources, 1):
-                            st.markdown(
-                                f"**来源 {i}：** {src.get('source', '未知')} "
-                                f"(页码: {src.get('page', '-')}, "
-                                f"类型: {src.get('block_type', '-')})"
-                            )
-                            st.divider()
+                    _render_sources(sources)
 
                 # 更新聊天历史（用于后端上下文）
                 st.session_state.chat_history.append({"role": "user", "content": question})
                 st.session_state.chat_history.append({"role": "assistant", "content": answer})
 
-                # 更新显示历史
+                # 更新显示历史（含工具步骤，供下次渲染）
                 st.session_state.chat_display.append(
-                    {"role": "assistant", "content": answer, "sources": sources}
+                    {"role": "assistant", "content": answer,
+                     "sources": sources, "tool_steps": tool_steps}
                 )
             else:
                 fallback = "抱歉，请求出现错误，请稍后重试。"

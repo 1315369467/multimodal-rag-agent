@@ -177,3 +177,171 @@ class TestFormatHistory:
         result = MultimodalRAGAgent._format_history(history)
         assert len(result) == 1
         assert isinstance(result[0], HumanMessage)
+
+
+# ── 工具：query_rewrite ───────────────────────────────────────────────────
+
+class TestQueryRewriteTool:
+    def _make_retriever(self) -> MagicMock:
+        return MagicMock()
+
+    def _make_llm(self, response_content: str) -> MagicMock:
+        llm = MagicMock()
+        llm.invoke.return_value = MagicMock(content=response_content)
+        return llm
+
+    def test_returns_rewritten_queries(self):
+        llm = self._make_llm('{"queries": ["子查询A", "子查询B", "子查询C"]}')
+        tools = build_retrieval_tools(self._make_retriever(), llm=llm)
+
+        rewrite_tool = next(t for t in tools if t.name == "query_rewrite")
+        result = rewrite_tool.invoke({"query": "这家公司的年利润是多少？"})
+        data = json.loads(result)
+
+        assert "original_query" in data
+        assert "rewritten_queries" in data
+        assert data["original_query"] == "这家公司的年利润是多少？"
+        assert data["rewritten_queries"] == ["子查询A", "子查询B", "子查询C"]
+
+    def test_falls_back_to_original_on_llm_exception(self):
+        llm = MagicMock()
+        llm.invoke.side_effect = RuntimeError("LLM unavailable")
+        tools = build_retrieval_tools(self._make_retriever(), llm=llm)
+
+        rewrite_tool = next(t for t in tools if t.name == "query_rewrite")
+        result = rewrite_tool.invoke({"query": "原始问题"})
+        data = json.loads(result)
+
+        assert data["rewritten_queries"] == ["原始问题"]
+
+    def test_falls_back_on_malformed_json(self):
+        llm = self._make_llm("这不是合法的JSON")
+        tools = build_retrieval_tools(self._make_retriever(), llm=llm)
+
+        rewrite_tool = next(t for t in tools if t.name == "query_rewrite")
+        result = rewrite_tool.invoke({"query": "问题X"})
+        data = json.loads(result)
+
+        assert data["rewritten_queries"] == ["问题X"]
+
+    def test_strips_markdown_code_block(self):
+        llm = self._make_llm('```json\n{"queries": ["q1", "q2", "q3"]}\n```')
+        tools = build_retrieval_tools(self._make_retriever(), llm=llm)
+
+        rewrite_tool = next(t for t in tools if t.name == "query_rewrite")
+        result = rewrite_tool.invoke({"query": "问题Y"})
+        data = json.loads(result)
+
+        assert data["rewritten_queries"] == ["q1", "q2", "q3"]
+
+    def test_not_registered_without_llm(self):
+        tools = build_retrieval_tools(self._make_retriever(), llm=None)
+        names = [t.name for t in tools]
+        assert "query_rewrite" not in names
+
+    def test_registered_with_llm(self):
+        llm = self._make_llm('{"queries": ["a"]}')
+        tools = build_retrieval_tools(self._make_retriever(), llm=llm)
+        names = [t.name for t in tools]
+        assert "query_rewrite" in names
+
+    def test_falls_back_on_empty_queries_list(self):
+        llm = self._make_llm('{"queries": []}')
+        tools = build_retrieval_tools(self._make_retriever(), llm=llm)
+
+        rewrite_tool = next(t for t in tools if t.name == "query_rewrite")
+        result = rewrite_tool.invoke({"query": "空列表问题"})
+        data = json.loads(result)
+
+        assert data["rewritten_queries"] == ["空列表问题"]
+
+
+# ── 工具：multi_round_search ──────────────────────────────────────────────
+
+class TestMultiRoundSearchTool:
+    def _make_doc(self, content: str, source: str = "a.pdf", page: int = 1) -> "Document":
+        from langchain_core.documents import Document
+        return Document(
+            page_content=content,
+            metadata={"source": source, "page_num": page, "block_type": "text"},
+        )
+
+    def _make_retriever(self, docs_per_query: dict[str, list]) -> MagicMock:
+        retriever = MagicMock()
+        retriever.retrieve.side_effect = lambda q: docs_per_query.get(q, [])
+        return retriever
+
+    def _get_tool(self, retriever):
+        tools = build_retrieval_tools(retriever)
+        return next(t for t in tools if t.name == "multi_round_search")
+
+    def test_merges_results_from_multiple_queries(self):
+        docs = {
+            "查询1": [self._make_doc("内容A", page=1)],
+            "查询2": [self._make_doc("内容B", page=2)],
+        }
+        tool = self._get_tool(self._make_retriever(docs))
+        result = tool.invoke({"queries": json.dumps(["查询1", "查询2"])})
+        data = json.loads(result)
+
+        assert data["total_queries"] == 2
+        contents = [r["content"] for r in data["results"]]
+        assert "内容A" in contents
+        assert "内容B" in contents
+
+    def test_deduplicates_identical_content(self):
+        same_doc = self._make_doc("重复内容" * 20)  # 确保前120字符相同
+        docs = {
+            "查询1": [same_doc],
+            "查询2": [same_doc],
+        }
+        tool = self._get_tool(self._make_retriever(docs))
+        result = tool.invoke({"queries": json.dumps(["查询1", "查询2"])})
+        data = json.loads(result)
+
+        assert len(data["results"]) == 1
+
+    def test_includes_matched_query_field(self):
+        docs = {"查询X": [self._make_doc("内容X")]}
+        tool = self._get_tool(self._make_retriever(docs))
+        result = tool.invoke({"queries": json.dumps(["查询X"])})
+        data = json.loads(result)
+
+        assert data["results"][0]["matched_query"] == "查询X"
+
+    def test_empty_results_when_no_docs_found(self):
+        tool = self._get_tool(self._make_retriever({}))
+        result = tool.invoke({"queries": json.dumps(["找不到的查询"])})
+        data = json.loads(result)
+
+        assert data["results"] == []
+        assert "message" in data
+
+    def test_fallback_on_non_json_input(self):
+        docs = {"普通字符串": [self._make_doc("内容C")]}
+        tool = self._get_tool(self._make_retriever(docs))
+        result = tool.invoke({"queries": "普通字符串"})
+        data = json.loads(result)
+
+        assert len(data["results"]) == 1
+        assert data["results"][0]["content"] == "内容C"
+
+    def test_ranks_are_sequential(self):
+        docs = {
+            "q1": [self._make_doc("A"), self._make_doc("B")],
+            "q2": [self._make_doc("C")],
+        }
+        tool = self._get_tool(self._make_retriever(docs))
+        result = tool.invoke({"queries": json.dumps(["q1", "q2"])})
+        data = json.loads(result)
+
+        ranks = [r["rank"] for r in data["results"]]
+        assert ranks == list(range(1, len(ranks) + 1))
+
+    def test_skips_empty_queries(self):
+        docs = {"有效查询": [self._make_doc("内容D")]}
+        tool = self._get_tool(self._make_retriever(docs))
+        result = tool.invoke({"queries": json.dumps(["有效查询", "", "  "])})
+        data = json.loads(result)
+
+        assert len(data["results"]) == 1
