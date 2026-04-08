@@ -5,14 +5,14 @@
 索引在每次调用 ``build_index`` 时重建（通常在文档入库后执行一次，
 之后在进程生命周期内复用缓存）。
 
-中文文本按字符级分词，因为 BM25 基于空格分词；
-生产环境建议替换为 jieba 或专用中文分词器。
+中文文本使用 jieba 进行分词，英文按空格分词。
 """
 from __future__ import annotations
 
 import re
 from typing import Optional
 
+import jieba
 from langchain_core.documents import Document
 from loguru import logger
 from rank_bm25 import BM25Okapi
@@ -26,20 +26,16 @@ _PUNCT = re.compile(r"[^\w\s]", re.UNICODE)
 
 def _tokenise(text: str) -> list[str]:
     """
-    支持中英文的简易分词器：
+    支持中英文的分词器：
+    • 中文使用 jieba 分词。
     • 英文按空格分词。
-    • 中文（CJK）字符按字符级拆分。
-    生产中文检索场景建议替换为 jieba。
+    • 移除标点符号，转小写。
     """
     text = _PUNCT.sub(" ", text.lower())
-    tokens: list[str] = []
-    for word in text.split():
-        # 包含 CJK 字符的词按字符级拆分
-        if re.search(r"[\u4e00-\u9fff]", word):
-            tokens.extend(list(word))
-        else:
-            tokens.append(word)
-    return tokens
+    # 使用 jieba 分词，自动处理中英混合文本
+    tokens = jieba.cut(text)
+    # 过滤空白 token
+    return [token.strip() for token in tokens if token.strip()]
 
 
 class SparseRetriever:

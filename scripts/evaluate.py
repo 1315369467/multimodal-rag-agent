@@ -405,7 +405,7 @@ def parse_args() -> argparse.Namespace:
         "--k",
         type=int,
         nargs="+",
-        default=[3, 5, 10],
+        default=[1, 3, 5, 10],
         help="指标计算的 Top-K 值列表（默认：3 5 10）",
     )
     parser.add_argument(

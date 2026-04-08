@@ -1,3548 +1,2579 @@
 {
   "summary": {
-    "Recall@3": 0.0,
-    "MRR@3": 0.0,
-    "Precision@3": 0.0,
-    "NDCG@3": 0.0,
-    "Recall@5": 0.0,
-    "MRR@5": 0.0,
-    "Precision@5": 0.0,
-    "NDCG@5": 0.0,
-    "Recall@10": 0.0,
-    "MRR@10": 0.0,
-    "Precision@10": 0.0,
-    "NDCG@10": 0.0
+    "Recall@1": 0.8846153846153846,
+    "MRR@1": 0.8846153846153846,
+    "Precision@1": 0.8846153846153846,
+    "NDCG@1": 0.8846153846153846,
+    "Recall@3": 0.9711538461538461,
+    "MRR@3": 0.9230769230769229,
+    "Precision@3": 0.8141025641025639,
+    "NDCG@3": 0.9354382550137377,
+    "Recall@5": 0.9903846153846154,
+    "MRR@5": 0.9274038461538461,
+    "Precision@5": 0.7288461538461534,
+    "NDCG@5": 0.9432991142955447,
+    "Recall@10": 1.0,
+    "MRR@10": 0.9286057692307691,
+    "Precision@10": 0.605769230769231,
+    "NDCG@10": 0.9463324304184844
   },
   "category_summary": {
     "factual": {
-      "recall@3": 0.0,
-      "mrr@3": 0.0,
-      "recall@5": 0.0,
-      "mrr@5": 0.0,
-      "recall@10": 0.0,
-      "mrr@10": 0.0,
-      "count": 79
+      "recall@1": 0.9125,
+      "mrr@1": 0.9125,
+      "recall@3": 0.9875,
+      "mrr@3": 0.9458333333333332,
+      "recall@5": 1.0,
+      "mrr@5": 0.9483333333333333,
+      "recall@10": 1.0,
+      "mrr@10": 0.9483333333333333,
+      "count": 80
     },
     "reasoning": {
-      "recall@3": 0.0,
-      "mrr@3": 0.0,
-      "recall@5": 0.0,
-      "mrr@5": 0.0,
-      "recall@10": 0.0,
-      "mrr@10": 0.0,
-      "count": 3
+      "recall@1": 0.9166666666666666,
+      "mrr@1": 0.9166666666666666,
+      "recall@3": 0.9166666666666666,
+      "mrr@3": 0.9166666666666666,
+      "recall@5": 1.0,
+      "mrr@5": 0.9375,
+      "recall@10": 1.0,
+      "mrr@10": 0.9375,
+      "count": 12
     },
     "comparison": {
-      "recall@3": 0.0,
-      "mrr@3": 0.0,
-      "recall@5": 0.0,
-      "mrr@5": 0.0,
-      "recall@10": 0.0,
-      "mrr@10": 0.0,
-      "count": 1
+      "recall@1": 0.75,
+      "mrr@1": 0.75,
+      "recall@3": 1.0,
+      "mrr@3": 0.875,
+      "recall@5": 1.0,
+      "mrr@5": 0.875,
+      "recall@10": 1.0,
+      "mrr@10": 0.875,
+      "count": 4
+    },
+    "multi-hop": {
+      "recall@1": 0.625,
+      "mrr@1": 0.625,
+      "recall@3": 0.875,
+      "mrr@3": 0.7291666666666666,
+      "recall@5": 0.875,
+      "mrr@5": 0.7291666666666666,
+      "recall@10": 1.0,
+      "mrr@10": 0.7447916666666666,
+      "count": 8
     }
   },
   "per_query": [
     {
       "question": "公司招聘流程分为哪几个阶段？",
-      "ground_truth_source": "hr_policy.txt",
+      "ground_truth_source": "hr_policy.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "CodeCV简历.pdf",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "hr_policy.md",
+        "hr_policy.md",
+        "legal_compliance.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "新员工入职需要携带哪些材料？",
-      "ground_truth_source": "hr_policy.txt",
+      "ground_truth_source": "hr_policy.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "CodeCV简历.pdf"
+        "hr_policy.md",
+        "hr_policy.md",
+        "hr_policy.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "试用期考核的维度和权重是什么？",
-      "ground_truth_source": "hr_policy.txt",
+      "ground_truth_source": "hr_policy.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "hr_policy.md",
+        "hr_policy.md",
+        "hr_policy.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "年终奖金一般为多少个月基本工资？",
-      "ground_truth_source": "hr_policy.txt",
+      "ground_truth_source": "hr_policy.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "hr_policy.md",
+        "hr_policy.md",
+        "hr_policy.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "公司住房公积金的缴纳比例是多少？",
-      "ground_truth_source": "hr_policy.txt",
+      "ground_truth_source": "hr_policy.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "hr_policy.md",
+        "hr_policy.md",
+        "hr_policy.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "员工结婚礼金是多少元？",
-      "ground_truth_source": "hr_policy.txt",
+      "ground_truth_source": "hr_policy.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "hr_policy.md",
+        "hr_policy.md",
+        "hr_policy.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "技术岗位员工每年的培训经费上限是多少？",
-      "ground_truth_source": "hr_policy.txt",
+      "ground_truth_source": "hr_policy.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "hr_policy.md",
+        "hr_policy.md",
+        "hr_policy.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "弹性工作制的核心工作时间是什么？",
-      "ground_truth_source": "hr_policy.txt",
+      "ground_truth_source": "hr_policy.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "hr_policy.md",
+        "hr_policy.md",
+        "hr_policy.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "法定节假日加班按几倍工资补偿？",
-      "ground_truth_source": "hr_policy.txt",
+      "ground_truth_source": "hr_policy.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "hr_policy.md",
+        "hr_policy.md",
+        "hr_policy.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "绩效考核S等级的比例是多少？",
-      "ground_truth_source": "hr_policy.txt",
+      "ground_truth_source": "hr_policy.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "hr_policy.md",
+        "hr_policy.md",
+        "rag_evaluation.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "PIP绩效改进计划的周期是多少天？",
-      "ground_truth_source": "hr_policy.txt",
+      "ground_truth_source": "hr_policy.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "hr_policy.md",
+        "rag_evaluation.md",
+        "hr_policy.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "每月加班时长上限是多少小时？",
-      "ground_truth_source": "hr_policy.txt",
+      "ground_truth_source": "hr_policy.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "hr_policy.md",
+        "hr_policy.md",
+        "ops_manual.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "女员工产假是多少天？",
-      "ground_truth_source": "hr_policy.txt",
+      "ground_truth_source": "hr_policy.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "hr_policy.md",
+        "hr_policy.md",
+        "hr_policy.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "微服务架构使用什么服务注册中心？",
-      "ground_truth_source": "tech_arch.txt",
+      "ground_truth_source": "tech_arch.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "tech_arch.md",
+        "tech_arch.md",
+        "ops_manual.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "订单超时未支付多长时间自动取消？",
-      "ground_truth_source": "tech_arch.txt",
+      "ground_truth_source": "tech_arch.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "tech_arch.md",
+        "tech_arch.md",
+        "tech_arch.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "订单表分了多少张表？",
-      "ground_truth_source": "tech_arch.txt",
+      "ground_truth_source": "tech_arch.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "tech_arch.md",
+        "tech_arch.md",
+        "tech_arch.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "历史订单归档到什么存储系统？",
-      "ground_truth_source": "tech_arch.txt",
+      "ground_truth_source": "tech_arch.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "tech_arch.md",
+        "tech_arch.md",
+        "tech_arch.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "库存扣减方案包含哪三个阶段？",
-      "ground_truth_source": "tech_arch.txt",
+      "ground_truth_source": "tech_arch.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "tech_arch.md",
+        "tech_arch.md",
+        "tech_arch.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "Redis库存一致性校验任务多久执行一次？",
-      "ground_truth_source": "tech_arch.txt",
+      "ground_truth_source": "tech_arch.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "tech_arch.md",
+        "ops_manual.md",
+        "tech_arch.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "单笔交易金额超过多少元触发风控审核？",
-      "ground_truth_source": "tech_arch.txt",
+      "ground_truth_source": "tech_arch.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "tech_arch.md",
+        "tech_arch.md",
+        "tech_arch.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "对账差异率超过多少自动触发告警？",
-      "ground_truth_source": "tech_arch.txt",
+      "ground_truth_source": "tech_arch.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "tech_arch.md",
+        "ops_manual.md",
+        "tech_arch.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "订单创建接口的P99延迟要求是多少？",
-      "ground_truth_source": "tech_arch.txt",
+      "ground_truth_source": "tech_arch.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "tech_arch.md",
+        "tech_arch.md",
+        "rag_evaluation.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "系统整体可用性目标是多少？",
-      "ground_truth_source": "tech_arch.txt",
+      "ground_truth_source": "tech_arch.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "ai_research.md",
+        "rag_evaluation.md",
+        "tech_arch.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 0.0,
+        "mrr@1": 0.0,
+        "ndcg@1": 0.0,
+        "recall@3": 1.0,
+        "mrr@3": 0.3333333333333333,
+        "ndcg@3": 0.5,
+        "recall@5": 1.0,
+        "mrr@5": 0.3333333333333333,
+        "ndcg@5": 0.5,
+        "recall@10": 1.0,
+        "mrr@10": 0.3333333333333333,
+        "ndcg@10": 0.5
       }
     },
     {
       "question": "敏感数据采用什么加密算法存储？",
-      "ground_truth_source": "tech_arch.txt",
+      "ground_truth_source": "tech_arch.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "legal_compliance.md",
+        "tech_arch.md",
+        "legal_compliance.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 0.0,
+        "mrr@1": 0.0,
+        "ndcg@1": 0.0,
+        "recall@3": 1.0,
+        "mrr@3": 0.5,
+        "ndcg@3": 0.6309297535714575,
+        "recall@5": 1.0,
+        "mrr@5": 0.5,
+        "ndcg@5": 0.6309297535714575,
+        "recall@10": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
       }
     },
     {
       "question": "Kubernetes集群规模是多少个worker节点？",
-      "ground_truth_source": "tech_arch.txt",
+      "ground_truth_source": "tech_arch.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "tech_arch.md",
+        "ops_manual.md",
+        "embedding_reranking.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "2024年公司营业总收入是多少？",
-      "ground_truth_source": "financial_report.txt",
+      "ground_truth_source": "financial_report.md",
       "category": "factual",
       "retrieved_top3": [
-        "CodeCV简历.pdf",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "financial_report.md",
+        "financial_report.md",
+        "financial_report.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "SaaS订阅服务的毛利率是多少？",
-      "ground_truth_source": "financial_report.txt",
+      "ground_truth_source": "financial_report.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "financial_report.md",
+        "financial_report.md",
+        "financial_report.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "公司累计服务了多少家企业客户？",
-      "ground_truth_source": "financial_report.txt",
+      "ground_truth_source": "financial_report.md",
       "category": "factual",
       "retrieved_top3": [
-        "pdfplumber_table",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "CodeCV简历.pdf"
+        "financial_report.md",
+        "tech_arch.md",
+        "legal_compliance.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "客户流失率从多少降到了多少？",
-      "ground_truth_source": "financial_report.txt",
+      "ground_truth_source": "financial_report.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "financial_report.md",
+        "financial_report.md",
+        "ops_manual.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "2024年净利润是多少？",
-      "ground_truth_source": "financial_report.txt",
+      "ground_truth_source": "financial_report.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "CodeCV简历.pdf",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "financial_report.md",
+        "financial_report.md",
+        "financial_report.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "公司研发人员占员工总数比例是多少？",
-      "ground_truth_source": "financial_report.txt",
+      "ground_truth_source": "financial_report.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "financial_report.md",
+        "financial_report.md",
+        "financial_report.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "公司总资产是多少？",
-      "ground_truth_source": "financial_report.txt",
+      "ground_truth_source": "financial_report.md",
       "category": "factual",
       "retrieved_top3": [
-        "pdfplumber_table",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "financial_report.md",
+        "hr_policy.md",
+        "financial_report.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "公司资产负债率是多少？",
-      "ground_truth_source": "financial_report.txt",
+      "ground_truth_source": "financial_report.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "financial_report.md",
+        "financial_report.md",
+        "legal_compliance.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "合同负债金额是多少？主要组成是什么？",
-      "ground_truth_source": "financial_report.txt",
+      "ground_truth_source": "financial_report.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "financial_report.md",
+        "tech_arch.md",
+        "financial_report.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "2024年研发投入总额是多少？",
-      "ground_truth_source": "financial_report.txt",
+      "ground_truth_source": "financial_report.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "financial_report.md",
+        "financial_report.md",
+        "financial_report.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "DataInsight收购价格是多少？",
-      "ground_truth_source": "financial_report.txt",
+      "ground_truth_source": "financial_report.md",
       "category": "factual",
       "retrieved_top3": [
-        "CodeCV简历.pdf",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "financial_report.md",
+        "rag_evaluation.md",
+        "rag_evaluation.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "2025年营收目标是多少？",
-      "ground_truth_source": "financial_report.txt",
+      "ground_truth_source": "financial_report.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "financial_report.md",
+        "financial_report.md",
+        "financial_report.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "海外市场收入占总营收比重提升到了多少？",
-      "ground_truth_source": "financial_report.txt",
+      "ground_truth_source": "financial_report.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "financial_report.md",
+        "financial_report.md",
+        "financial_report.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "SmartFlow专业版的价格是多少？",
-      "ground_truth_source": "product_spec.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "CodeCV简历.pdf",
-        "pdfplumber_table",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "SmartFlow的流程执行引擎吞吐量是多少？",
-      "ground_truth_source": "product_spec.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "SmartFlow支持哪些认证登录方式？",
-      "ground_truth_source": "product_spec.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "SmartFlow的API请求频率限制是多少？",
-      "ground_truth_source": "product_spec.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "SmartFlow通过了哪些合规认证？",
-      "ground_truth_source": "product_spec.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "CodeCV简历.pdf"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "SmartFlow密钥轮换的默认周期是多少天？",
-      "ground_truth_source": "product_spec.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "SmartFlow私有化部署的推荐CPU配置是多少核？",
-      "ground_truth_source": "product_spec.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "SmartFlow表单引擎支持多少种字段类型？",
-      "ground_truth_source": "product_spec.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "CodeCV简历.pdf",
-        "pdfplumber_table",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "SmartFlow企业版的SLA是多少？",
-      "ground_truth_source": "product_spec.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "数据分为几个级别？各是什么？",
-      "ground_truth_source": "legal_compliance.txt",
+      "ground_truth_source": "legal_compliance.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "legal_compliance.md",
+        "legal_compliance.md",
+        "legal_compliance.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "用户注销账户后多少天内完成物理删除？",
-      "ground_truth_source": "legal_compliance.txt",
+      "ground_truth_source": "legal_compliance.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "CodeCV简历.pdf",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "legal_compliance.md",
+        "legal_compliance.md",
+        "ops_manual.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "数据泄露后须在多少小时内向网信部门报告？",
-      "ground_truth_source": "legal_compliance.txt",
+      "ground_truth_source": "legal_compliance.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "CodeCV简历.pdf",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "legal_compliance.md",
+        "legal_compliance.md",
+        "legal_compliance.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "手机号脱敏规则是什么？",
-      "ground_truth_source": "legal_compliance.txt",
+      "ground_truth_source": "legal_compliance.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "legal_compliance.md",
+        "tech_arch.md",
+        "legal_compliance.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "数据保护官向谁汇报？",
-      "ground_truth_source": "legal_compliance.txt",
+      "ground_truth_source": "legal_compliance.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "CodeCV简历.pdf",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "legal_compliance.md",
+        "legal_compliance.md",
+        "legal_compliance.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "渗透测试每年至少执行几次？",
-      "ground_truth_source": "legal_compliance.txt",
+      "ground_truth_source": "legal_compliance.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "legal_compliance.md",
+        "legal_compliance.md",
+        "ops_manual.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "个人信息安全影响评估多久执行一次？",
-      "ground_truth_source": "legal_compliance.txt",
+      "ground_truth_source": "legal_compliance.md",
       "category": "factual",
       "retrieved_top3": [
-        "CodeCV简历.pdf",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "legal_compliance.md",
+        "legal_compliance.md",
+        "legal_compliance.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "离职员工的数据访问权限何时回收？",
-      "ground_truth_source": "legal_compliance.txt",
+      "ground_truth_source": "legal_compliance.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "legal_compliance.md",
+        "legal_compliance.md",
+        "legal_compliance.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "审计报告保存期限是多少年？",
-      "ground_truth_source": "legal_compliance.txt",
+      "ground_truth_source": "legal_compliance.md",
       "category": "factual",
       "retrieved_top3": [
-        "CodeCV简历.pdf",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "pdfplumber_table"
+        "legal_compliance.md",
+        "legal_compliance.md",
+        "hr_policy.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "收集14岁以下未成年人信息需要什么条件？",
-      "ground_truth_source": "legal_compliance.txt",
+      "ground_truth_source": "legal_compliance.md",
       "category": "factual",
       "retrieved_top3": [
-        "pdfplumber_table",
-        "CodeCV简历.pdf",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "legal_compliance.md",
+        "legal_compliance.md",
+        "legal_compliance.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "Qwen2.5在C-Eval基准测试中得分多少？",
-      "ground_truth_source": "ai_research.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "pdfplumber_table",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "RAG系统中推荐的切分大小是多少tokens？",
-      "ground_truth_source": "ai_research.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "混合检索加入重排器后的Recall@10是多少？",
-      "ground_truth_source": "ai_research.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "纯向量检索的Recall@10是多少？",
-      "ground_truth_source": "ai_research.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "pdfplumber_table",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "企业文档中PDF格式占比多少？",
-      "ground_truth_source": "ai_research.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "CodeCV简历.pdf",
-        "pdfplumber_table",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "多模态大模型对图表内容的准确率提升到多少？",
-      "ground_truth_source": "ai_research.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "CodeCV简历.pdf",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "Agent架构相比固定检索提升了多少准确率？",
-      "ground_truth_source": "ai_research.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "端到端评估推荐的数据集规模是多少条？",
-      "ground_truth_source": "ai_research.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "CodeCV简历.pdf",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "GPT-4 Turbo的上下文窗口有多大？",
-      "ground_truth_source": "ai_research.txt",
+      "ground_truth_source": "gpt_claude_models.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "gpt_claude_models.md",
+        "gpt_claude_models.md",
+        "gpt_claude_models.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
-      "question": "生产环境有多少台应用服务器？配置是什么？",
-      "ground_truth_source": "ops_manual.txt",
+      "question": "Claude 3 Opus支持的上下文窗口是多少？",
+      "ground_truth_source": "gpt_claude_models.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "gpt_claude_models.md",
+        "gpt_claude_models.md",
+        "gpt_claude_models.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
-      "question": "MySQL备份保留策略是什么？",
-      "ground_truth_source": "ops_manual.txt",
+      "question": "Claude 3系列模型包括哪几个版本？",
+      "ground_truth_source": "gpt_claude_models.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "gpt_claude_models.md",
+        "gpt_claude_models.md",
+        "gpt_claude_models.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
-      "question": "CPU使用率超过多少触发严重告警？",
-      "ground_truth_source": "ops_manual.txt",
+      "question": "Claude 3 Opus在MMLU基准测试中的得分是多少？",
+      "ground_truth_source": "gpt_claude_models.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "gpt_claude_models.md",
+        "gpt_claude_models.md",
+        "gpt_claude_models.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
-      "question": "P0故障要求多长时间内恢复？",
-      "ground_truth_source": "ops_manual.txt",
+      "question": "GPT-4 Turbo的MMLU得分是多少？",
+      "ground_truth_source": "gpt_claude_models.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "gpt_claude_models.md",
+        "gpt_claude_models.md",
+        "gpt_claude_models.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
-      "question": "运维密码多少天强制更换？",
-      "ground_truth_source": "ops_manual.txt",
+      "question": "Claude 3 Sonnet的推理延迟是多少？",
+      "ground_truth_source": "gpt_claude_models.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "gpt_claude_models.md",
+        "gpt_claude_models.md",
+        "gpt_claude_models.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
-      "question": "变更评审会在每周哪几天举行？",
-      "ground_truth_source": "ops_manual.txt",
+      "question": "Claude 3 Haiku的吞吐量是多少QPS？",
+      "ground_truth_source": "gpt_claude_models.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "gpt_claude_models.md",
+        "gpt_claude_models.md",
+        "gpt_claude_models.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
-      "question": "灾难恢复演练多久执行一次？",
-      "ground_truth_source": "ops_manual.txt",
+      "question": "GPT-4 Turbo在LLM Arena中的获胜率是多少？",
+      "ground_truth_source": "gpt_claude_models.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "gpt_claude_models.md",
+        "gpt_claude_models.md",
+        "gpt_claude_models.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
-      "question": "日志热数据保留多少天？",
-      "ground_truth_source": "ops_manual.txt",
+      "question": "Claude 3 Opus的幻觉率是多少？",
+      "ground_truth_source": "gpt_claude_models.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "rag_evaluation.md",
+        "gpt_claude_models.md",
+        "gpt_claude_models.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 0.0,
+        "mrr@1": 0.0,
+        "ndcg@1": 0.0,
+        "recall@3": 1.0,
+        "mrr@3": 0.5,
+        "ndcg@3": 0.6309297535714575,
+        "recall@5": 1.0,
+        "mrr@5": 0.5,
+        "ndcg@5": 0.6309297535714575,
+        "recall@10": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
       }
     },
     {
-      "question": "生产环境变更的优先执行时间窗口是什么？",
-      "ground_truth_source": "ops_manual.txt",
+      "question": "LLaMA 2训练数据是多少tokens？",
+      "ground_truth_source": "llama_qwen_models.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "llama_qwen_models.md",
+        "llama_qwen_models.md",
+        "llama_qwen_models.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
-      "question": "堡垒机使用什么端口？",
-      "ground_truth_source": "ops_manual.txt",
+      "question": "LLaMA 2 70B模型的MMLU得分是多少？",
+      "ground_truth_source": "llama_qwen_models.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "llama_qwen_models.md",
+        "llama_qwen_models.md",
+        "llama_qwen_models.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
-      "question": "关键安全补丁要求多少小时内应急更新？",
-      "ground_truth_source": "ops_manual.txt",
+      "question": "LLaMA 2的基础上下文窗口是多少？",
+      "ground_truth_source": "llama_qwen_models.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "llama_qwen_models.md",
+        "llama_qwen_models.md",
+        "llama_qwen_models.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
-      "question": "备份恢复的RPO和RTO目标是多少？",
-      "ground_truth_source": "ops_manual.txt",
+      "question": "Qwen 2.5 72B在CMMLU上的得分是多少？",
+      "ground_truth_source": "llama_qwen_models.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "llama_qwen_models.md",
+        "llama_qwen_models.md",
+        "rag_evaluation.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
-      "question": "自动切换脚本修复后切换时间降到了多少？",
-      "ground_truth_source": "ops_manual.txt",
+      "question": "Qwen 2.5支持的上下文窗口有多大？",
+      "ground_truth_source": "llama_qwen_models.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "llama_qwen_models.md",
+        "llama_qwen_models.md",
+        "llama_qwen_models.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
-      "question": "试用期多长？特殊岗位可延长到多久？",
-      "ground_truth_source": "hr_policy.txt",
-      "category": "reasoning",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "对比纯向量检索和混合检索的召回率差异",
-      "ground_truth_source": "ai_research.txt",
-      "category": "comparison",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "公司营业利润率的变化趋势如何？",
-      "ground_truth_source": "financial_report.txt",
-      "category": "reasoning",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "系统如何保证订单创建的幂等性？",
-      "ground_truth_source": "tech_arch.txt",
-      "category": "reasoning",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    }
-  ],
-  "failed_queries": [
-    {
-      "question": "公司招聘流程分为哪几个阶段？",
-      "ground_truth_source": "hr_policy.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "CodeCV简历.pdf",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "新员工入职需要携带哪些材料？",
-      "ground_truth_source": "hr_policy.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "CodeCV简历.pdf"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "试用期考核的维度和权重是什么？",
-      "ground_truth_source": "hr_policy.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "年终奖金一般为多少个月基本工资？",
-      "ground_truth_source": "hr_policy.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "公司住房公积金的缴纳比例是多少？",
-      "ground_truth_source": "hr_policy.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "员工结婚礼金是多少元？",
-      "ground_truth_source": "hr_policy.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "技术岗位员工每年的培训经费上限是多少？",
-      "ground_truth_source": "hr_policy.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "弹性工作制的核心工作时间是什么？",
-      "ground_truth_source": "hr_policy.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "法定节假日加班按几倍工资补偿？",
-      "ground_truth_source": "hr_policy.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "绩效考核S等级的比例是多少？",
-      "ground_truth_source": "hr_policy.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "PIP绩效改进计划的周期是多少天？",
-      "ground_truth_source": "hr_policy.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "每月加班时长上限是多少小时？",
-      "ground_truth_source": "hr_policy.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "女员工产假是多少天？",
-      "ground_truth_source": "hr_policy.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "微服务架构使用什么服务注册中心？",
-      "ground_truth_source": "tech_arch.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "订单超时未支付多长时间自动取消？",
-      "ground_truth_source": "tech_arch.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "订单表分了多少张表？",
-      "ground_truth_source": "tech_arch.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "历史订单归档到什么存储系统？",
-      "ground_truth_source": "tech_arch.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "库存扣减方案包含哪三个阶段？",
-      "ground_truth_source": "tech_arch.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "Redis库存一致性校验任务多久执行一次？",
-      "ground_truth_source": "tech_arch.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "单笔交易金额超过多少元触发风控审核？",
-      "ground_truth_source": "tech_arch.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "对账差异率超过多少自动触发告警？",
-      "ground_truth_source": "tech_arch.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "订单创建接口的P99延迟要求是多少？",
-      "ground_truth_source": "tech_arch.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "系统整体可用性目标是多少？",
-      "ground_truth_source": "tech_arch.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "敏感数据采用什么加密算法存储？",
-      "ground_truth_source": "tech_arch.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "Kubernetes集群规模是多少个worker节点？",
-      "ground_truth_source": "tech_arch.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "2024年公司营业总收入是多少？",
-      "ground_truth_source": "financial_report.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "CodeCV简历.pdf",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "SaaS订阅服务的毛利率是多少？",
-      "ground_truth_source": "financial_report.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "公司累计服务了多少家企业客户？",
-      "ground_truth_source": "financial_report.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "pdfplumber_table",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "CodeCV简历.pdf"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "客户流失率从多少降到了多少？",
-      "ground_truth_source": "financial_report.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "2024年净利润是多少？",
-      "ground_truth_source": "financial_report.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "CodeCV简历.pdf",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "公司研发人员占员工总数比例是多少？",
-      "ground_truth_source": "financial_report.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "公司总资产是多少？",
-      "ground_truth_source": "financial_report.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "pdfplumber_table",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "公司资产负债率是多少？",
-      "ground_truth_source": "financial_report.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "合同负债金额是多少？主要组成是什么？",
-      "ground_truth_source": "financial_report.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "2024年研发投入总额是多少？",
-      "ground_truth_source": "financial_report.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "DataInsight收购价格是多少？",
-      "ground_truth_source": "financial_report.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "CodeCV简历.pdf",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "2025年营收目标是多少？",
-      "ground_truth_source": "financial_report.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "海外市场收入占总营收比重提升到了多少？",
-      "ground_truth_source": "financial_report.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "SmartFlow专业版的价格是多少？",
-      "ground_truth_source": "product_spec.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "CodeCV简历.pdf",
-        "pdfplumber_table",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "SmartFlow的流程执行引擎吞吐量是多少？",
-      "ground_truth_source": "product_spec.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "SmartFlow支持哪些认证登录方式？",
-      "ground_truth_source": "product_spec.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "SmartFlow的API请求频率限制是多少？",
-      "ground_truth_source": "product_spec.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "SmartFlow通过了哪些合规认证？",
-      "ground_truth_source": "product_spec.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "CodeCV简历.pdf"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "SmartFlow密钥轮换的默认周期是多少天？",
-      "ground_truth_source": "product_spec.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "SmartFlow私有化部署的推荐CPU配置是多少核？",
-      "ground_truth_source": "product_spec.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "SmartFlow表单引擎支持多少种字段类型？",
-      "ground_truth_source": "product_spec.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "CodeCV简历.pdf",
-        "pdfplumber_table",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "SmartFlow企业版的SLA是多少？",
-      "ground_truth_source": "product_spec.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "数据分为几个级别？各是什么？",
-      "ground_truth_source": "legal_compliance.txt",
+      "question": "Qwen 2.5的词表大小是多少？",
+      "ground_truth_source": "llama_qwen_models.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "llama_qwen_models.md",
+        "llama_qwen_models.md",
+        "llama_qwen_models.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
-      "question": "用户注销账户后多少天内完成物理删除？",
-      "ground_truth_source": "legal_compliance.txt",
+      "question": "LLaMA 2 70B的HumanEval得分是多少？",
+      "ground_truth_source": "llama_qwen_models.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "CodeCV简历.pdf",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "llama_qwen_models.md",
+        "llama_qwen_models.md",
+        "llama_qwen_models.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
-      "question": "数据泄露后须在多少小时内向网信部门报告？",
-      "ground_truth_source": "legal_compliance.txt",
+      "question": "Qwen 2.5 32B在CMMLU上的得分是多少？",
+      "ground_truth_source": "llama_qwen_models.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "CodeCV简历.pdf",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "llama_qwen_models.md",
+        "llama_qwen_models.md",
+        "llama_qwen_models.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
-      "question": "手机号脱敏规则是什么？",
-      "ground_truth_source": "legal_compliance.txt",
+      "question": "LLaMA 2 70B使用LoRA微调的显存需求是多少？",
+      "ground_truth_source": "llama_qwen_models.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "llama_qwen_models.md",
+        "llama_qwen_models.md",
+        "llama_qwen_models.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
-      "question": "数据保护官向谁汇报？",
-      "ground_truth_source": "legal_compliance.txt",
+      "question": "Qwen 2.5 72B 4-bit量化后的显存需求是多少？",
+      "ground_truth_source": "llama_qwen_models.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "CodeCV简历.pdf",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "llama_qwen_models.md",
+        "llama_qwen_models.md",
+        "llama_qwen_models.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
-      "question": "渗透测试每年至少执行几次？",
-      "ground_truth_source": "legal_compliance.txt",
+      "question": "文本嵌入中，bge-large-zh的维度是多少？",
+      "ground_truth_source": "embedding_reranking.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "embedding_reranking.md",
+        "embedding_reranking.md",
+        "embedding_reranking.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
-      "question": "个人信息安全影响评估多久执行一次？",
-      "ground_truth_source": "legal_compliance.txt",
+      "question": "text-embedding-3-large在MTEB基准上的评分是多少？",
+      "ground_truth_source": "embedding_reranking.md",
       "category": "factual",
       "retrieved_top3": [
-        "CodeCV简历.pdf",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "embedding_reranking.md",
+        "embedding_reranking.md",
+        "ai_research.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
-      "question": "离职员工的数据访问权限何时回收？",
-      "ground_truth_source": "legal_compliance.txt",
+      "question": "bge-large-zh-v1.5在MTEB-ZH上的评分是多少？",
+      "ground_truth_source": "embedding_reranking.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "embedding_reranking.md",
+        "embedding_reranking.md",
+        "embedding_reranking.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
-      "question": "审计报告保存期限是多少年？",
-      "ground_truth_source": "legal_compliance.txt",
+      "question": "MonoT5-Large在NDCG@10上的得分是多少？",
+      "ground_truth_source": "embedding_reranking.md",
       "category": "factual",
       "retrieved_top3": [
-        "CodeCV简历.pdf",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "pdfplumber_table"
+        "embedding_reranking.md",
+        "embedding_reranking.md",
+        "rag_evaluation.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
-      "question": "收集14岁以下未成年人信息需要什么条件？",
-      "ground_truth_source": "legal_compliance.txt",
+      "question": "重排器对多跳推理查询的Recall@5提升幅度是多少？",
+      "ground_truth_source": "embedding_reranking.md",
       "category": "factual",
       "retrieved_top3": [
-        "pdfplumber_table",
-        "CodeCV简历.pdf",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "embedding_reranking.md",
+        "embedding_reranking.md",
+        "embedding_reranking.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
-      "question": "Qwen2.5在C-Eval基准测试中得分多少？",
-      "ground_truth_source": "ai_research.txt",
+      "question": "MonoT5-Large在GPU V100上的吞吐量是多少？",
+      "ground_truth_source": "embedding_reranking.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "pdfplumber_table",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "embedding_reranking.md",
+        "llama_qwen_models.md",
+        "embedding_reranking.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "RAG系统中推荐的切分大小是多少tokens？",
-      "ground_truth_source": "ai_research.txt",
+      "ground_truth_source": "rag_evaluation.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "ai_research.md",
+        "rag_evaluation.md",
+        "llama_qwen_models.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 0.0,
+        "mrr@1": 0.0,
+        "ndcg@1": 0.0,
+        "recall@3": 1.0,
+        "mrr@3": 0.5,
+        "ndcg@3": 0.6309297535714575,
+        "recall@5": 1.0,
+        "mrr@5": 0.5,
+        "ndcg@5": 0.6309297535714575,
+        "recall@10": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
       }
     },
     {
       "question": "混合检索加入重排器后的Recall@10是多少？",
-      "ground_truth_source": "ai_research.txt",
+      "ground_truth_source": "rag_evaluation.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "embedding_reranking.md",
+        "ai_research.md",
+        "embedding_reranking.md"
       ],
       "metrics": {
+        "recall@1": 0.0,
+        "mrr@1": 0.0,
+        "ndcg@1": 0.0,
         "recall@3": 0.0,
         "mrr@3": 0.0,
         "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@5": 1.0,
+        "mrr@5": 0.2,
+        "ndcg@5": 0.38685280723454163,
+        "recall@10": 1.0,
+        "mrr@10": 0.2,
+        "ndcg@10": 0.38685280723454163
       }
     },
     {
       "question": "纯向量检索的Recall@10是多少？",
-      "ground_truth_source": "ai_research.txt",
+      "ground_truth_source": "rag_evaluation.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "pdfplumber_table",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "embedding_reranking.md",
+        "ai_research.md",
+        "rag_evaluation.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 0.0,
+        "mrr@1": 0.0,
+        "ndcg@1": 0.0,
+        "recall@3": 1.0,
+        "mrr@3": 0.3333333333333333,
+        "ndcg@3": 0.5,
+        "recall@5": 1.0,
+        "mrr@5": 0.3333333333333333,
+        "ndcg@5": 0.5,
+        "recall@10": 1.0,
+        "mrr@10": 0.3333333333333333,
+        "ndcg@10": 0.5
       }
     },
     {
       "question": "企业文档中PDF格式占比多少？",
-      "ground_truth_source": "ai_research.txt",
+      "ground_truth_source": "ai_research.md",
       "category": "factual",
       "retrieved_top3": [
-        "CodeCV简历.pdf",
-        "pdfplumber_table",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "ai_research.md",
+        "financial_report.md",
+        "ai_research.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
-      "question": "多模态大模型对图表内容的准确率提升到多少？",
-      "ground_truth_source": "ai_research.txt",
+      "question": "多模态大模型对图表内容的准确率是多少？",
+      "ground_truth_source": "ai_research.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "CodeCV简历.pdf",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "ai_research.md",
+        "embedding_reranking.md",
+        "gpt_claude_models.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "Agent架构相比固定检索提升了多少准确率？",
-      "ground_truth_source": "ai_research.txt",
+      "ground_truth_source": "ai_research.md",
       "category": "factual",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "ai_research.md",
+        "ai_research.md",
+        "ai_research.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "端到端评估推荐的数据集规模是多少条？",
-      "ground_truth_source": "ai_research.txt",
+      "ground_truth_source": "ai_research.md",
       "category": "factual",
       "retrieved_top3": [
-        "CodeCV简历.pdf",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "rag_evaluation.md",
+        "ai_research.md",
+        "llama_qwen_models.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "GPT-4 Turbo的上下文窗口有多大？",
-      "ground_truth_source": "ai_research.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "生产环境有多少台应用服务器？配置是什么？",
-      "ground_truth_source": "ops_manual.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "MySQL备份保留策略是什么？",
-      "ground_truth_source": "ops_manual.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "CPU使用率超过多少触发严重告警？",
-      "ground_truth_source": "ops_manual.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "P0故障要求多长时间内恢复？",
-      "ground_truth_source": "ops_manual.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "运维密码多少天强制更换？",
-      "ground_truth_source": "ops_manual.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "变更评审会在每周哪几天举行？",
-      "ground_truth_source": "ops_manual.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "灾难恢复演练多久执行一次？",
-      "ground_truth_source": "ops_manual.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "日志热数据保留多少天？",
-      "ground_truth_source": "ops_manual.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "生产环境变更的优先执行时间窗口是什么？",
-      "ground_truth_source": "ops_manual.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "堡垒机使用什么端口？",
-      "ground_truth_source": "ops_manual.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "关键安全补丁要求多少小时内应急更新？",
-      "ground_truth_source": "ops_manual.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "备份恢复的RPO和RTO目标是多少？",
-      "ground_truth_source": "ops_manual.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "自动切换脚本修复后切换时间降到了多少？",
-      "ground_truth_source": "ops_manual.txt",
-      "category": "factual",
-      "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
-      ],
-      "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 0.0,
+        "mrr@1": 0.0,
+        "ndcg@1": 0.0,
+        "recall@3": 1.0,
+        "mrr@3": 0.5,
+        "ndcg@3": 0.6309297535714575,
+        "recall@5": 1.0,
+        "mrr@5": 0.5,
+        "ndcg@5": 0.6309297535714575,
+        "recall@10": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
       }
     },
     {
       "question": "试用期多长？特殊岗位可延长到多久？",
-      "ground_truth_source": "hr_policy.txt",
+      "ground_truth_source": "hr_policy.md",
       "category": "reasoning",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "hr_policy.md",
+        "hr_policy.md",
+        "hr_policy.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "对比纯向量检索和混合检索的召回率差异",
-      "ground_truth_source": "ai_research.txt",
+      "ground_truth_source": "ai_research.md",
       "category": "comparison",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "ai_research.md",
+        "embedding_reranking.md",
+        "rag_evaluation.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "公司营业利润率的变化趋势如何？",
-      "ground_truth_source": "financial_report.txt",
+      "ground_truth_source": "financial_report.md",
       "category": "reasoning",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "financial_report.md",
+        "financial_report.md",
+        "financial_report.md"
       ],
       "metrics": {
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
       "question": "系统如何保证订单创建的幂等性？",
-      "ground_truth_source": "tech_arch.txt",
+      "ground_truth_source": "tech_arch.md",
       "category": "reasoning",
       "retrieved_top3": [
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md",
-        "LoRA论文完整中文翻译_纯文本.md"
+        "tech_arch.md",
+        "tech_arch.md",
+        "tech_arch.md"
       ],
       "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "GPT-4 Turbo和Claude 3 Opus在代码能力上的对比如何？",
+      "ground_truth_source": "gpt_claude_models.md",
+      "category": "comparison",
+      "retrieved_top3": [
+        "gpt_claude_models.md",
+        "gpt_claude_models.md",
+        "gpt_claude_models.md"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "为什么Qwen在中文任务上相比LLaMA有显著优势？",
+      "ground_truth_source": "llama_qwen_models.md",
+      "category": "reasoning",
+      "retrieved_top3": [
+        "llama_qwen_models.md",
+        "llama_qwen_models.md",
+        "llama_qwen_models.md"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "为什么重排器特别适合处理多跳推理问题？",
+      "ground_truth_source": "embedding_reranking.md",
+      "category": "reasoning",
+      "retrieved_top3": [
+        "embedding_reranking.md",
+        "embedding_reranking.md",
+        "embedding_reranking.md"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "如果日均API调用tokens数超过1000万，应该考虑什么策略？",
+      "ground_truth_source": "llama_qwen_models.md",
+      "category": "multi-hop",
+      "retrieved_top3": [
+        "gpt_claude_models.md",
+        "llama_qwen_models.md",
+        "gpt_claude_models.md"
+      ],
+      "metrics": {
+        "recall@1": 0.0,
+        "mrr@1": 0.0,
+        "ndcg@1": 0.0,
+        "recall@3": 1.0,
+        "mrr@3": 0.5,
+        "ndcg@3": 0.6309297535714575,
+        "recall@5": 1.0,
+        "mrr@5": 0.5,
+        "ndcg@5": 0.6309297535714575,
+        "recall@10": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
+      }
+    },
+    {
+      "question": "在构建企业RAG系统时，应该如何权衡检索准确率和延迟？",
+      "ground_truth_source": "embedding_reranking.md",
+      "category": "multi-hop",
+      "retrieved_top3": [
+        "gpt_claude_models.md",
+        "llama_qwen_models.md",
+        "rag_evaluation.md"
+      ],
+      "metrics": {
+        "recall@1": 0.0,
+        "mrr@1": 0.0,
+        "ndcg@1": 0.0,
         "recall@3": 0.0,
         "mrr@3": 0.0,
         "ndcg@3": 0.0,
         "recall@5": 0.0,
         "mrr@5": 0.0,
         "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
+        "recall@10": 1.0,
+        "mrr@10": 0.125,
+        "ndcg@10": 0.31546487678572877
+      }
+    },
+    {
+      "question": "Claude模型相比GPT模型在企业应用中的主要优势是什么？",
+      "ground_truth_source": "gpt_claude_models.md",
+      "category": "multi-hop",
+      "retrieved_top3": [
+        "gpt_claude_models.md",
+        "gpt_claude_models.md",
+        "gpt_claude_models.md"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "LLaMA 2 70B和Qwen 72B在成本和性能上的权衡是什么？",
+      "ground_truth_source": "llama_qwen_models.md",
+      "category": "multi-hop",
+      "retrieved_top3": [
+        "llama_qwen_models.md",
+        "gpt_claude_models.md",
+        "llama_qwen_models.md"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "如果一个向量维度很低（256维），应该如何补偿检索精度的损失？",
+      "ground_truth_source": "embedding_reranking.md",
+      "category": "multi-hop",
+      "retrieved_top3": [
+        "embedding_reranking.md",
+        "embedding_reranking.md",
+        "embedding_reranking.md"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "医学与法律等专业领域的RAG系统应该如何评估？",
+      "ground_truth_source": "rag_evaluation.md",
+      "category": "multi-hop",
+      "retrieved_top3": [
+        "rag_evaluation.md",
+        "rag_evaluation.md",
+        "rag_evaluation.md"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "一个新的RAG系统如何快速建立初始基线和改进计划？",
+      "ground_truth_source": "rag_evaluation.md",
+      "category": "multi-hop",
+      "retrieved_top3": [
+        "rag_evaluation.md",
+        "rag_evaluation.md",
+        "rag_evaluation.md"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "如何选择合适的LLM用于RAG系统？",
+      "ground_truth_source": "gpt_claude_models.md",
+      "category": "multi-hop",
+      "retrieved_top3": [
+        "llama_qwen_models.md",
+        "rag_evaluation.md",
+        "gpt_claude_models.md"
+      ],
+      "metrics": {
+        "recall@1": 0.0,
+        "mrr@1": 0.0,
+        "ndcg@1": 0.0,
+        "recall@3": 1.0,
+        "mrr@3": 0.3333333333333333,
+        "ndcg@3": 0.5,
+        "recall@5": 1.0,
+        "mrr@5": 0.3333333333333333,
+        "ndcg@5": 0.5,
+        "recall@10": 1.0,
+        "mrr@10": 0.3333333333333333,
+        "ndcg@10": 0.5
+      }
+    },
+    {
+      "question": "库存系统为什么采用预扣-确认-释放三阶段方案？",
+      "ground_truth_source": "tech_arch.md",
+      "category": "reasoning",
+      "retrieved_top3": [
+        "tech_arch.md",
+        "tech_arch.md",
+        "tech_arch.md"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "为什么对账系统要设置0.1%的差异率告警阈值？",
+      "ground_truth_source": "tech_arch.md",
+      "category": "reasoning",
+      "retrieved_top3": [
+        "tech_arch.md",
+        "ops_manual.md",
+        "tech_arch.md"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "女员工158天产假是如何安排的？",
+      "ground_truth_source": "hr_policy.md",
+      "category": "reasoning",
+      "retrieved_top3": [
+        "hr_policy.md",
+        "hr_policy.md",
+        "hr_policy.md"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "公司的研发投入占营收比重达到了26.8%，这反映了什么战略？",
+      "ground_truth_source": "financial_report.md",
+      "category": "reasoning",
+      "retrieved_top3": [
+        "financial_report.md",
+        "financial_report.md",
+        "financial_report.md"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "对比中文和英文任务，哪个模型的多语言能力更平衡？",
+      "ground_truth_source": "embedding_reranking.md",
+      "category": "comparison",
+      "retrieved_top3": [
+        "llama_qwen_models.md",
+        "embedding_reranking.md",
+        "embedding_reranking.md"
+      ],
+      "metrics": {
+        "recall@1": 0.0,
+        "mrr@1": 0.0,
+        "ndcg@1": 0.0,
+        "recall@3": 1.0,
+        "mrr@3": 0.5,
+        "ndcg@3": 0.6309297535714575,
+        "recall@5": 1.0,
+        "mrr@5": 0.5,
+        "ndcg@5": 0.6309297535714575,
+        "recall@10": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
+      }
+    },
+    {
+      "question": "在RAG系统中，是否总是需要重排器？",
+      "ground_truth_source": "rag_evaluation.md",
+      "category": "reasoning",
+      "retrieved_top3": [
+        "embedding_reranking.md",
+        "gpt_claude_models.md",
+        "embedding_reranking.md"
+      ],
+      "metrics": {
+        "recall@1": 0.0,
+        "mrr@1": 0.0,
+        "ndcg@1": 0.0,
+        "recall@3": 0.0,
+        "mrr@3": 0.0,
+        "ndcg@3": 0.0,
+        "recall@5": 1.0,
+        "mrr@5": 0.25,
+        "ndcg@5": 0.43067655807339306,
+        "recall@10": 1.0,
+        "mrr@10": 0.25,
+        "ndcg@10": 0.43067655807339306
+      }
+    },
+    {
+      "question": "为什么Claude模型在引用准确度上表现最好？",
+      "ground_truth_source": "gpt_claude_models.md",
+      "category": "reasoning",
+      "retrieved_top3": [
+        "gpt_claude_models.md",
+        "gpt_claude_models.md",
+        "gpt_claude_models.md"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "Qwen 2.5相比LLaMA 3在性能上的差异是什么？",
+      "ground_truth_source": "llama_qwen_models.md",
+      "category": "comparison",
+      "retrieved_top3": [
+        "llama_qwen_models.md",
+        "llama_qwen_models.md",
+        "llama_qwen_models.md"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "为什么生产环境推荐使用Claude 3 Sonnet而非更强的Opus？",
+      "ground_truth_source": "gpt_claude_models.md",
+      "category": "reasoning",
+      "retrieved_top3": [
+        "gpt_claude_models.md",
+        "gpt_claude_models.md",
+        "gpt_claude_models.md"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     }
   ],
-  "num_queries": 83,
+  "failed_queries": [],
+  "num_queries": 104,
   "meta": {
     "mode": "在线",
     "dataset": "data\\eval_dataset.jsonl",
     "k_values": [
+      1,
       3,
       5,
       10
     ],
-    "num_queries": 83,
-    "elapsed_seconds": 321.26,
+    "num_queries": 104,
+    "elapsed_seconds": 5.63,
     "ablation": null
   }
 }

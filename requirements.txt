@@ -17,6 +17,7 @@ chromadb>=0.5.0
 
 # Sparse Retrieval
 rank-bm25>=0.2.2
+jieba>=0.42.1
 
 # API & Serving
 fastapi>=0.115.0

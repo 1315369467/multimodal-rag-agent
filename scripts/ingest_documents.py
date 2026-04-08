@@ -7,7 +7,7 @@
 用法
 ────
 # 入库目录下所有 PDF
-python scripts/ingest_documents.py --input-dir ./data/documents
+python scripts/ingest_documents.py --input-dir ./data/eval_corpus
 
 # 入库指定文件
 python scripts/ingest_documents.py --files report.pdf scan.png table.pdf
