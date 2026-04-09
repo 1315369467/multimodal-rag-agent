@@ -5,8 +5,10 @@
 后端为 FastAPI 服务，默认地址 http://localhost:8000。
 """
 
-import streamlit as st
+import json
+
 import requests
+import streamlit as st
 import time
 from pathlib import Path
 
@@ -56,6 +58,34 @@ def api_post(path: str, json_body: dict | None = None, files=None) -> dict | Non
     except Exception as e:
         st.error(f"请求异常：{e}")
     return None
+
+
+def api_post_stream(path: str, json_body: dict | None = None):
+    """生成器：以 SSE 格式消费流式接口，逐个 yield 解析后的事件字典。"""
+    try:
+        with requests.post(
+            f"{API_BASE}{path}",
+            json=json_body,
+            stream=True,
+            timeout=120,
+        ) as resp:
+            resp.raise_for_status()
+            for raw_line in resp.iter_lines():
+                if not raw_line:
+                    continue
+                line = raw_line.decode("utf-8") if isinstance(raw_line, bytes) else raw_line
+                if not line.startswith("data: "):
+                    continue
+                data = line[6:]
+                if data == "[DONE]":
+                    return
+                yield json.loads(data)
+    except requests.exceptions.ConnectionError:
+        st.error("无法连接到后端服务，请确认服务已启动。")
+    except requests.exceptions.HTTPError as e:
+        st.error(f"请求失败：{e.response.status_code} - {e.response.text}")
+    except Exception as e:
+        st.error(f"请求异常：{e}")
 
 
 def api_delete(path: str) -> dict | None:
@@ -331,6 +361,11 @@ elif page == "智能问答":
         "knowledge_base_search_with_filter": ("📄", "按文件检索"),
         "query_rewrite": ("✏️", "查询改写"),
         "multi_round_search": ("🔄", "多轮检索"),
+        "calculator": ("🔢", "数值计算"),
+        "web_search": ("🌐", "网络搜索"),
+        "table_analyzer": ("📊", "表格分析"),
+        "image_describer": ("🖼️", "图像理解"),
+        "summarizer": ("📝", "文本摘要"),
     }
 
     def _render_tool_steps(tool_steps: list[dict]) -> None:
@@ -409,36 +444,98 @@ elif page == "智能问答":
             st.markdown(question)
 
         with st.chat_message("assistant"):
-            with st.status("🤖 Agent 正在思考…", expanded=True) as status:
-                result = api_post(
-                    "/v1/query",
+            # 实时渲染工具步骤
+            tool_placeholders: dict[int, object] = {}   # step_idx -> st.empty()
+            tool_steps_data: dict[int, dict] = {}        # step_idx -> merged step dict
+            answer = ""
+            sources: list[dict] = []
+            total_ms = 0
+            had_error = False
+
+            with st.status("🤖 Agent 正在思考…", expanded=True) as status_box:
+                for event in api_post_stream(
+                    "/v1/query/stream",
                     json_body={
                         "question": question,
                         "chat_history": st.session_state.chat_history,
                     },
+                ):
+                    etype = event.get("type")
+
+                    if etype == "tool_start":
+                        idx = event["step_idx"]
+                        tool = event["tool"]
+                        icon, label = _TOOL_LABELS.get(tool, ("🛠️", tool))
+                        args = event.get("args", {})
+                        arg_str = "、".join(
+                            f"`{k}`: {str(v)[:60]}" for k, v in args.items()
+                        )
+                        ph = st.empty()
+                        ph.markdown(
+                            f"⏳ **步骤 {idx + 1}**　{icon} {label}（运行中…）"
+                            + (f"\n\n{arg_str}" if arg_str else "")
+                        )
+                        tool_placeholders[idx] = ph
+                        tool_steps_data[idx] = {
+                            "tool": tool,
+                            "args": args,
+                            "result_summary": "",
+                            "status": "running",
+                            "elapsed_ms": None,
+                        }
+
+                    elif etype == "tool_done":
+                        idx = event["step_idx"]
+                        if idx in tool_placeholders:
+                            tool = event["tool"]
+                            icon, label = _TOOL_LABELS.get(tool, ("🛠️", tool))
+                            elapsed = event.get("elapsed_ms", 0)
+                            summary = event.get("result_summary", "")
+                            args = tool_steps_data.get(idx, {}).get("args", {})
+                            arg_str = "、".join(
+                                f"`{k}`: {str(v)[:60]}" for k, v in args.items()
+                            )
+                            tool_placeholders[idx].markdown(
+                                f"✅ **步骤 {idx + 1}**　{icon} {label}（{elapsed}ms）"
+                                + (f"\n\n{arg_str}" if arg_str else "")
+                                + (f"\n\n> {summary}" if summary else "")
+                            )
+                            if idx in tool_steps_data:
+                                tool_steps_data[idx].update({
+                                    "result_summary": summary,
+                                    "status": "done",
+                                    "elapsed_ms": elapsed,
+                                })
+
+                    elif etype == "answer":
+                        answer = event.get("answer", "")
+                        sources = event.get("sources", [])
+                        total_ms = event.get("total_elapsed_ms", 0)
+                        tool_count = event.get("tool_count", len(tool_steps_data))
+                        status_box.update(
+                            label=f"✅ 思考完成（{tool_count} 步工具调用，{total_ms}ms）",
+                            state="complete",
+                            expanded=False,
+                        )
+
+                    elif etype == "error":
+                        had_error = True
+                        status_box.update(label="❌ 请求失败", state="error", expanded=False)
+
+            if had_error or not answer:
+                fallback = answer or "抱歉，请求出现错误，请稍后重试。"
+                st.markdown(fallback)
+                st.session_state.chat_display.append(
+                    {"role": "assistant", "content": fallback}
                 )
-
-                if result:
-                    tool_steps = result.get("tool_steps", [])
-                    if tool_steps:
-                        _render_tool_steps(tool_steps)
-                    status.update(
-                        label=f"✅ 思考完成（{len(tool_steps)} 步工具调用）",
-                        state="complete",
-                        expanded=False,
-                    )
-                else:
-                    status.update(label="❌ 请求失败", state="error", expanded=False)
-
-            if result:
-                answer = result.get("answer", "未能获取回答。")
-                sources = result.get("sources", [])
-                tool_steps = result.get("tool_steps", [])
-
+            else:
                 st.markdown(answer)
                 if sources:
                     _render_sources(sources)
 
+                tool_steps_list = [
+                    tool_steps_data[i] for i in sorted(tool_steps_data.keys())
+                ]
                 st.session_state.chat_history.append(
                     {"role": "user", "content": question}
                 )
@@ -450,14 +547,8 @@ elif page == "智能问答":
                         "role": "assistant",
                         "content": answer,
                         "sources": sources,
-                        "tool_steps": tool_steps,
+                        "tool_steps": tool_steps_list,
                     }
-                )
-            else:
-                fallback = "抱歉，请求出现错误，请稍后重试。"
-                st.markdown(fallback)
-                st.session_state.chat_display.append(
-                    {"role": "assistant", "content": fallback}
                 )
 
 # ==================== 页面 3：文档入库 ====================

@@ -22,7 +22,9 @@ from typing import Annotated
 
 from fastapi import Depends, FastAPI, File, HTTPException, UploadFile, status
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+import json
+
+from fastapi.responses import JSONResponse, StreamingResponse
 from loguru import logger
 
 from config.settings import get_settings
@@ -159,6 +161,31 @@ async def query(request: QueryRequest, agent: AgentDep) -> QueryResponse:
     logger.info(f"[API] /v1/query 完成，耗时 {elapsed_ms:.0f}ms")
 
     return QueryResponse.from_agent_result(request.question, result)
+
+
+@app.post("/v1/query/stream", tags=["问答"])
+async def query_stream(request: QueryRequest, agent: AgentDep):
+    """
+    流式问答接口，以 Server-Sent Events (SSE) 格式逐步推送 Agent 思考过程。
+
+    事件格式：`data: <JSON>\\n\\n`，以 `data: [DONE]\\n\\n` 结束。
+    """
+    history = [m.model_dump() for m in request.chat_history]
+
+    def generate():
+        try:
+            for event in agent.stream_query(request.question, chat_history=history):
+                yield f"data: {json.dumps(event, ensure_ascii=False)}\n\n"
+        except Exception as exc:
+            logger.error(f"流式问答错误：{exc}", exc_info=True)
+            yield f"data: {json.dumps({'type': 'error', 'message': str(exc)}, ensure_ascii=False)}\n\n"
+        yield "data: [DONE]\n\n"
+
+    return StreamingResponse(
+        generate(),
+        media_type="text/event-stream",
+        headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
+    )
 
 
 @app.post("/v1/ingest", response_model=IngestResponse, tags=["入库"])

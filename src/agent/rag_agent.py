@@ -252,6 +252,94 @@ class MultimodalRAGAgent:
             "intermediate_steps": [],
         }
 
+    def stream_query(
+        self,
+        question: str,
+        chat_history: list[dict[str, str]] | None = None,
+    ):
+        """
+        生成器：逐步 yield SSE 事件字典，供流式接口实时推送。
+
+        事件类型
+        --------
+        tool_start : Agent 决定调用工具时立即触发。
+        tool_done  : 工具执行完毕后触发，含耗时与结果摘要。
+        answer     : Agent 生成最终回答时触发（流程结束）。
+        """
+        messages = self._format_history(chat_history or [])
+        messages.append(HumanMessage(content=question))
+
+        t_total_start = time.perf_counter()
+        _pending: dict[str, dict] = {}
+        step_idx = 0
+        all_messages: list = []
+
+        for chunk in self._agent.stream(
+            {"messages": messages}, stream_mode="updates"
+        ):
+            t_now = time.perf_counter()
+            for node_name, state_diff in chunk.items():
+                node_msgs = state_diff.get("messages", [])
+
+                if node_name == "agent":
+                    for msg in node_msgs:
+                        if isinstance(msg, AIMessage) and msg.tool_calls:
+                            for call in msg.tool_calls:
+                                yield {
+                                    "type": "tool_start",
+                                    "step_idx": step_idx,
+                                    "tool": call["name"],
+                                    "args": call.get("args", {}),
+                                }
+                                _pending[call["id"]] = {
+                                    "step_idx": step_idx,
+                                    "tool": call["name"],
+                                    "t_start": t_now,
+                                }
+                                step_idx += 1
+
+                elif node_name == "tools":
+                    for msg in node_msgs:
+                        if isinstance(msg, ToolMessage):
+                            pending = _pending.pop(msg.tool_call_id, None)
+                            if pending:
+                                elapsed = round((t_now - pending["t_start"]) * 1000)
+                                content = msg.content if isinstance(msg.content, str) else ""
+                                summary = _summarize_tool_result(pending["tool"], content)
+                                logger.info(
+                                    f"[RAGAgent] 工具 {pending['tool']} 完成，耗时 {elapsed}ms"
+                                )
+                                yield {
+                                    "type": "tool_done",
+                                    "step_idx": pending["step_idx"],
+                                    "tool": pending["tool"],
+                                    "elapsed_ms": elapsed,
+                                    "result_summary": summary,
+                                }
+
+                all_messages.extend(node_msgs)
+
+        answer = ""
+        for msg in reversed(all_messages):
+            if isinstance(msg, AIMessage) and msg.content and not msg.tool_calls:
+                answer = msg.content
+                break
+
+        sources = self._extract_sources(all_messages)
+        total_elapsed_ms = round((time.perf_counter() - t_total_start) * 1000)
+
+        logger.info(
+            f"[RAGAgent] 流式答案：{len(answer)} 字 | 来源：{len(sources)} | "
+            f"工具调用：{step_idx} | 总耗时：{total_elapsed_ms}ms"
+        )
+        yield {
+            "type": "answer",
+            "answer": answer,
+            "sources": sources,
+            "total_elapsed_ms": total_elapsed_ms,
+            "tool_count": step_idx,
+        }
+
     # ──────────────────────────────────────────────────────────────────────
     # 内部方法
     # ──────────────────────────────────────────────────────────────────────
