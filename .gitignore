@@ -13,3 +13,4 @@ build/
 chroma_db/
 **/chroma_db/
 *.sqlite3
+eval_results*
