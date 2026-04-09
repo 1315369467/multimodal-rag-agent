@@ -2,7 +2,8 @@
 .idea/
 .pytest_cache/
 .vscode/
-data/
+data/chroma_db/
+data/documents/
 *.pyc
 __pycache__/
 .env
