@@ -39,6 +39,7 @@ from loguru import logger
 from config.settings import get_settings
 from src.retrieval.hybrid_retriever import HybridRetriever
 from .tools import build_retrieval_tools
+from .skills import build_skill_tools
 
 settings = get_settings()
 
@@ -87,6 +88,13 @@ _SYSTEM_PROMPT = """\
 - 用户指定文件：改用 knowledge_base_search_with_filter。
 - 单次检索结果不理想时，可调整查询后重试或切换多轮检索。
 
+扩展技能策略：
+- 数值计算：用 calculator，不要自己口算。
+- 知识库无结果且需实时信息：用 web_search 补充。
+- 检索到表格数据需统计分析：用 table_analyzer。
+- 检索结果包含图像路径需理解图像：用 image_describer。
+- 检索片段过长影响回答质量：先用 summarizer 压缩再组合。
+
 回答格式：
 - 使用 Markdown 格式，结构清晰。
 - 对于数据类问题，优先使用表格。
@@ -114,7 +122,17 @@ class MultimodalRAGAgent:
             max_tokens=settings.llm_max_tokens,
             request_timeout=settings.llm_request_timeout,
         )
-        self._tools = build_retrieval_tools(retriever, llm=self._llm)
+        # 视觉模型（qwen-vl-max），用于 image_describer skill
+        self._vl_llm = ChatOpenAI(
+            model=settings.vl_model,
+            api_key=settings.dashscope_api_key,
+            base_url=settings.dashscope_base_url,
+            request_timeout=settings.llm_request_timeout,
+        )
+        self._tools = (
+            build_retrieval_tools(retriever, llm=self._llm)
+            + build_skill_tools(llm=self._llm, vl_llm=self._vl_llm)
+        )
         self._agent = create_react_agent(
             model=self._llm,
             tools=self._tools,
