@@ -29,6 +29,8 @@ Agent 对每次查询无状态；对话历史由调用方传入，
 from __future__ import annotations
 
 import json
+import time
+from datetime import datetime
 from typing import Any
 
 from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
@@ -75,7 +77,17 @@ def _summarize_tool_result(tool_name: str, raw: str) -> str:
     return raw[:120]
 
 
-_SYSTEM_PROMPT = """\
+_WEEKDAY_ZH = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
+
+
+def _build_system_prompt() -> str:
+    now = datetime.now()
+    today = f"{now.year}年{now.month:02d}月{now.day:02d}日 {_WEEKDAY_ZH[now.weekday()]}"
+    return f"""\
+【重要】当前真实日期：{today}。
+这是系统注入的准确时间，优先级高于你的训练数据。
+在回答任何涉及时间的问题时，必须以此日期为准，不得使用训练截止日期替代。
+
 你是一个专业的企业知识库智能助手，具备多模态文档理解能力。你的职责是：
 1. 根据用户问题，精确检索知识库中的相关内容（含文本、表格、图表等）。
 2. 基于检索到的上下文，给出准确、结构化、有据可查的回答。
@@ -136,7 +148,7 @@ class MultimodalRAGAgent:
         self._agent = create_react_agent(
             model=self._llm,
             tools=self._tools,
-            prompt=_SYSTEM_PROMPT,
+            prompt=_build_system_prompt(),
         )
 
     # ──────────────────────────────────────────────────────────────────────
@@ -166,27 +178,77 @@ class MultimodalRAGAgent:
 
         logger.info(f"[RAGAgent] 问题：{question[:120]}")
 
-        result = self._agent.invoke({"messages": messages})
+        t_total_start = time.perf_counter()
 
-        # 提取最终回答（最后一条 AI 消息）
-        output_messages = result.get("messages", [])
+        # 用 stream 逐节点消费，记录每个工具调用的开始 / 结束时间
+        # stream_mode="updates" 每次返回 {node_name: state_diff}
+        all_messages: list = []
+        tool_steps: list[dict] = []
+        # tool_call_id -> {"step": dict, "t_start": float}
+        _pending: dict[str, dict] = {}
+        _t_agent_done: float = t_total_start   # 上一次 agent 节点完成的时间点
+
+        for chunk in self._agent.stream(
+            {"messages": messages}, stream_mode="updates"
+        ):
+            t_now = time.perf_counter()
+            for node_name, state_diff in chunk.items():
+                node_msgs = state_diff.get("messages", [])
+
+                if node_name == "agent":
+                    _t_agent_done = t_now
+                    for msg in node_msgs:
+                        if isinstance(msg, AIMessage) and msg.tool_calls:
+                            for call in msg.tool_calls:
+                                step: dict = {
+                                    "tool": call["name"],
+                                    "args": call.get("args", {}),
+                                    "result_summary": "",
+                                    "status": "running",
+                                    "elapsed_ms": None,
+                                }
+                                tool_steps.append(step)
+                                _pending[call["id"]] = {
+                                    "step": step,
+                                    "t_start": t_now,
+                                }
+
+                elif node_name == "tools":
+                    for msg in node_msgs:
+                        if isinstance(msg, ToolMessage):
+                            pending = _pending.pop(msg.tool_call_id, None)
+                            if pending:
+                                elapsed = round((t_now - pending["t_start"]) * 1000)
+                                s = pending["step"]
+                                s["elapsed_ms"] = elapsed
+                                s["status"] = "done"
+                                content = msg.content if isinstance(msg.content, str) else ""
+                                s["result_summary"] = _summarize_tool_result(s["tool"], content)
+                                logger.info(
+                                    f"[RAGAgent] 工具 {s['tool']} 完成，耗时 {elapsed}ms"
+                                )
+
+                all_messages.extend(node_msgs)
+
+        # 提取最终回答（最后一条无 tool_calls 的 AIMessage）
         answer = ""
-        for msg in reversed(output_messages):
+        for msg in reversed(all_messages):
             if isinstance(msg, AIMessage) and msg.content and not msg.tool_calls:
                 answer = msg.content
                 break
 
-        # 从消息历史中提取来源引用和工具调用步骤
-        sources = self._extract_sources(output_messages)
-        tool_steps = self._extract_tool_steps(output_messages)
+        sources = self._extract_sources(all_messages)
+        total_elapsed_ms = round((time.perf_counter() - t_total_start) * 1000)
 
         logger.info(
-            f"[RAGAgent] 答案：{len(answer)} 字 | 来源：{len(sources)} | 工具调用：{len(tool_steps)}"
+            f"[RAGAgent] 答案：{len(answer)} 字 | 来源：{len(sources)} | "
+            f"工具调用：{len(tool_steps)} | 总耗时：{total_elapsed_ms}ms"
         )
         return {
             "answer": answer,
             "sources": sources,
             "tool_steps": tool_steps,
+            "total_elapsed_ms": total_elapsed_ms,
             "intermediate_steps": [],
         }
 
@@ -208,39 +270,6 @@ class MultimodalRAGAgent:
             elif role == "assistant":
                 messages.append(AIMessage(content=content))
         return messages
-
-    @staticmethod
-    def _extract_tool_steps(messages: list) -> list[dict]:
-        """
-        从 LangGraph 消息列表中提取工具调用步骤，用于前端展示思考过程。
-
-        匹配逻辑：AIMessage.tool_calls 中的每个调用通过 tool_call_id
-        与对应的 ToolMessage 关联，从而附上可读的结果摘要。
-        """
-        steps: list[dict] = []
-        id_to_step: dict[str, dict] = {}
-
-        for msg in messages:
-            if isinstance(msg, AIMessage) and msg.tool_calls:
-                for call in msg.tool_calls:
-                    step = {
-                        "tool": call["name"],
-                        "args": call.get("args", {}),
-                        "result_summary": "",
-                    }
-                    steps.append(step)
-                    id_to_step[call["id"]] = step
-
-            elif isinstance(msg, ToolMessage):
-                step = id_to_step.get(msg.tool_call_id)
-                if step is None:
-                    continue
-                content = msg.content if isinstance(msg.content, str) else ""
-                step["result_summary"] = _summarize_tool_result(
-                    step["tool"], content
-                )
-
-        return steps
 
     @staticmethod
     def _extract_sources(messages: list) -> list[dict[str, str]]:

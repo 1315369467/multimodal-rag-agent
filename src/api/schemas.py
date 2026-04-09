@@ -39,6 +39,8 @@ class ToolCallStep(BaseModel):
     tool: str                          # 工具名称
     args: dict[str, Any]               # 调用参数
     result_summary: str = ""           # 结果摘要（可读文本）
+    status: str = "done"               # running | done | error
+    elapsed_ms: Optional[int] = None   # 工具执行耗时（毫秒）
 
 
 class QueryResponse(BaseModel):
@@ -47,6 +49,7 @@ class QueryResponse(BaseModel):
     question: str
     total_sources: int
     tool_steps: list[ToolCallStep] = Field(default_factory=list)
+    total_elapsed_ms: Optional[int] = None   # 整体耗时（毫秒）
 
     @classmethod
     def from_agent_result(cls, question: str, result: dict[str, Any]) -> "QueryResponse":
@@ -58,6 +61,7 @@ class QueryResponse(BaseModel):
             question=question,
             total_sources=len(sources),
             tool_steps=tool_steps,
+            total_elapsed_ms=result.get("total_elapsed_ms"),
         )
 
 
