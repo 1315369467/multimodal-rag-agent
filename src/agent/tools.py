@@ -108,6 +108,7 @@ def build_retrieval_tools(retriever: "HybridRetriever", llm: Any = None) -> list
                 "content": doc.page_content,
                 "source": doc.metadata.get("source", source_file),
                 "page": doc.metadata.get("page_num", "?"),
+                "block_type": doc.metadata.get("block_type", "text"),
             }
             for i, (doc, _) in enumerate(docs[:5], start=1)
         ]

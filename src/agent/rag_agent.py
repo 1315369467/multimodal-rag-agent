@@ -374,7 +374,8 @@ class MultimodalRAGAgent:
             try:
                 data = json.loads(content)
                 for result in data.get("results", []):
-                    key = f"{result.get('source')}:{result.get('page')}"
+                    content = result.get("content", "")
+                    key = content[:300] if content else f"{result.get('source')}:{result.get('page')}:{len(sources)}"
                     if key not in seen:
                         seen.add(key)
                         sources.append(
@@ -382,7 +383,7 @@ class MultimodalRAGAgent:
                                 "source": result.get("source", "unknown"),
                                 "page": str(result.get("page", "?")),
                                 "block_type": result.get("block_type", "text"),
-                                "content": result.get("content", ""),
+                                "content": content,
                             }
                         )
             except (json.JSONDecodeError, AttributeError):
