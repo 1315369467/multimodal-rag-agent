@@ -1,0 +1,180 @@
+/* ================================================
+   多模态 RAG 知识库 — 全局样式
+   ================================================ */
+
+/* ---------- 全局字体 & 背景 ---------- */
+html, body, [class*="css"] {
+    font-family: "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+}
+
+/* ---------- 侧边栏（OpenAI 浅灰风格） ---------- */
+[data-testid="stSidebar"] {
+    background: #f9f9f9;
+    border-right: 1px solid #e5e5e5;
+}
+[data-testid="stSidebar"] * {
+    color: #1a1a1a !important;
+}
+[data-testid="stSidebar"] .stRadio > label {
+    color: #888 !important;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+[data-testid="stSidebar"] .stRadio div[role="radiogroup"] label {
+    background: transparent;
+    border-radius: 8px;
+    padding: 9px 14px;
+    margin: 2px 0;
+    transition: background 0.15s;
+    border: 1px solid transparent;
+    font-size: 0.93rem !important;
+    color: #2d2d2d !important;
+}
+[data-testid="stSidebar"] .stRadio div[role="radiogroup"] label:hover {
+    background: #ececec;
+}
+[data-testid="stSidebar"] .stRadio div[role="radiogroup"] label[data-checked="true"],
+[data-testid="stSidebar"] .stRadio div[role="radiogroup"] [aria-checked="true"] ~ label {
+    background: #e8e8e8;
+    border-color: #d0d0d0;
+    font-weight: 600;
+}
+[data-testid="stSidebar"] hr {
+    border-color: #e5e5e5 !important;
+}
+
+/* ---------- 主区域 ---------- */
+.main .block-container {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+/* ---------- 页面标题 ---------- */
+h1, h2, h3 { font-weight: 700; }
+
+/* ---------- 卡片样式（文档块） ---------- */
+.doc-card {
+    background: var(--background-color, #fff);
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    transition: box-shadow 0.2s;
+}
+.doc-card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+.doc-card .meta-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    font-size: 0.82rem;
+    color: #666;
+    margin-bottom: 6px;
+}
+.doc-card .meta-badge {
+    background: #f0f4ff;
+    color: #3b5ec6;
+    border-radius: 6px;
+    padding: 2px 8px;
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+.doc-card .content-preview {
+    color: #333;
+    font-size: 0.92rem;
+    line-height: 1.5;
+    margin-top: 4px;
+}
+
+/* ---------- 指标卡片 ---------- */
+.metric-card {
+    border-radius: 14px;
+    padding: 20px 24px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+.metric-card .metric-label {
+    font-size: 0.85rem;
+    opacity: 0.9;
+    margin-bottom: 6px;
+}
+.metric-card .metric-value {
+    font-size: 2rem;
+    font-weight: 800;
+}
+
+/* ---------- 上传区域 ---------- */
+[data-testid="stFileUploader"] {
+    border: 2px dashed #d0d0d0;
+    border-radius: 14px;
+    padding: 8px;
+    transition: border-color 0.2s;
+}
+[data-testid="stFileUploader"]:hover {
+    border-color: #3b82f6;
+}
+
+/* ---------- 主要按钮 ---------- */
+.stButton > button[kind="primary"] {
+    background: linear-gradient(135deg, #3b82f6, #6366f1);
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition: opacity 0.2s, transform 0.1s;
+    box-shadow: 0 3px 10px rgba(99,102,241,0.35);
+}
+.stButton > button[kind="primary"]:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+/* ---------- 状态徽章 ---------- */
+.status-healthy {
+    display: inline-block;
+    background: #d1fae5;
+    color: #065f46;
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+.status-error {
+    display: inline-block;
+    background: #fee2e2;
+    color: #991b1b;
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* ---------- 工具步骤 ---------- */
+.tool-step {
+    background: rgba(59,130,246,0.06);
+    border-left: 3px solid #3b82f6;
+    border-radius: 0 8px 8px 0;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+}
+.tool-step .step-title {
+    font-weight: 600;
+    font-size: 0.93rem;
+    margin-bottom: 4px;
+}
+.tool-step .step-summary {
+    color: #555;
+    font-size: 0.85rem;
+}
+
+/* ---------- 分页控件 ---------- */
+.pagination-info {
+    text-align: center;
+    padding-top: 8px;
+    color: #666;
+    font-size: 0.9rem;
+}

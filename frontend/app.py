@@ -8,6 +8,7 @@
 import streamlit as st
 import requests
 import time
+from pathlib import Path
 
 # ==================== 全局配置 ====================
 
@@ -19,11 +20,15 @@ st.set_page_config(
     layout="wide",
 )
 
+# ==================== 全局 CSS ====================
+
+_css = (Path(__file__).parent / "style.css").read_text(encoding="utf-8")
+st.markdown(f"<style>{_css}</style>", unsafe_allow_html=True)
+
 # ==================== 工具函数 ====================
 
 
 def api_get(path: str, params: dict | None = None) -> dict | None:
-    """发送 GET 请求到后端，返回 JSON 或在出错时显示错误"""
     try:
         resp = requests.get(f"{API_BASE}{path}", params=params, timeout=30)
         resp.raise_for_status()
@@ -38,7 +43,6 @@ def api_get(path: str, params: dict | None = None) -> dict | None:
 
 
 def api_post(path: str, json_body: dict | None = None, files=None) -> dict | None:
-    """发送 POST 请求到后端"""
     try:
         resp = requests.post(
             f"{API_BASE}{path}", json=json_body, files=files, timeout=120
@@ -55,7 +59,6 @@ def api_post(path: str, json_body: dict | None = None, files=None) -> dict | Non
 
 
 def api_delete(path: str) -> dict | None:
-    """发送 DELETE 请求到后端"""
     try:
         resp = requests.delete(f"{API_BASE}{path}", timeout=30)
         resp.raise_for_status()
@@ -70,7 +73,6 @@ def api_delete(path: str) -> dict | None:
 
 
 def truncate(text: str, max_len: int = 80) -> str:
-    """截断文本并添加省略号"""
     if not text:
         return ""
     return text[:max_len] + "…" if len(text) > max_len else text
@@ -79,27 +81,60 @@ def truncate(text: str, max_len: int = 80) -> str:
 # ==================== 侧边栏导航 ====================
 
 with st.sidebar:
-    st.title("📚 多模态 RAG 知识库")
+    st.markdown(
+        """
+        <div style="text-align:center; padding: 8px 0 4px;">
+            <span style="font-size:2.4rem;">📚</span>
+            <div style="font-size:1.15rem; font-weight:700; margin-top:4px; color:#1a1a1a;">
+                多模态 RAG 知识库
+            </div>
+            <div style="font-size:0.78rem; color:#888; margin-top:2px;">
+                Multimodal Retrieval-Augmented Generation
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
     st.divider()
+
+    _NAV_ICONS = {
+        "知识库浏览": "📂",
+        "智能问答": "💬",
+        "文档入库": "📤",
+        "系统管理": "⚙️",
+    }
+    _NAV_DESCS = {
+        "知识库浏览": "浏览、检索文档块",
+        "智能问答": "多轮 Agent 问答",
+        "文档入库": "上传文件入库",
+        "系统管理": "状态监控与维护",
+    }
+
     page = st.radio(
         "功能导航",
-        ["知识库浏览", "智能问答", "文档入库", "系统管理"],
+        list(_NAV_ICONS.keys()),
         index=0,
+        format_func=lambda x: f"{_NAV_ICONS[x]}  {x}",
+    )
+
+    st.divider()
+    st.markdown(
+        f"<div style='font-size:0.8rem; color:#888; padding: 0 4px;'>"
+        f"{_NAV_DESCS[page]}</div>",
+        unsafe_allow_html=True,
     )
 
 # ==================== 页面 1：知识库浏览 ====================
 
 if page == "知识库浏览":
-    st.header("📂 知识库浏览")
+    st.markdown("## 📂 知识库浏览")
     st.caption("浏览、查看和管理知识库中的所有文档块。")
 
-    # 初始化分页状态
     if "browse_page" not in st.session_state:
         st.session_state.browse_page = 0
     if "browse_page_size" not in st.session_state:
         st.session_state.browse_page_size = 20
 
-    # 分页大小选择
     col_size, col_spacer = st.columns([1, 4])
     with col_size:
         page_size = st.selectbox(
@@ -114,21 +149,33 @@ if page == "知识库浏览":
             st.rerun()
 
     offset = st.session_state.browse_page * st.session_state.browse_page_size
-    data = api_get("/v1/documents", params={"offset": offset, "limit": st.session_state.browse_page_size})
+    data = api_get(
+        "/v1/documents",
+        params={"offset": offset, "limit": st.session_state.browse_page_size},
+    )
 
     if data is not None:
         items = data.get("items", [])
         total = data.get("total", 0)
-        total_pages = max(1, (total + st.session_state.browse_page_size - 1) // st.session_state.browse_page_size)
+        total_pages = max(
+            1,
+            (total + st.session_state.browse_page_size - 1)
+            // st.session_state.browse_page_size,
+        )
 
-        st.info(f"共 **{total}** 条文档块，当前第 **{st.session_state.browse_page + 1}** / **{total_pages}** 页")
+        # 统计栏
+        c1, c2, c3 = st.columns(3)
+        with c1:
+            st.metric("文档块总数", total)
+        with c2:
+            st.metric("当前页", f"{st.session_state.browse_page + 1} / {total_pages}")
+        with c3:
+            st.metric("本页条目", len(items))
 
-        # 批量删除：用 session_state 存储选中的文档 ID
         if "selected_ids" not in st.session_state:
             st.session_state.selected_ids = set()
 
         if items:
-            # 批量删除按钮
             col_batch, _ = st.columns([1, 4])
             with col_batch:
                 if st.button("🗑️ 批量删除选中", type="secondary"):
@@ -137,7 +184,6 @@ if page == "知识库浏览":
                     else:
                         st.warning("请先勾选要删除的文档。")
 
-            # 批量删除确认
             if st.session_state.get("confirm_batch_delete"):
                 st.warning(
                     f"确定要删除选中的 **{len(st.session_state.selected_ids)}** 条文档吗？此操作不可撤销！"
@@ -166,7 +212,14 @@ if page == "知识库浏览":
                         st.session_state.confirm_batch_delete = False
                         st.rerun()
 
-            # 文档列表
+            st.divider()
+
+            # 文档卡片列表
+            _TYPE_COLORS = {
+                "text": "#dbeafe",
+                "image": "#fce7f3",
+                "table": "#d1fae5",
+            }
             for item in items:
                 doc_id = item.get("id", "")
                 content = item.get("content", "")
@@ -174,8 +227,9 @@ if page == "知识库浏览":
                 source = metadata.get("source", "未知")
                 page_num = metadata.get("page", "-")
                 block_type = metadata.get("block_type", "-")
+                badge_bg = _TYPE_COLORS.get(str(block_type).lower(), "#f3f4f6")
 
-                col_check, col_info = st.columns([0.05, 0.95])
+                col_check, col_card = st.columns([0.04, 0.96])
                 with col_check:
                     checked = st.checkbox(
                         "选择",
@@ -188,16 +242,43 @@ if page == "知识库浏览":
                     else:
                         st.session_state.selected_ids.discard(doc_id)
 
-                with col_info:
+                with col_card:
                     with st.expander(
-                        f"**ID:** `{truncate(doc_id, 16)}` | **来源:** {source} | **页码:** {page_num} | **类型:** {block_type} | {truncate(content, 60)}"
+                        f"📄 {source}  ·  第 {page_num} 页  ·  {block_type}  —  {truncate(content, 60)}"
                     ):
-                        st.markdown("**完整内容：**")
-                        st.text(content)
-                        st.markdown(f"**元数据：** `{metadata}`")
+                        # 元数据徽章行
+                        st.markdown(
+                            f"""
+                            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px;">
+                                <span style="background:#eff6ff;color:#1d4ed8;border-radius:6px;padding:3px 10px;font-size:0.8rem;font-weight:600;">
+                                    🆔 {truncate(doc_id, 18)}
+                                </span>
+                                <span style="background:#f0fdf4;color:#166534;border-radius:6px;padding:3px 10px;font-size:0.8rem;font-weight:600;">
+                                    📁 {source}
+                                </span>
+                                <span style="background:#faf5ff;color:#6b21a8;border-radius:6px;padding:3px 10px;font-size:0.8rem;font-weight:600;">
+                                    📃 第 {page_num} 页
+                                </span>
+                                <span style="background:{badge_bg};color:#374151;border-radius:6px;padding:3px 10px;font-size:0.8rem;font-weight:600;">
+                                    🏷️ {block_type}
+                                </span>
+                            </div>
+                            """,
+                            unsafe_allow_html=True,
+                        )
+                        st.markdown("**完整内容**")
+                        st.text_area(
+                            "content",
+                            value=content,
+                            height=120,
+                            disabled=True,
+                            label_visibility="collapsed",
+                            key=f"ta_{doc_id}",
+                        )
+                        with st.expander("查看原始元数据"):
+                            st.json(metadata)
 
-                        # 单条删除
-                        if st.button("删除此文档", key=f"del_{doc_id}", type="secondary"):
+                        if st.button("🗑️ 删除此文档", key=f"del_{doc_id}", type="secondary"):
                             st.session_state[f"confirm_del_{doc_id}"] = True
 
                         if st.session_state.get(f"confirm_del_{doc_id}"):
@@ -228,21 +309,23 @@ if page == "知识库浏览":
                 st.rerun()
         with col_page_info:
             st.markdown(
-                f"<div style='text-align:center; padding-top:8px;'>第 {st.session_state.browse_page + 1} / {total_pages} 页</div>",
+                f"<div class='pagination-info'>第 {st.session_state.browse_page + 1} / {total_pages} 页</div>",
                 unsafe_allow_html=True,
             )
         with col_next:
-            if st.button("下一页 ➡️", disabled=(st.session_state.browse_page >= total_pages - 1)):
+            if st.button(
+                "下一页 ➡️",
+                disabled=(st.session_state.browse_page >= total_pages - 1),
+            ):
                 st.session_state.browse_page += 1
                 st.rerun()
 
 # ==================== 页面 2：智能问答 ====================
 
 elif page == "智能问答":
-    st.header("💬 智能问答")
-    st.caption("基于知识库进行多模态检索增强问答。")
+    st.markdown("## 💬 智能问答")
+    st.caption("基于知识库进行多模态检索增强问答，支持多轮对话。")
 
-    # 工具名称 → 可读标签 + 图标
     _TOOL_LABELS = {
         "knowledge_base_search": ("🔍", "知识库检索"),
         "knowledge_base_search_with_filter": ("📄", "按文件检索"),
@@ -251,69 +334,82 @@ elif page == "智能问答":
     }
 
     def _render_tool_steps(tool_steps: list[dict]) -> None:
-        """在 st.status 容器内渲染工具调用步骤列表。"""
         for idx, step in enumerate(tool_steps, 1):
             tool_name = step.get("tool", "")
             args = step.get("args", {})
             summary = step.get("result_summary", "")
             icon, label = _TOOL_LABELS.get(tool_name, ("🛠️", tool_name))
 
-            st.markdown(f"**步骤 {idx}　{icon} {label}**")
-
-            # 参数展示
+            st.markdown(
+                f"""
+                <div class="tool-step">
+                    <div class="step-title">{icon} 步骤 {idx}：{label}</div>
+                """,
+                unsafe_allow_html=True,
+            )
             if args:
-                arg_lines = []
-                for k, v in args.items():
-                    v_str = str(v)
-                    arg_lines.append(f"- `{k}`: {v_str[:120]}" + ("…" if len(v_str) > 120 else ""))
-                st.markdown("\n".join(arg_lines))
-
-            # 结果摘要
+                arg_md = "\n".join(
+                    f"- `{k}`: {str(v)[:120]}" + ("…" if len(str(v)) > 120 else "")
+                    for k, v in args.items()
+                )
+                st.markdown(arg_md)
             if summary:
-                st.caption(f"↳ {summary}")
-
-            if idx < len(tool_steps):
-                st.divider()
+                st.markdown(
+                    f"<div class='step-summary'>↳ {summary}</div>",
+                    unsafe_allow_html=True,
+                )
+            st.markdown("</div>", unsafe_allow_html=True)
 
     def _render_sources(sources: list[dict]) -> None:
-        with st.expander("📎 参考来源"):
+        with st.expander(f"📎 参考来源（{len(sources)} 条）"):
             for i, src in enumerate(sources, 1):
-                st.markdown(
-                    f"**来源 {i}：** {src.get('source', '未知')} "
-                    f"(页码: {src.get('page', '-')}, "
-                    f"类型: {src.get('block_type', '-')})"
-                )
-                st.divider()
+                c1, c2, c3 = st.columns(3)
+                with c1:
+                    st.markdown(f"**来源 {i}**　📁 {src.get('source', '未知')}")
+                with c2:
+                    st.markdown(f"📃 第 {src.get('page', '-')} 页")
+                with c3:
+                    st.markdown(f"🏷️ {src.get('block_type', '-')}")
+                if i < len(sources):
+                    st.divider()
 
-    # 初始化聊天历史
     if "chat_history" not in st.session_state:
-        st.session_state.chat_history = []  # [{role, content}]
+        st.session_state.chat_history = []
     if "chat_display" not in st.session_state:
-        st.session_state.chat_display = []  # [{role, content, sources, tool_steps}]
+        st.session_state.chat_display = []
 
-    # 显示历史消息
+    # 顶部操作栏
+    top_col1, top_col2 = st.columns([6, 1])
+    with top_col2:
+        if st.session_state.chat_display:
+            if st.button("🔄 清空对话", use_container_width=True):
+                st.session_state.chat_history.clear()
+                st.session_state.chat_display.clear()
+                st.rerun()
+
+    # 聊天历史
     for msg in st.session_state.chat_display:
         with st.chat_message(msg["role"]):
-            # 历史 assistant 消息：先展示工具步骤（折叠），再展示回答
             if msg["role"] == "assistant" and msg.get("tool_steps"):
-                with st.expander(f"🧠 思考过程（{len(msg['tool_steps'])} 步）", expanded=False):
+                with st.expander(
+                    f"🧠 思考过程（{len(msg['tool_steps'])} 步工具调用）",
+                    expanded=False,
+                ):
                     _render_tool_steps(msg["tool_steps"])
             st.markdown(msg["content"])
             if msg.get("sources"):
                 _render_sources(msg["sources"])
 
-    # 输入区域
-    question = st.chat_input("请输入您的问题…")
+    # 输入框
+    question = st.chat_input("请输入您的问题，按 Enter 发送…")
 
     if question:
-        # 显示用户消息
         st.session_state.chat_display.append({"role": "user", "content": question})
         with st.chat_message("user"):
             st.markdown(question)
 
-        # 调用后端，用 st.status 实时展示"正在思考"状态
         with st.chat_message("assistant"):
-            with st.status("Agent 正在思考…", expanded=True) as status:
+            with st.status("🤖 Agent 正在思考…", expanded=True) as status:
                 result = api_post(
                     "/v1/query",
                     json_body={
@@ -327,12 +423,12 @@ elif page == "智能问答":
                     if tool_steps:
                         _render_tool_steps(tool_steps)
                     status.update(
-                        label=f"思考完成（{len(tool_steps)} 步工具调用）",
+                        label=f"✅ 思考完成（{len(tool_steps)} 步工具调用）",
                         state="complete",
                         expanded=False,
                     )
                 else:
-                    status.update(label="请求失败", state="error", expanded=False)
+                    status.update(label="❌ 请求失败", state="error", expanded=False)
 
             if result:
                 answer = result.get("answer", "未能获取回答。")
@@ -340,18 +436,22 @@ elif page == "智能问答":
                 tool_steps = result.get("tool_steps", [])
 
                 st.markdown(answer)
-
                 if sources:
                     _render_sources(sources)
 
-                # 更新聊天历史（用于后端上下文）
-                st.session_state.chat_history.append({"role": "user", "content": question})
-                st.session_state.chat_history.append({"role": "assistant", "content": answer})
-
-                # 更新显示历史（含工具步骤，供下次渲染）
+                st.session_state.chat_history.append(
+                    {"role": "user", "content": question}
+                )
+                st.session_state.chat_history.append(
+                    {"role": "assistant", "content": answer}
+                )
                 st.session_state.chat_display.append(
-                    {"role": "assistant", "content": answer,
-                     "sources": sources, "tool_steps": tool_steps}
+                    {
+                        "role": "assistant",
+                        "content": answer,
+                        "sources": sources,
+                        "tool_steps": tool_steps,
+                    }
                 )
             else:
                 fallback = "抱歉，请求出现错误，请稍后重试。"
@@ -360,97 +460,179 @@ elif page == "智能问答":
                     {"role": "assistant", "content": fallback}
                 )
 
-    # 清空历史按钮
-    if st.session_state.chat_display:
-        if st.button("🔄 清空对话历史"):
-            st.session_state.chat_history.clear()
-            st.session_state.chat_display.clear()
-            st.rerun()
-
 # ==================== 页面 3：文档入库 ====================
 
 elif page == "文档入库":
-    st.header("📤 文档入库")
+    st.markdown("## 📤 文档入库")
     st.caption("上传文件到知识库，支持 PDF、TXT、Markdown、PNG、JPG 格式。")
 
+    # 支持格式说明
+    fmt_cols = st.columns(5)
+    _FMT_INFO = [
+        ("📄", "PDF", "#dbeafe"),
+        ("📝", "TXT / MD", "#d1fae5"),
+        ("🖼️", "PNG", "#fce7f3"),
+        ("📷", "JPG / JPEG", "#fef3c7"),
+        ("🗂️", "多文件批量", "#ede9fe"),
+    ]
+    for col, (icon, label, bg) in zip(fmt_cols, _FMT_INFO):
+        with col:
+            st.markdown(
+                f"""<div style="background:{bg};border-radius:10px;padding:12px;text-align:center;">
+                    <div style="font-size:1.5rem;">{icon}</div>
+                    <div style="font-size:0.82rem;font-weight:600;margin-top:4px;">{label}</div>
+                </div>""",
+                unsafe_allow_html=True,
+            )
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
     uploaded_files = st.file_uploader(
-        "选择文件（可多选）",
+        "拖拽文件到此处，或点击选择文件（可多选）",
         type=["pdf", "txt", "md", "png", "jpg", "jpeg"],
         accept_multiple_files=True,
     )
 
     if uploaded_files:
-        st.info(f"已选择 **{len(uploaded_files)}** 个文件：{', '.join(f.name for f in uploaded_files)}")
+        st.markdown(f"**已选择 {len(uploaded_files)} 个文件：**")
+        file_cols = st.columns(min(len(uploaded_files), 4))
+        _EXT_ICONS = {
+            "pdf": "📄", "txt": "📝", "md": "📝",
+            "png": "🖼️", "jpg": "📷", "jpeg": "📷",
+        }
+        for i, f in enumerate(uploaded_files):
+            ext = f.name.rsplit(".", 1)[-1].lower()
+            icon = _EXT_ICONS.get(ext, "📁")
+            size_kb = len(f.getvalue()) / 1024
+            with file_cols[i % 4]:
+                st.markdown(
+                    f"""<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;
+                                   padding:10px 12px;margin-bottom:8px;">
+                        <div style="font-size:1.3rem;">{icon}</div>
+                        <div style="font-size:0.85rem;font-weight:600;word-break:break-all;">{f.name}</div>
+                        <div style="font-size:0.75rem;color:#888;">{size_kb:.1f} KB</div>
+                    </div>""",
+                    unsafe_allow_html=True,
+                )
 
-        if st.button("🚀 开始上传并入库", type="primary"):
-            # 构建 multipart 文件列表
-            files_payload = []
-            for f in uploaded_files:
-                files_payload.append(("files", (f.name, f.getvalue(), f.type or "application/octet-stream")))
+        st.markdown("<br>", unsafe_allow_html=True)
 
-            with st.spinner("正在上传和处理文件，请稍候…"):
-                progress_bar = st.progress(0, text="上传中…")
-                try:
-                    resp = requests.post(
-                        f"{API_BASE}/v1/ingest/upload",
-                        files=files_payload,
-                        timeout=300,
+        if st.button("🚀 开始上传并入库", type="primary", use_container_width=False):
+            files_payload = [
+                ("files", (f.name, f.getvalue(), f.type or "application/octet-stream"))
+                for f in uploaded_files
+            ]
+
+            progress_bar = st.progress(0, text="准备上传…")
+            try:
+                progress_bar.progress(20, text="正在上传文件…")
+                resp = requests.post(
+                    f"{API_BASE}/v1/ingest/upload",
+                    files=files_payload,
+                    timeout=300,
+                )
+                progress_bar.progress(80, text="正在处理文件…")
+                resp.raise_for_status()
+                result = resp.json()
+                progress_bar.progress(100, text="处理完成！")
+
+                st.success("文件上传并入库成功！")
+                r1, r2, r3 = st.columns(3)
+                with r1:
+                    st.markdown(
+                        f"""<div class="metric-card" style="background:linear-gradient(135deg,#3b82f6,#6366f1);">
+                            <div class="metric-label">处理文件数</div>
+                            <div class="metric-value">{result.get("files_processed", "-")}</div>
+                        </div>""",
+                        unsafe_allow_html=True,
                     )
-                    progress_bar.progress(100, text="处理完成")
-                    resp.raise_for_status()
-                    result = resp.json()
+                with r2:
+                    st.markdown(
+                        f"""<div class="metric-card" style="background:linear-gradient(135deg,#10b981,#059669);">
+                            <div class="metric-label">入库文档数</div>
+                            <div class="metric-value">{result.get("documents_ingested", "-")}</div>
+                        </div>""",
+                        unsafe_allow_html=True,
+                    )
+                with r3:
+                    st.markdown(
+                        f"""<div class="metric-card" style="background:linear-gradient(135deg,#f59e0b,#d97706);">
+                            <div class="metric-label">生成块数</div>
+                            <div class="metric-value">{result.get("chunks_created", "-")}</div>
+                        </div>""",
+                        unsafe_allow_html=True,
+                    )
 
-                    st.success("文件上传并入库成功！")
-                    col1, col2, col3 = st.columns(3)
-                    with col1:
-                        st.metric("处理文件数", result.get("files_processed", "-"))
-                    with col2:
-                        st.metric("文档数", result.get("documents_ingested", "-"))
-                    with col3:
-                        st.metric("生成块数", result.get("chunks_created", "-"))
-
-                except requests.exceptions.ConnectionError:
-                    progress_bar.empty()
-                    st.error("无法连接到后端服务，请确认服务已启动。")
-                except requests.exceptions.HTTPError as e:
-                    progress_bar.empty()
-                    st.error(f"上传失败：{e.response.status_code} - {e.response.text}")
-                except Exception as e:
-                    progress_bar.empty()
-                    st.error(f"上传异常：{e}")
+            except requests.exceptions.ConnectionError:
+                progress_bar.empty()
+                st.error("无法连接到后端服务，请确认服务已启动。")
+            except requests.exceptions.HTTPError as e:
+                progress_bar.empty()
+                st.error(f"上传失败：{e.response.status_code} - {e.response.text}")
+            except Exception as e:
+                progress_bar.empty()
+                st.error(f"上传异常：{e}")
 
 # ==================== 页面 4：系统管理 ====================
 
 elif page == "系统管理":
-    st.header("⚙️ 系统管理")
-    st.caption("查看系统状态和管理知识库集合。")
+    st.markdown("## ⚙️ 系统管理")
+    st.caption("查看系统状态、监控指标和管理知识库集合。")
 
-    # 健康检查
     st.subheader("系统状态")
     health = api_get("/health")
 
     if health:
-        col1, col2, col3, col4 = st.columns(4)
-        with col1:
-            status = health.get("status", "unknown")
-            if status == "healthy" or status == "ok":
-                st.success(f"服务状态：{status}")
-            else:
-                st.warning(f"服务状态：{status}")
-        with col2:
-            st.metric("文档总数", health.get("document_count", "-"))
-        with col3:
-            st.info(f"模型：{health.get('model', '-')}")
-        with col4:
-            st.info(f"集合：{health.get('collection', '-')}")
+        status_val = health.get("status", "unknown")
+        is_healthy = status_val in ("healthy", "ok")
+        badge_html = (
+            f'<span class="status-healthy">● {status_val}</span>'
+            if is_healthy
+            else f'<span class="status-error">● {status_val}</span>'
+        )
+
+        st.markdown(f"服务状态：{badge_html}", unsafe_allow_html=True)
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        mc1, mc2, mc3, mc4 = st.columns(4)
+        _CARD_STYLES = [
+            "linear-gradient(135deg,#3b82f6,#6366f1)",
+            "linear-gradient(135deg,#10b981,#059669)",
+            "linear-gradient(135deg,#8b5cf6,#7c3aed)",
+            "linear-gradient(135deg,#f59e0b,#d97706)",
+        ]
+        _CARD_DATA = [
+            ("文档总数", health.get("document_count", "-"), "📦"),
+            ("模型", health.get("model", "-"), "🤖"),
+            ("集合名称", health.get("collection", "-"), "🗄️"),
+            ("版本", health.get("version", "v1.0"), "🏷️"),
+        ]
+        for col, style, (label, value, icon) in zip(
+            [mc1, mc2, mc3, mc4], _CARD_STYLES, _CARD_DATA
+        ):
+            with col:
+                st.markdown(
+                    f"""<div class="metric-card" style="background:{style};">
+                        <div style="font-size:1.4rem;">{icon}</div>
+                        <div class="metric-label">{label}</div>
+                        <div class="metric-value" style="font-size:1.4rem;">{value}</div>
+                    </div>""",
+                    unsafe_allow_html=True,
+                )
     else:
-        st.error("无法获取系统状态。")
+        st.error("无法获取系统状态，请检查后端服务是否正常运行。")
 
     st.divider()
 
-    # 重置集合（危险操作）
-    st.subheader("危险操作")
-    st.warning("以下操作将删除知识库中的所有数据，请谨慎操作！")
+    # 危险操作区
+    st.subheader("⚠️ 危险操作")
+    st.markdown(
+        """<div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:14px 18px;color:#92400e;">
+            <strong>警告：</strong>以下操作将永久删除知识库中的所有数据，请在充分确认后再执行。
+        </div>""",
+        unsafe_allow_html=True,
+    )
+    st.markdown("<br>", unsafe_allow_html=True)
 
     if "confirm_reset" not in st.session_state:
         st.session_state.confirm_reset = False
