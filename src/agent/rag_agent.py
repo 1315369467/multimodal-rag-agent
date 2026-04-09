@@ -382,6 +382,7 @@ class MultimodalRAGAgent:
                                 "source": result.get("source", "unknown"),
                                 "page": str(result.get("page", "?")),
                                 "block_type": result.get("block_type", "text"),
+                                "content": result.get("content", ""),
                             }
                         )
             except (json.JSONDecodeError, AttributeError):

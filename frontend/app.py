@@ -405,6 +405,16 @@ elif page == "智能问答":
                     st.markdown(f"📃 第 {src.get('page', '-')} 页")
                 with c3:
                     st.markdown(f"🏷️ {src.get('block_type', '-')}")
+                content = src.get("content", "")
+                if content:
+                    st.text_area(
+                        "chunk内容",
+                        value=content,
+                        height=120,
+                        disabled=True,
+                        label_visibility="collapsed",
+                        key=f"src_content_{i}_{hash(content)}",
+                    )
                 if i < len(sources):
                     st.divider()
 

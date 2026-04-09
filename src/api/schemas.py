@@ -32,6 +32,7 @@ class SourceReference(BaseModel):
     source: str
     page: str
     block_type: str
+    content: str = ""
 
 
 class ToolCallStep(BaseModel):
