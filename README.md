@@ -302,8 +302,59 @@ PDF 页面首先经过文本提取（低延迟），若检测到图像覆盖率�
 
 消融实验（`--chunk-ablation all`）可对所有策略做一键对比，帮助针对具体语料选择最优切分方式。
 
-### 语义感知切分（PDF 专用）
-利用 PyMuPDF 返回的版面坐标和字体大小做切分决策：表格、图注、公式作为原子单元不切断；标题作为 header_context 附加到后续块，保留跨块语义联系。
+#### 关于 `chunk_overlap`
+
+只有 `recursive` 和 `semantic` 两种策略实际使用 `chunk_overlap`，其余四种策略均**无重叠**，原因如下：
+
+| 策略 | 是否使用重叠 | 原因 |
+|------|------------|------|
+| `fixed` | 否 | 切分点是任意字符位置，无语义含义；加重叠只会产生大量重复内容，增加存储和检索噪音 |
+| `sentence` | 否 | 句子是最小完整语义单元，句子边界本身就是自然断点；重叠会把一句话拆入两个 chunk，破坏完整性 |
+| `paragraph` | 否 | 段落是作者有意划定的语义边界，跨段落重叠会将不同主题混入同一 chunk，降低检索精度 |
+| `markdown` | 否 | 每个标题下的内容是独立章节，标题已作为 `header_context` 提供上下文锚点；跨章节重叠会引入主题噪音 |
+| `recursive` | **是** | 按字符数切分，切断点可能落在句子中间，重叠保证跨块上下文不丢失 |
+| `semantic` | **是** | 处理长文本块时边界不一定是完整语义断点，重叠弥补跨块语义断层 |
+
+### 语义感知切分（semantic 策略）
+
+`semantic` 策略由 `SemanticChunker` 实现，以 `ParsedBlock` 列表为输入，逐块处理并维护一个滚动缓冲区，切分过程如下：
+
+```
+ParsedBlock[]
+     │
+     ▼ 按 block_type 分三类处理
+     │
+     ├─ HEADER 块
+     │    刷出缓冲区 → 重置缓冲区
+     │    将标题文本保存为 header_context（附加到后续所有 chunk）
+     │
+     ├─ 原子块（TABLE / FIGURE / FORMULA）
+     │    刷出缓冲区 → 重置缓冲区
+     │    该块单独输出为一个 chunk
+     │    header_context 前置拼入内容，保留章节归属
+     │
+     └─ 普通文本块（TEXT）
+          │
+          ├─ 跨页？→ 刷出缓冲区，重置
+          │
+          ├─ 加入当前块后超过 chunk_size？
+          │    刷出缓冲区
+          │    从上一个 chunk 末尾取 chunk_overlap 个词作为新缓冲区起始
+          │
+          └─ 追加到缓冲区，记录 block_type
+               │
+               ▼（遍历结束后刷出剩余缓冲区）
+          LangChain Document
+          metadata: source / page_num / header_context
+                    block_types / chunk_tokens
+```
+
+**关键设计点：**
+
+- **标题即上下文**：遇到 HEADER 块时不单独输出，而是将标题文本存入 `header_context`，拼入后续所有 chunk 的开头，使每个 chunk 都能回溯所属章节
+- **原子块不切断**：TABLE / FIGURE / FORMULA 整体输出为一个独立 chunk，防止表格行或公式被切断导致语义残缺
+- **跨页刷新**：页码变化时强制刷出缓冲区，避免将不同页的内容混入同一 chunk
+- **重叠保留上下文**：超出 `chunk_size` 时，从上一 chunk 末尾取 `chunk_overlap` 个词作为新 chunk 起始，弥补切分边界的语义断层
 
 ### RRF 融合
 倒数排名融合（RRF）对稠密和稀疏两路检索结果做无参数融合，天然处理两路分数分布不同的问题，比线性加权分数插值更鲁棒。
