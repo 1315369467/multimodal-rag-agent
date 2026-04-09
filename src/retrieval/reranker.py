@@ -56,9 +56,11 @@ class QwenLocalReranker:
 
         self._tokenizer = AutoTokenizer.from_pretrained(
             self.model_name, trust_remote_code=True, padding_side="left",
+            local_files_only=True,
         )
         self._model = AutoModelForCausalLM.from_pretrained(
             self.model_name, trust_remote_code=True, torch_dtype=torch.float16,
+            local_files_only=True,
         )
         if torch.cuda.is_available():
             self._model = self._model.cuda()

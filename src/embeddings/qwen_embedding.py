@@ -63,16 +63,19 @@ class QwenLocalEmbeddings(Embeddings):
             self._model = AutoModel.from_pretrained(
                 self.model_name, trust_remote_code=True,
                 attn_implementation="flash_attention_2", torch_dtype=torch.float16,
+                local_files_only=True,
             )
         else:
             self._model = AutoModel.from_pretrained(
                 self.model_name, trust_remote_code=True, torch_dtype=torch.float16,
+                local_files_only=True,
             )
         if use_cuda:
             self._model = self._model.cuda()
 
         self._tokenizer = AutoTokenizer.from_pretrained(
             self.model_name, trust_remote_code=True, padding_side="left",
+            local_files_only=True,
         )
         logger.info(f"[Embedding] 本地模型已加载: {self.model_name} (cuda={use_cuda})")
 
