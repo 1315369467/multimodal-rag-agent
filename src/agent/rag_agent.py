@@ -127,14 +127,14 @@ class MultimodalRAGAgent:
     def __init__(self, retriever: HybridRetriever) -> None:
         self._retriever = retriever
         self._llm = ChatOpenAI(
-            model=settings.llm_model,
-            api_key=settings.dashscope_api_key,
-            base_url=settings.dashscope_base_url,
+            model=settings.effective_llm_model,
+            api_key=settings.effective_llm_api_key,
+            base_url=settings.effective_llm_base_url,
             temperature=settings.llm_temperature,
             max_tokens=settings.llm_max_tokens,
             request_timeout=settings.llm_request_timeout,
         )
-        # 视觉模型（qwen-vl-max），用于 image_describer skill
+        # 视觉模型（qwen-vl-max），用于 image_describer skill（始终走 API）
         self._vl_llm = ChatOpenAI(
             model=settings.vl_model,
             api_key=settings.dashscope_api_key,

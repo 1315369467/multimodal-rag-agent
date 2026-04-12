@@ -151,7 +151,7 @@ async def query(request: QueryRequest, agent: AgentDep) -> QueryResponse:
     try:
         result = agent.query(request.question, chat_history=history)
     except Exception as exc:
-        logger.error(f"问答错误：{exc}", exc_info=True)
+        logger.exception("问答错误：{}", exc)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=str(exc),
@@ -177,7 +177,7 @@ async def query_stream(request: QueryRequest, agent: AgentDep):
             for event in agent.stream_query(request.question, chat_history=history):
                 yield f"data: {json.dumps(event, ensure_ascii=False)}\n\n"
         except Exception as exc:
-            logger.error(f"流式问答错误：{exc}", exc_info=True)
+            logger.exception("流式问答错误：{}", exc)
             yield f"data: {json.dumps({'type': 'error', 'message': str(exc)}, ensure_ascii=False)}\n\n"
         yield "data: [DONE]\n\n"
 
@@ -373,7 +373,7 @@ async def reset_collection(store: StoreDep) -> dict[str, str]:
 
 @app.exception_handler(Exception)
 async def generic_exception_handler(request, exc: Exception):
-    logger.error(f"未处理的异常：{exc}", exc_info=True)
+    logger.exception("未处理的异常：{}", exc)
     return JSONResponse(
         status_code=500,
         content=ErrorResponse(

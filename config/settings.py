@@ -18,11 +18,14 @@ class Settings(BaseSettings):
     )
 
     # ── DashScope / OpenAI 兼容接口 ────────────────────────────────────────
-    dashscope_api_key: str = Field(..., alias="DASHSCOPE_API_KEY")
+    dashscope_api_key: str = Field("", alias="DASHSCOPE_API_KEY")
     dashscope_base_url: str = "https://dashscope.aliyuncs.com/compatible-mode/v1"
 
     # ── 模型名称 ───────────────────────────────────────────────────────────
-    llm_model: str = "qwen3-235b-a22b"          # Qwen3.5 主力 LLM
+    llm_mode: str = "local"                        # "api" 使用 DashScope，"local" 使用本地部署模型
+    llm_model: str = "qwen3-235b-a22b"          # API 模式使用的模型名称
+    local_llm_base_url: str = "http://localhost:9000/v1"  # 本地模型地址
+    local_llm_model: str = "qwen3-8b"              # 本地模型名称
     vl_model: str = "qwen-vl-max"               # Qwen3-VL 多模态视觉
     embedding_mode: str = "local"              # "local" 或 "api"
     embedding_model: str = "text-embedding-v3"  # API 模式使用的模型名称
@@ -70,6 +73,21 @@ class Settings(BaseSettings):
     log_file: str = "./logs/app.log"
 
     # ── 派生属性 ───────────────────────────────────────────────────────────
+    @property
+    def effective_llm_model(self) -> str:
+        """根据 llm_mode 返回实际使用的模型名称。"""
+        return self.local_llm_model if self.llm_mode == "local" else self.llm_model
+
+    @property
+    def effective_llm_base_url(self) -> str:
+        """根据 llm_mode 返回实际使用的 base_url。"""
+        return self.local_llm_base_url if self.llm_mode == "local" else self.dashscope_base_url
+
+    @property
+    def effective_llm_api_key(self) -> str:
+        """根据 llm_mode 返回实际使用的 api_key（本地模型填占位符即可）。"""
+        return "local" if self.llm_mode == "local" else self.dashscope_api_key
+
     @property
     def chroma_persist_path(self) -> Path:
         return Path(self.chroma_persist_dir)

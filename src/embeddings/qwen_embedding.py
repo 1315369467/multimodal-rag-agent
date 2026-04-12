@@ -62,12 +62,12 @@ class QwenLocalEmbeddings(Embeddings):
         if is_flash_attn_2_available() and use_cuda:
             self._model = AutoModel.from_pretrained(
                 self.model_name, trust_remote_code=True,
-                attn_implementation="flash_attention_2", torch_dtype=torch.float16,
+                attn_implementation="flash_attention_2", dtype=torch.float16,
                 local_files_only=True,
             )
         else:
             self._model = AutoModel.from_pretrained(
-                self.model_name, trust_remote_code=True, torch_dtype=torch.float16,
+                self.model_name, trust_remote_code=True, dtype=torch.float16,
                 local_files_only=True,
             )
         if use_cuda:

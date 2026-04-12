@@ -59,7 +59,7 @@ class QwenLocalReranker:
             local_files_only=True,
         )
         self._model = AutoModelForCausalLM.from_pretrained(
-            self.model_name, trust_remote_code=True, torch_dtype=torch.float16,
+            self.model_name, trust_remote_code=True, dtype=torch.float16,
             local_files_only=True,
         )
         if torch.cuda.is_available():
