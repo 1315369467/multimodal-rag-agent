@@ -31,7 +31,7 @@ from __future__ import annotations
 import json
 import time
 from datetime import datetime
-from typing import Any
+from typing import Any, Generator
 
 from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
 from langchain_openai import ChatOpenAI
@@ -66,12 +66,9 @@ def _summarize_tool_result(tool_name: str, raw: str) -> str:
             return message or "未找到相关内容"
         total = data.get("total_queries")
         prefix = f"（共 {total} 轮检索）" if total else ""
-        snippets = "；".join(
-            r.get("content", "")[:40] for r in results[:2]
-        )
+        snippets = "；".join(r.get("content", "")[:40] for r in results[:2])
         return f"找到 {len(results)} 个片段{prefix}：{snippets}…"
 
-    # 通用兜底
     if results:
         return f"返回 {len(results)} 条结果"
     return raw[:120]
@@ -161,84 +158,33 @@ class MultimodalRAGAgent:
         chat_history: list[dict[str, str]] | None = None,
     ) -> dict[str, Any]:
         """
-        使用 RAG 流水线回答问题。
+        使用 RAG 流水线回答问题，阻塞直到全部完成后返回。
 
-        参数
-        ----
-        question     : 用户的自然语言问题。
-        chat_history : 可选的历史对话轮次
-                       [{"role": "user"|"assistant", "content": "..."}]。
-
-        返回
-        ----
-        包含 answer、sources、intermediate_steps 三个键的字典。
+        返回包含 answer、sources、tool_steps、total_elapsed_ms 的字典。
         """
-        messages = self._format_history(chat_history or [])
-        messages.append(HumanMessage(content=question))
-
-        logger.info(f"[RAGAgent] 问题：{question[:120]}")
-
-        t_total_start = time.perf_counter()
-
-        # 用 stream 逐节点消费，记录每个工具调用的开始 / 结束时间
-        # stream_mode="updates" 每次返回 {node_name: state_diff}
-        all_messages: list = []
         tool_steps: list[dict] = []
-        # tool_call_id -> {"step": dict, "t_start": float}
-        _pending: dict[str, dict] = {}
-        _t_agent_done: float = t_total_start   # 上一次 agent 节点完成的时间点
-
-        for chunk in self._agent.stream(
-            {"messages": messages}, stream_mode="updates"
-        ):
-            t_now = time.perf_counter()
-            for node_name, state_diff in chunk.items():
-                node_msgs = state_diff.get("messages", [])
-
-                if node_name == "agent":
-                    _t_agent_done = t_now
-                    for msg in node_msgs:
-                        if isinstance(msg, AIMessage) and msg.tool_calls:
-                            for call in msg.tool_calls:
-                                step: dict = {
-                                    "tool": call["name"],
-                                    "args": call.get("args", {}),
-                                    "result_summary": "",
-                                    "status": "running",
-                                    "elapsed_ms": None,
-                                }
-                                tool_steps.append(step)
-                                _pending[call["id"]] = {
-                                    "step": step,
-                                    "t_start": t_now,
-                                }
-
-                elif node_name == "tools":
-                    for msg in node_msgs:
-                        if isinstance(msg, ToolMessage):
-                            pending = _pending.pop(msg.tool_call_id, None)
-                            if pending:
-                                elapsed = round((t_now - pending["t_start"]) * 1000)
-                                s = pending["step"]
-                                s["elapsed_ms"] = elapsed
-                                s["status"] = "done"
-                                content = msg.content if isinstance(msg.content, str) else ""
-                                s["result_summary"] = _summarize_tool_result(s["tool"], content)
-                                logger.info(
-                                    f"[RAGAgent] 工具 {s['tool']} 完成，耗时 {elapsed}ms"
-                                )
-
-                all_messages.extend(node_msgs)
-
-        # 提取最终回答（最后一条无 tool_calls 的 AIMessage）
         answer = ""
-        for msg in reversed(all_messages):
-            if isinstance(msg, AIMessage) and msg.content and not msg.tool_calls:
-                answer = msg.content
-                break
+        sources: list[dict] = []
+        total_elapsed_ms = 0
 
-        sources = self._extract_sources(all_messages)
-        total_elapsed_ms = round((time.perf_counter() - t_total_start) * 1000)
+        for event in self._iter_events(question, chat_history):
+            if event["type"] == "tool_start":
+                tool_steps.append({
+                    "tool": event["tool"],
+                    "args": event["args"],
+                    "result_summary": "",
+                    "status": "running",
+                    "elapsed_ms": None,
+                })
+            elif event["type"] == "tool_done":
+                idx = event["step_idx"]
+                tool_steps[idx]["result_summary"] = event["result_summary"]
+                tool_steps[idx]["status"] = "done"
+                tool_steps[idx]["elapsed_ms"] = event["elapsed_ms"]
+            elif event["type"] == "answer":
+                answer = event["answer"]
+                sources = event["sources"]
+                total_elapsed_ms = event["total_elapsed_ms"]
 
         logger.info(
             f"[RAGAgent] 答案：{len(answer)} 字 | 来源：{len(sources)} | "
@@ -256,7 +202,7 @@ class MultimodalRAGAgent:
         self,
         question: str,
         chat_history: list[dict[str, str]] | None = None,
-    ):
+    ) -> Generator[dict, None, None]:
         """
         生成器：逐步 yield SSE 事件字典，供流式接口实时推送。
 
@@ -266,17 +212,32 @@ class MultimodalRAGAgent:
         tool_done  : 工具执行完毕后触发，含耗时与结果摘要。
         answer     : Agent 生成最终回答时触发（流程结束）。
         """
+        yield from self._iter_events(question, chat_history)
+
+    # ──────────────────────────────────────────────────────────────────────
+    # 内部方法
+    # ──────────────────────────────────────────────────────────────────────
+
+    def _iter_events(
+        self,
+        question: str,
+        chat_history: list[dict[str, str]] | None = None,
+    ) -> Generator[dict, None, None]:
+        """
+        核心流处理生成器，顺序 yield tool_start / tool_done / answer 事件。
+        query() 和 stream_query() 都消费此生成器。
+        """
         messages = self._format_history(chat_history or [])
         messages.append(HumanMessage(content=question))
+        logger.info(f"[RAGAgent] 问题：{question[:120]}")
 
         t_total_start = time.perf_counter()
+        # tool_call_id -> {"step_idx": int, "tool": str, "t_start": float}
         _pending: dict[str, dict] = {}
         step_idx = 0
         all_messages: list = []
 
-        for chunk in self._agent.stream(
-            {"messages": messages}, stream_mode="updates"
-        ):
+        for chunk in self._agent.stream({"messages": messages}, stream_mode="updates"):
             t_now = time.perf_counter()
             for node_name, state_diff in chunk.items():
                 node_msgs = state_diff.get("messages", [])
@@ -329,7 +290,7 @@ class MultimodalRAGAgent:
         total_elapsed_ms = round((time.perf_counter() - t_total_start) * 1000)
 
         logger.info(
-            f"[RAGAgent] 流式答案：{len(answer)} 字 | 来源：{len(sources)} | "
+            f"[RAGAgent] 完成：{len(answer)} 字 | 来源：{len(sources)} | "
             f"工具调用：{step_idx} | 总耗时：{total_elapsed_ms}ms"
         )
         yield {
@@ -339,10 +300,6 @@ class MultimodalRAGAgent:
             "total_elapsed_ms": total_elapsed_ms,
             "tool_count": step_idx,
         }
-
-    # ──────────────────────────────────────────────────────────────────────
-    # 内部方法
-    # ──────────────────────────────────────────────────────────────────────
 
     @staticmethod
     def _format_history(
@@ -374,18 +331,16 @@ class MultimodalRAGAgent:
             try:
                 data = json.loads(content)
                 for result in data.get("results", []):
-                    content = result.get("content", "")
-                    key = content[:300] if content else f"{result.get('source')}:{result.get('page')}:{len(sources)}"
+                    text = result.get("content", "")
+                    key = text[:300] if text else f"{result.get('source')}:{result.get('page')}:{len(sources)}"
                     if key not in seen:
                         seen.add(key)
-                        sources.append(
-                            {
-                                "source": result.get("source", "unknown"),
-                                "page": str(result.get("page", "?")),
-                                "block_type": result.get("block_type", "text"),
-                                "content": content,
-                            }
-                        )
+                        sources.append({
+                            "source": result.get("source", "unknown"),
+                            "page": str(result.get("page", "?")),
+                            "block_type": result.get("block_type", "text"),
+                            "content": text,
+                        })
             except (json.JSONDecodeError, AttributeError):
                 pass
 
