@@ -34,7 +34,7 @@ RAG 检索评估脚本
 
   # 在线模式（完整 RAG 流水线）
   python scripts/evaluate.py --online --dataset data/eval_dataset.jsonl
-
+  python scripts/evaluate.py --online --dataset data/eval_dataset_ocr.jsonl
 
 
   # 消融实验：仅 Dense / 仅 Sparse
@@ -235,7 +235,7 @@ def retrieve_online(
     retriever, query: str, k: int
 ) -> list[dict]:
     """使用完整 Hybrid 检索流水线。"""
-    docs = retriever.retrieve(query, dense_k=k * 2, sparse_k=k * 2, final_k=k)
+    docs = retriever.retrieve(query, dense_k=k * 2, sparse_k=k * 2, rerank_k=k * 2, final_k=k)
     return [
         {
             "source": doc.metadata.get("source", ""),

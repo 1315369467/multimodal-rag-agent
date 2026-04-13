@@ -1,0 +1,140 @@
+{"question": "DeepSeek LLM的预训练数据量是多少？", "answer": "2万亿token", "source": "DeepSeek-v1", "page": 0, "category": "factual"}
+{"question": "DeepSeek LLM 7B和67B模型的层数分别是多少？", "answer": "7B是30层，67B是95层", "source": "DeepSeek-v1", "page": 0, "category": "factual"}
+{"question": "DeepSeek LLM 67B模型使用了哪种注意力机制？", "answer": "Grouped-Query Attention (GQA)", "source": "DeepSeek-v1", "page": 0, "category": "factual"}
+{"question": "DeepSeek LLM预训练阶段使用了哪种学习率调度器？", "answer": "多步学习率调度器", "source": "DeepSeek-v1", "page": 0, "category": "factual"}
+{"question": "DeepSeek LLM 67B模型在哪些领域显著优于LLaMA-2 70B？", "answer": "代码、数学和推理领域的基准测试", "source": "DeepSeek-v1", "page": 0, "category": "comparative"}
+{"question": "扩展定律研究中模型规模的表示方法有何改进？", "answer": "采用非嵌入FLOPs/token代替模型参数", "source": "DeepSeek-v1", "page": 0, "category": "procedural"}
+{"question": "DeepSeek LLM预训练数据处理包含哪些主要阶段？", "answer": "去重、过滤、重混", "source": "DeepSeek-v1", "page": 0, "category": "procedural"}
+{"question": "DeepSeek LLM的对齐阶段采用了哪些方法？", "answer": "监督微调(SFT)和直接偏好优化(DPO)", "source": "DeepSeek-v1", "page": 0, "category": "procedural"}
+{"question": "DeepSeek LLM 67B Chat模型在中文开放生成评估中的表现如何？", "answer": "在AlignBench测试集中超过ChatGPT和其他基线模型", "source": "DeepSeek-v1", "page": 0, "category": "comparative"}
+{"question": "DeepSeek LLM评估中使用的安全测试包含哪些主要类别？", "answer": "歧视偏见、侵犯权益、商业秘密、违法行为", "source": "DeepSeek-v1", "page": 0, "category": "factual"}
+{"question": "DeepSeek LLM的tokenizer使用了哪种编码算法？", "answer": "字节级字节对编码(BBPE)", "source": "DeepSeek-v1", "page": 0, "category": "factual"}
+{"question": "DeepSeek LLM 7B和67B模型的序列批处理大小分别是多少？", "answer": "2304和4608", "source": "DeepSeek-v1", "page": 0, "category": "factual"}
+{"question": "多步学习率调度器的三个阶段比例如何分配？", "answer": "80%、10%、10%", "source": "DeepSeek-v1", "page": 0, "category": "factual"}
+{"question": "DeepSeek LLM的扩展定律研究发现了什么数据质量影响？", "answer": "数据质量越高，计算预算应更多分配给模型扩展", "source": "DeepSeek-v1", "page": 0, "category": "procedural"}
+{"question": "DeepSeek LLM 67B Chat模型在MT-Bench基准测试中的平均得分是多少？", "answer": "8.76分", "source": "DeepSeek-v1", "page": 0, "category": "factual"}
+{"question": "DeepSeek LLM的评估中使用了哪些数学基准测试？", "answer": "GSM8K、MATH、CMath", "source": "DeepSeek-v1", "page": 0, "category": "factual"}
+{"question": "DeepSeek LLM的预训练框架集成了哪些并行技术？", "answer": "数据并行、张量并行、序列并行和1F1B流水线并行", "source": "DeepSeek-v1", "page": 0, "category": "procedural"}
+{"question": "DeepSeek LLM的DPO阶段如何影响模型性能？", "answer": "在保持基准性能的同时显著降低重复率", "source": "DeepSeek-v1", "page": 0, "category": "procedural"}
+{"question": "DeepSeek LLM的评估中，LeetCode测试的pass@1得分是多少？", "answer": "17.5%", "source": "DeepSeek-v1", "page": 0, "category": "factual"}
+{"question": "DeepSeek LLM的扩展定律研究中，模型扩展指数a和数据扩展指数b分别是多少？", "answer": "a=0.5243，b=0.4757", "source": "DeepSeek-v1", "page": 0, "category": "factual"}
+{"question": "DeepSeek-V2的总参数量是多少？", "answer": "236B", "source": "DeepSeek-v2", "page": 0, "category": "factual"}
+{"question": "DeepSeek-V2每个token激活的参数量是多少？", "answer": "21B", "source": "DeepSeek-v2", "page": 0, "category": "factual"}
+{"question": "DeepSeek-V2支持的上下文长度是多少？", "answer": "128K tokens", "source": "DeepSeek-v2", "page": 0, "category": "factual"}
+{"question": "DeepSeek-V2采用的创新注意力机制是什么？", "answer": "Multi-head Latent Attention (MLA)", "source": "DeepSeek-v2", "page": 0, "category": "factual"}
+{"question": "DeepSeek-V2的FFN模块采用的架构名称是什么？", "answer": "DeepSeekMoE", "source": "DeepSeek-v2", "page": 0, "category": "factual"}
+{"question": "与DeepSeek 67B相比，DeepSeek-V2的训练成本降低了多少？", "answer": "42.5%", "source": "DeepSeek-v2", "page": 0, "category": "comparative"}
+{"question": "DeepSeek-V2的KV缓存相比DeepSeek 67B减少了多少？", "answer": "93.3%", "source": "DeepSeek-v2", "page": 0, "category": "comparative"}
+{"question": "DeepSeek-V2的最大生成吞吐量是DeepSeek 67B的多少倍？", "answer": "5.76倍", "source": "DeepSeek-v2", "page": 0, "category": "comparative"}
+{"question": "DeepSeek-V2的预训练数据量是多少？", "answer": "8.1T tokens", "source": "DeepSeek-v2", "page": 0, "category": "factual"}
+{"question": "DeepSeek-V2的MLA架构如何减少KV缓存？", "answer": "通过低秩键值联合压缩（Low-Rank Key-Value Joint Compression）", "source": "DeepSeek-v2", "page": 0, "category": "procedural"}
+{"question": "DeepSeekMoE架构的两个关键创新点是什么？", "answer": "细粒度专家分割和共享专家隔离", "source": "DeepSeek-v2", "page": 0, "category": "procedural"}
+{"question": "DeepSeek-V2的设备限制路由机制如何工作？", "answer": "确保每个token的目标专家分布在最多3个设备上", "source": "DeepSeek-v2", "page": 0, "category": "procedural"}
+{"question": "DeepSeek-V2的中文数据占比相比DeepSeek 67B增加了多少？", "answer": "12%以上", "source": "DeepSeek-v2", "page": 0, "category": "factual"}
+{"question": "DeepSeek-V2的MLA架构在KV缓存比较中相当于GQA的多少组？", "answer": "2.25组", "source": "DeepSeek-v2", "page": 0, "category": "factual"}
+{"question": "DeepSeek-V2的预训练阶段使用了哪种优化策略扩展上下文窗口？", "answer": "YaRN", "source": "DeepSeek-v2", "page": 0, "category": "procedural"}
+{"question": "DeepSeek-V2的SFT阶段使用了多少个实例？", "answer": "1.5M实例", "source": "DeepSeek-v2", "page": 0, "category": "factual"}
+{"question": "DeepSeek-V2的RL训练采用了哪种算法？", "answer": "Group Relative Policy Optimization (GRPO)", "source": "DeepSeek-v2", "page": 0, "category": "procedural"}
+{"question": "DeepSeek-V2的MLA架构在MMLU基准上的表现如何？", "answer": "达到顶级性能", "source": "DeepSeek-v2", "page": 0, "category": "comparative"}
+{"question": "DeepSeek-V2的DeepSeekMoE架构相比GShard的优势是什么？", "answer": "更高的专家专业化潜力", "source": "DeepSeek-v2", "page": 0, "category": "comparative"}
+{"question": "DeepSeek-V2的预训练数据过滤策略对齐评估结果有何影响？", "answer": "在AlignBench上中文表现优于所有开源模型", "source": "DeepSeek-v2", "page": 0, "category": "comparative"}
+{"question": "DeepSeek-V3的总参数量和每个token激活的参数量分别是多少？", "answer": "DeepSeek-V3总参数量为671B，每个token激活37B参数。", "source": "DeepSeek-v3", "page": 0, "category": "factual"}
+{"question": "DeepSeek-V3采用的Multi-Head Latent Attention（MLA）如何减少KV缓存？", "answer": "MLA通过低秩联合压缩注意力键和值来减少KV缓存，公式(1)-(5)展示了压缩和解压缩过程。", "source": "DeepSeek-v3", "page": 0, "category": "procedural"}
+{"question": "DeepSeekMoE的Auxiliary-Loss-Free负载均衡策略与传统方法有何区别？", "answer": "该策略引入偏置项动态调整路由选择，仅使用原始亲和力分数计算门控值，避免了传统辅助损失对模型性能的负面影响。", "source": "DeepSeek-v3", "page": 0, "category": "comparative"}
+{"question": "Multi-Token Prediction（MTP）训练目标的核心改进是什么？", "answer": "MTP按完整因果链顺序预测多个未来token，通过公式(21)-(23)实现浅层模块与主模型的参数共享。", "source": "DeepSeek-v3", "page": 0, "category": "procedural"}
+{"question": "DualPipe算法如何实现计算与通信的重叠？", "answer": "通过将前向/反向块划分为注意力、All-to-All调度、MLP等组件，并手动调整GPU SMs的计算/通信比例，实现双向流水线调度。", "source": "DeepSeek-v3", "page": 0, "category": "procedural"}
+{"question": "FP8训练框架中tile-wise和block-wise量化的具体实现方式是什么？", "answer": "激活值按1x128 tile分组量化，权重按128x128 block分组量化，支持per-group缩放因子。", "source": "DeepSeek-v3", "page": 0, "category": "factual"}
+{"question": "DeepSeek-V3的预训练语料库包含多少高质量token？", "answer": "预训练使用14.8万亿（14.8T）高质量且多样化的token。", "source": "DeepSeek-v3", "page": 0, "category": "factual"}
+{"question": "在MMLU-Pro基准测试中，DeepSeek-V3与LLaMA-3.1 405B Base的得分差距是多少？", "answer": "DeepSeek-V3得分为64.4，LLaMA-3.1得分为52.8，差距为11.6分。", "source": "DeepSeek-v3", "page": 0, "category": "comparative"}
+{"question": "DeepSeek-V3的上下文长度扩展到多少token？", "answer": "通过YaRN配置分两个阶段扩展，最终达到128K token长度。", "source": "DeepSeek-v3", "page": 0, "category": "factual"}
+{"question": "在HumanEval-Mul基准测试中，DeepSeek-V3的Pass@1得分是多少？", "answer": "DeepSeek-V3的Pass@1得分为82.6。", "source": "DeepSeek-v3", "page": 0, "category": "factual"}
+{"question": "DeepSeek-V3的推理部署阶段如何实现专家冗余策略？", "answer": "通过检测高负载专家并部署冗余副本，定期调整GPU间的专家分布，在预填充阶段为每个GPU增加1个冗余专家。", "source": "DeepSeek-v3", "page": 0, "category": "procedural"}
+{"question": "FP8训练框架中累加精度提升的具体实现方法是什么？", "answer": "采用CUDA核心提升累加精度，每128个FP8×FP8乘法结果通过FP32寄存器累加，公式(7)-(8)展示了具体实现。", "source": "DeepSeek-v3", "page": 0, "category": "procedural"}
+{"question": "DeepSeek-V3的训练成本相比72B和405B密集模型有何优势？", "answer": "每万亿token训练仅需180K H800 GPU小时，显著低于72B或405B模型的训练成本。", "source": "DeepSeek-v3", "page": 0, "category": "comparative"}
+{"question": "在AIME 2024数学竞赛基准测试中，DeepSeek-V3的得分是多少？", "answer": "DeepSeek-V3的Pass@1得分为39.2。", "source": "DeepSeek-v3", "page": 0, "category": "factual"}
+{"question": "DeepSeek-V3的专家负载均衡策略如何应对推理阶段的领域偏移问题？", "answer": "通过冗余专家部署和动态路由方案，在保证计算吞吐的同时解决领域偏移导致的负载不均衡。", "source": "DeepSeek-v3", "page": 0, "category": "procedural"}
+{"question": "DeepSeek-V3的多token预测（MTP）策略在解码阶段的接受率是多少？", "answer": "第二token预测的接受率在85%-90%之间，实现1.8倍TPS加速。", "source": "DeepSeek-v3", "page": 0, "category": "factual"}
+{"question": "DeepSeek-V3的Chinese SimpleQA基准测试得分与Qwen2.5-72B相比差距多少？", "answer": "DeepSeek-V3得分为64.8，Qwen2.5得分为48.4，差距为16.4分。", "source": "DeepSeek-v3", "page": 0, "category": "comparative"}
+{"question": "FP8混合精度框架中哪些组件保留了更高精度？", "answer": "嵌入层、输出头、MoE门控模块、归一化算子和注意力算子保持BF16/FP32精度。", "source": "DeepSeek-v3", "page": 0, "category": "factual"}
+{"question": "DeepSeek-V3的预训练阶段需要多少H800 GPU小时？", "answer": "预训练阶段消耗2664K H800 GPU小时，占总训练成本的95.5%。", "source": "DeepSeek-v3", "page": 0, "category": "factual"}
+{"question": "DeepSeek-V3的蒸馏策略在LiveCodeBench基准测试中提升了多少Pass@1得分？", "answer": "从31.1提升到37.4，同时平均响应长度从783增加到1510。", "source": "DeepSeek-v3", "page": 0, "category": "comparative"}
+{"question": "DeepSeek-V3.2的三个关键技术突破是什么？", "answer": "DeepSeek Sparse Attention (DSA)、可扩展的强化学习框架、大规模代理任务合成管道", "source": "DeepSeek-v3.2", "page": 0, "category": "factual"}
+{"question": "DSA注意力机制将核心注意力复杂度从O(L²)降低到什么级别？", "answer": "O(??)（文中未明确具体复杂度，但指出通过选择的token数量?? ≪ L实现降复杂度）", "source": "DeepSeek-v3.2", "page": 0, "category": "factual"}
+{"question": "DeepSeek-V3.2在Codeforces竞赛中的评分为多少？", "answer": "2386", "source": "DeepSeek-v3.2", "page": 0, "category": "factual"}
+{"question": "DeepSeek-V3.2-Speciale在IMO 2025中的总得分为多少？", "answer": "35/42", "source": "DeepSeek-v3.2", "page": 0, "category": "factual"}
+{"question": "密集预训练阶段使用了多少token进行训练？", "answer": "2.1B tokens", "source": "DeepSeek-v3.2", "page": 0, "category": "factual"}
+{"question": "稀疏训练阶段的top-k选择值是多少？", "answer": "2048 key-value tokens", "source": "DeepSeek-v3.2", "page": 0, "category": "factual"}
+{"question": "GRPO算法如何处理策略发散的负样本？", "answer": "引入二进制掩码M_{i,t}，当优势值为负且策略KL散度超过阈值时屏蔽样本", "source": "DeepSeek-v3.2", "page": 0, "category": "procedural"}
+{"question": "合成代理任务中代码代理的数据来源是什么？", "answer": "从GitHub挖掘的数百万issue-PR对", "source": "DeepSeek-v3.2", "page": 0, "category": "factual"}
+{"question": "DeepSeek-V3.2在HMMT Feb 2025基准上的表现与Gemini-3.0-Pro相比如何？", "answer": "92.5 vs 97.5", "source": "DeepSeek-v3.2", "page": 0, "category": "comparative"}
+{"question": "冷启动阶段如何管理推理内容保留？", "answer": "仅在新用户消息引入时丢弃历史推理内容，工具调用结果保留", "source": "DeepSeek-v3.2", "page": 0, "category": "procedural"}
+{"question": "数学代理任务合成中生成了多少个环境？", "answer": "1,827个任务导向环境", "source": "DeepSeek-v3.2", "page": 0, "category": "factual"}
+{"question": "DeepSeek-V3.2的推理token效率与Gemini-3.0-Pro相比如何？", "answer": "显著低于Gemini-3.0-Pro", "source": "DeepSeek-v3.2", "page": 0, "category": "comparative"}
+{"question": "混合RL训练阶段使用了哪些奖励机制？", "answer": "规则基结果奖励、长度惩罚、语言一致性奖励、生成奖励模型", "source": "DeepSeek-v3.2", "page": 0, "category": "procedural"}
+{"question": "DSA架构中闪电索引器的计算效率优势来源于什么？", "answer": "少量头数和FP8实现", "source": "DeepSeek-v3.2", "page": 0, "category": "factual"}
+{"question": "DeepSeek-V3.2-Speciale相比DeepSeek-V3.2在AIME 2025上的提升幅度是多少？", "answer": "96.0 vs 93.1", "source": "DeepSeek-v3.2", "page": 0, "category": "comparative"}
+{"question": "代理任务合成中如何验证解决方案的正确性？", "answer": "通过验证函数检查解决方案输出是否通过验证", "source": "DeepSeek-v3.2", "page": 0, "category": "procedural"}
+{"question": "非思维模式在Terminal Bench 2.0上的得分是多少？", "answer": "37.1", "source": "DeepSeek-v3.2", "page": 0, "category": "factual"}
+{"question": "上下文管理策略中哪种方法在BrowseComp基准上达到67.6分？", "answer": "Discard-all策略", "source": "DeepSeek-v3.2", "page": 0, "category": "factual"}
+{"question": "DeepSeek-V3.2的RL训练预算占预训练成本的比例是多少？", "answer": "超过10%", "source": "DeepSeek-v3.2", "page": 0, "category": "factual"}
+{"question": "与DeepSeek-V3.1-Terminus相比，DeepSeek-V3.2的架构改进是什么？", "answer": "引入DeepSeek Sparse Attention（DSA）", "source": "DeepSeek-v3.2", "page": 0, "category": "comparative"}
+{"question": "Qwen系列模型的基础模型和聊天模型分别是什么？", "answer": "Qwen系列模型包括基础预训练模型Qwen和聊天模型Qwen-Chat，后者通过监督微调（SFT）和人类反馈强化学习（RLHF）进行训练。", "source": "Qwen Technical Report", "page": 0, "category": "factual"}
+{"question": "Qwen的预训练数据量是多少？", "answer": "Qwen的预训练数据集包含高达3万亿token的多样化文本和代码数据。", "source": "Qwen Technical Report", "page": 0, "category": "factual"}
+{"question": "Qwen的tokenization方法是什么？", "answer": "Qwen使用字节对编码（BPE）作为分词方法，最终词汇量约为152K，并采用了FP32精度的逆频率矩阵。", "source": "Qwen Technical Report", "page": 0, "category": "factual"}
+{"question": "Qwen-14B模型的层数是多少？", "answer": "Qwen-14B模型的层数为40层。", "source": "Qwen Technical Report", "page": 0, "category": "factual"}
+{"question": "预训练阶段使用了哪些优化技术？", "answer": "预训练阶段使用了Flash Attention、AdamW优化器（β1=0.9，β2=0.95，ε=1e-8）以及余弦学习率调度。", "source": "Qwen Technical Report", "page": 0, "category": "procedural"}
+{"question": "Qwen-CHAT模型在哪些方面进行了优化？", "answer": "Qwen-Chat模型通过监督微调（SFT）和人类反馈强化学习（RLHF）优化了工具使用、代码解释器和代理功能。", "source": "Qwen Technical Report", "page": 0, "category": "factual"}
+{"question": "CODE-QWEN的预训练数据量是多少？", "answer": "CODE-QWEN在约900亿token的代码数据上进行继续预训练。", "source": "Qwen Technical Report", "page": 0, "category": "factual"}
+{"question": "MATH-QWEN-CHAT的训练序列长度是多少？", "answer": "MATH-QWEN-CHAT使用序列长度1024进行训练。", "source": "Qwen Technical Report", "page": 0, "category": "factual"}
+{"question": "Qwen的上下文长度扩展技术有哪些？", "answer": "Qwen采用了NTK-aware插值、LogN-Scaling和分层窗口分配技术来扩展上下文长度。", "source": "Qwen Technical Report", "page": 0, "category": "procedural"}
+{"question": "在MMLU数据集上，Qwen-14B的5-shot准确率是多少？", "answer": "Qwen-14B在MMLU数据集上的5-shot准确率为66.3%。", "source": "Qwen Technical Report", "page": 0, "category": "factual"}
+{"question": "Qwen-CHAT与GPT-4相比在人类评估中的表现如何？", "answer": "Qwen-14B-Chat在人类评估中平均胜率低于GPT-4，但显著优于SFT模型。", "source": "Qwen Technical Report", "page": 0, "category": "comparative"}
+{"question": "监督微调中使用的优化器及其参数是什么？", "answer": "监督微调使用AdamW优化器，β1=0.9，β2=0.95，学习率为2e-6（14B模型）和1e-5（7B模型）。", "source": "Qwen Technical Report", "page": 0, "category": "procedural"}
+{"question": "CODE-QWEN-CHAT在HumanEval的pass@1指标表现如何？", "answer": "CODE-QWEN-CHAT-14B在HumanEval的pass@1指标达到66.4%。", "source": "Qwen Technical Report", "page": 0, "category": "factual"}
+{"question": "奖励模型训练中使用的学习率是多少？", "answer": "奖励模型训练的学习率为3e-6，批量大小为64。", "source": "Qwen Technical Report", "page": 0, "category": "factual"}
+{"question": "预训练阶段的优化器参数是什么？", "answer": "预训练使用AdamW优化器（β1=0.9，β2=0.95，ε=1e-8），学习率衰减至峰值的10%。", "source": "Qwen Technical Report", "page": 0, "category": "procedural"}
+{"question": "Qwen的架构修改包括哪些部分？", "answer": "Qwen架构修改包括RoPE位置编码、QKV层的偏置设计、RMSNorm归一化以及SwiGLU激活函数。", "source": "Qwen Technical Report", "page": 0, "category": "factual"}
+{"question": "在8192长度的arXiv3测试中，Qwen-14B的困惑度是多少？", "answer": "Qwen-14B结合动态NTK和LogN-Scaling后，在8192长度的arXiv3测试中困惑度为3.42。", "source": "Qwen Technical Report", "page": 0, "category": "factual"}
+{"question": "使用代码解释器时，Qwen-14B生成的代码可执行比例是多少？", "answer": "Qwen-14B在代码解释器测试中生成的代码可执行比例为81.7%（所有类别平均）。", "source": "Qwen Technical Report", "page": 0, "category": "factual"}
+{"question": "MATH-QWEN-CHAT在MATH数据集上的准确率是多少？", "answer": "MATH-QWEN-CHAT-14B在MATH数据集上的准确率为24.2%。", "source": "Qwen Technical Report", "page": 0, "category": "factual"}
+{"question": "Qwen的对齐过程包含哪些步骤？", "answer": "Qwen的对齐过程包括监督微调（SFT）和人类反馈强化学习（RLHF），后者涉及奖励模型训练和PPO策略优化。", "source": "Qwen Technical Report", "page": 0, "category": "procedural"}
+{"question": "Qwen2系列包含哪些参数规模的模型？", "answer": "Qwen2系列包含Qwen2-0.5B、Qwen2-1.5B、Qwen2-7B、Qwen2-57B-A14B和Qwen2-72B五种参数规模的模型。", "source": "Qwen2 Technical Report", "page": 0, "category": "factual"}
+{"question": "Qwen2-72B在MMLU基准测试中的得分是多少？", "answer": "Qwen2-72B在MMLU基准测试中的得分是84.2。", "source": "Qwen2 Technical Report", "page": 0, "category": "factual"}
+{"question": "Qwen2的预训练数据规模是多少？", "answer": "Qwen2的预训练数据规模超过7万亿token。", "source": "Qwen2 Technical Report", "page": 0, "category": "factual"}
+{"question": "Qwen2的MoE模型中每个token激活的参数量是多少？", "answer": "Qwen2-57B-A14B模型每个token激活140亿参数。", "source": "Qwen2 Technical Report", "page": 0, "category": "factual"}
+{"question": "Qwen2的tokenizer词汇量是多少？", "answer": "Qwen2的tokenizer包含151,643个常规token和3个控制token。", "source": "Qwen2 Technical Report", "page": 0, "category": "factual"}
+{"question": "Qwen2-7B在MMLU-Pro基准测试中与Llama-3-8B相比表现如何？", "answer": "Qwen2-7B在MMLU-Pro基准测试中得分为40.0，而Llama-3-8B为35.4。", "source": "Qwen2 Technical Report", "page": 0, "category": "comparative"}
+{"question": "Qwen2-72B在GSM8K数学基准测试中的得分比Qwen1.5-72B高多少？", "answer": "Qwen2-72B在GSM8K基准测试中得分为89.5，而Qwen1.5-72B为79.5。", "source": "Qwen2 Technical Report", "page": 0, "category": "comparative"}
+{"question": "Qwen2的预训练数据改进主要体现在哪些方面？", "answer": "Qwen2的预训练数据改进包括质量增强、数据扩展和分布优化。", "source": "Qwen2 Technical Report", "page": 0, "category": "procedural"}
+{"question": "Qwen2如何实现长上下文训练？", "answer": "Qwen2通过扩展上下文长度至32,768 token、调整RoPE基数至1,000,000，并采用YARN机制和Dual Chunk Attention机制实现长上下文训练。", "source": "Qwen2 Technical Report", "page": 0, "category": "procedural"}
+{"question": "Qwen2的MoE模型专家路由机制有何特点？", "answer": "Qwen2的MoE模型采用共享专家和路由专用专家的混合设计，通过门控网络根据概率选择专家进行计算。", "source": "Qwen2 Technical Report", "page": 0, "category": "procedural"}
+{"question": "Qwen2-1.5B在HumanEval代码生成基准测试中的得分是多少？", "answer": "Qwen2-1.5B在HumanEval基准测试中的得分为47.0。", "source": "Qwen2 Technical Report", "page": 0, "category": "factual"}
+{"question": "Qwen2-72B-Instruct在MT-Bench上的得分与GPT-4o相比如何？", "answer": "Qwen2-72B-Instruct在MT-Bench上的得分为9.12，而GPT-4o为9.09。", "source": "Qwen2 Technical Report", "page": 0, "category": "comparative"}
+{"question": "Qwen2的专家初始化方法如何增强模型多样性？", "answer": "Qwen2通过复制FFN层并沿中间维度打乱参数来初始化专家，同时对50%参数进行随机重初始化。", "source": "Qwen2 Technical Report", "page": 0, "category": "procedural"}
+{"question": "Qwen2-57B-A14B在GSM8K数学基准测试中的得分是多少？", "answer": "Qwen2-57B-A14B在GSM8K基准测试中的得分为85.3。", "source": "Qwen2 Technical Report", "page": 0, "category": "factual"}
+{"question": "Qwen2的多语言能力覆盖哪些语言？", "answer": "Qwen2支持约30种语言，包括英语、中文、西班牙语、法语、德语、阿拉伯语、俄语、韩语、日语、泰语、越南语等。", "source": "Qwen2 Technical Report", "page": 0, "category": "factual"}
+{"question": "Qwen2-7B在MBPP代码生成基准测试中与Phi-2相比表现如何？", "answer": "Qwen2-7B在MBPP基准测试中得分为67.2，而Phi-2为55.0。", "source": "Qwen2 Technical Report", "page": 0, "category": "comparative"}
+{"question": "Qwen2的后训练数据构建包含哪两个主要步骤？", "answer": "Qwen2的后训练数据构建包含协作数据标注和自动化数据合成两个主要步骤。", "source": "Qwen2 Technical Report", "page": 0, "category": "procedural"}
+{"question": "Qwen2-57B-A14B的模型架构属于哪种类型？", "answer": "Qwen2-57B-A14B的模型架构属于Mixture-of-Experts（MoE）类型。", "source": "Qwen2 Technical Report", "page": 0, "category": "factual"}
+{"question": "Qwen2的长上下文能力测试中，Qwen2-7B-Instruct在128K上下文长度下的准确率是多少？", "answer": "Qwen2-7B-Instruct在128K上下文长度下的准确率为66.32%。", "source": "Qwen2 Technical Report", "page": 0, "category": "factual"}
+{"question": "Qwen2-72B在TruthfulQA基准测试中与Mixtral-8x22B相比表现如何？", "answer": "Qwen2-72B在TruthfulQA基准测试中得分为54.8，而Mixtral-8x22B为51.0。", "source": "Qwen2 Technical Report", "page": 0, "category": "comparative"}
+{"question": "Qwen3系列包含哪些类型的模型架构？", "answer": "Qwen3系列包含密集模型（Dense）和Mixture-of-Expert（MoE）架构模型。", "source": "Qwen3 Technical Report", "page": 0, "category": "factual"}
+{"question": "Qwen3旗舰模型Qwen3-235B-A22B的总参数和激活参数分别是多少？", "answer": "Qwen3-235B-A22B的总参数为2350亿，激活参数为220亿。", "source": "Qwen3 Technical Report", "page": 0, "category": "factual"}
+{"question": "Qwen3的预训练数据规模和语言覆盖范围有何提升？", "answer": "Qwen3的预训练数据包含36万亿token，覆盖119种语言和方言，相比Qwen2.5的29种语言显著扩展。", "source": "Qwen3 Technical Report", "page": 0, "category": "factual"}
+{"question": "Qwen3的多语言能力通过哪些基准测试验证？", "answer": "Qwen3的多语言能力通过Multi-IF、INCLUDE、MMMLU、MT-AIME2024、PolyMath、MLogiQA等基准测试验证。", "source": "Qwen3 Technical Report", "page": 0, "category": "factual"}
+{"question": "Qwen3的MoE模型在专家设计上与Qwen2.5-MoE有何不同？", "answer": "Qwen3-MoE设计中移除了共享专家，并采用全局批次负载均衡损失（global-batch load balancing loss）。", "source": "Qwen3 Technical Report", "page": 0, "category": "comparative"}
+{"question": "Qwen3-32B在非思考模式下相比Qwen2.5-72B-Instruct有何优势？", "answer": "Qwen3-32B在非思考模式下以更少参数在大多数基准测试中超越Qwen2.5-72B-Instruct。", "source": "Qwen3 Technical Report", "page": 0, "category": "comparative"}
+{"question": "Qwen3的预训练分几个阶段？每个阶段的主要目标是什么？", "answer": "预训练分为三个阶段：(1) 通用阶段（30万亿token基础知识），(2) 推理阶段（5万亿STEM和代码数据），(3) 长上下文阶段（数百亿token扩展上下文长度至32768 token）。", "source": "Qwen3 Technical Report", "page": 0, "category": "procedural"}
+{"question": "Qwen3的后训练流程包含哪两个核心目标？", "answer": "后训练流程包含思维控制（整合思考/非思考模式）和强到弱蒸馏（优化轻量级模型）。", "source": "Qwen3 Technical Report", "page": 0, "category": "procedural"}
+{"question": "Qwen3的思考预算（Thinking Budget）机制的作用是什么？", "answer": "思考预算机制允许用户动态分配计算资源，平衡任务复杂度下的延迟与性能。", "source": "Qwen3 Technical Report", "page": 0, "category": "factual"}
+{"question": "Qwen3-30B-A3B MoE模型的专家配置参数是多少？", "answer": "Qwen3-30B-A3B包含128个专家，每token激活3B参数。", "source": "Qwen3 Technical Report", "page": 0, "category": "factual"}
+{"question": "Qwen3的Strong-to-Weak Distillation方法在轻量模型训练中相比强化学习有何优势？", "answer": "该方法仅需1/10的GPU小时数即可达到更优性能，且能扩展探索空间。", "source": "Qwen3 Technical Report", "page": 0, "category": "comparative"}
+{"question": "Qwen3的tokenizer使用什么编码技术？", "answer": "Qwen3模型使用字节级字节对编码（BBPE），词汇量为151,669。", "source": "Qwen3 Technical Report", "page": 0, "category": "factual"}
+{"question": "Qwen3-235B-A22B在AIME’24和AIME’25上的得分分别是多少？", "answer": "Qwen3-235B-A22B在AIME’24得分为85.7，在AIME’25得分为81.5。", "source": "Qwen3 Technical Report", "page": 0, "category": "factual"}
+{"question": "Qwen3的长上下文能力如何实现？", "answer": "通过YARN技术将RoPE基频从10,000提升至1,000,000，并引入Dual Chunk Attention实现推理时序列长度四倍扩展。", "source": "Qwen3 Technical Report", "page": 0, "category": "procedural"}
+{"question": "Qwen3-14B-Base模型在哪些方面优于DeepSeek-V3和Llama-4-Maverick？", "answer": "Qwen3-14B-Base在18/23个基准测试中超越这两个模型，且参数更少。", "source": "Qwen3 Technical Report", "page": 0, "category": "comparative"}
+{"question": "Qwen3的思维模式融合（Thinking Mode Fusion）阶段如何实现模式切换？", "answer": "通过设计包含/think和/no think标志的聊天模板，保留空思考块保证格式一致性。", "source": "Qwen3 Technical Report", "page": 0, "category": "procedural"}
+{"question": "Qwen3的非思考模式在CodeForces上的评分是多少？", "answer": "Qwen3-235B-A22B在非思考模式下的CodeForces评分为1387 / 75.7%。", "source": "Qwen3 Technical Report", "page": 0, "category": "factual"}
+{"question": "Qwen3-0.6B在Belebele基准上的表现如何？", "answer": "Qwen3-0.6B在思考模式下平均得分为27.5，非思考模式下为24.4。", "source": "Qwen3 Technical Report", "page": 0, "category": "factual"}
+{"question": "Qwen3的MoE架构相比Dense架构在推理任务中有哪些优势？", "answer": "MoE架构通过1/5激活参数实现与Dense模型相似性能，显著降低推理和训练成本。", "source": "Qwen3 Technical Report", "page": 0, "category": "comparative"}
+{"question": "Qwen3的后训练评估中使用了哪些数学推理基准？", "answer": "使用了MATH-500、AIME’24、AIME’25、ZebraLogic和AutoLogi基准测试。", "source": "Qwen3 Technical Report", "page": 0, "category": "factual"}

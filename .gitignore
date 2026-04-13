@@ -14,3 +14,5 @@ chroma_db/
 **/chroma_db/
 *.sqlite3
 eval_results*
+data/pdfs
+data/ocr_output

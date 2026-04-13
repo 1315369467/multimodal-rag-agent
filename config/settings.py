@@ -23,7 +23,7 @@ class Settings(BaseSettings):
 
     # ── 模型名称 ───────────────────────────────────────────────────────────
     llm_mode: str = "api"                        # "api" 使用 DashScope，"local" 使用本地部署模型
-    llm_model: str = "qwen3-235b-a22b"          # API 模式使用的模型名称
+    llm_model: str = "qwen3.6-plus"          # API 模式使用的模型名称
     local_llm_base_url: str = "http://localhost:9000/v1"  # 本地模型地址
     local_llm_model: str = "qwen3-8b"              # 本地模型名称
     vl_model: str = "qwen-vl-max"               # Qwen3-VL 多模态视觉
@@ -33,7 +33,7 @@ class Settings(BaseSettings):
     local_embedding_model: str = "Qwen/Qwen3-Embedding-0.6B"  # 本地模型路径
     embedding_dim: int = 1024                   # 向量维度
     
-    enable_rerank: bool = True                   # 是否启用精排（False True）
+    enable_rerank: bool = False                   # 是否启用精排（ False True）
     reranker_mode: str = "local"                # "local" 或 "api"
     reranker_model: str = "qwen3-rerank"          # API 模式使用的模型名称
     local_reranker_model: str = "Qwen/Qwen3-Reranker-0.6B"  # 本地模型路径
