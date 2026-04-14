@@ -1,12 +1,11 @@
 """
 视觉通道解析器（Qwen-VL）
 ──────────────────────────────────────────────────────────────────────────────
-通过 Qwen3-VL 多模态理解，将 PDF 页面或独立图像文件转换为高质量文本。
+通过 Qwen3-VL 多模态理解，将独立图像文件转换为高质量文本。
 支持以下场景：
-  • 扫描件/纯图像 PDF 页面
   • 复杂图表与示意图
   • 数学公式
-  • 文本解析器无法完整还原的混合版面页面
+  • 扫描图像文件
 
 模型接收 base64 编码的图像和结构化提示词，返回 Markdown 格式的转录文本。
 """
@@ -16,14 +15,13 @@ import base64
 import io
 from pathlib import Path
 
-import fitz  # PyMuPDF — 用于 PDF 转图像
 from loguru import logger
 from openai import OpenAI
 from PIL import Image
 from tenacity import retry, stop_after_attempt, wait_exponential
 
 from config.settings import get_settings
-from .base_parser import BaseDocumentParser, BlockType, BoundingBox, ParsedBlock
+from .base_parser import BaseDocumentParser, BlockType, ParsedBlock
 
 settings = get_settings()
 
@@ -45,30 +43,14 @@ def _encode_image_to_base64(image: Image.Image, fmt: str = "JPEG") -> str:
     return base64.b64encode(buf.getvalue()).decode("utf-8")
 
 
-def _pdf_page_to_image(file_path: Path, page_num: int, dpi: int = 150) -> Image.Image:
-    """以指定 DPI 将 PDF 单页渲染为 PIL Image。"""
-    doc = fitz.open(str(file_path))
-    page = doc[page_num]
-    mat = fitz.Matrix(dpi / 72, dpi / 72)
-    pix = page.get_pixmap(matrix=mat, alpha=False)
-    img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
-    doc.close()
-    return img
-
-
 class VisionParser(BaseDocumentParser):
     """
-    使用 Qwen-VL 处理图像主导页面和独立图像文件的多模态解析器。
+    使用 Qwen-VL 处理独立图像文件的多模态解析器。
 
     使用示例
     --------
     parser = VisionParser()
-
-    # 直接解析图像文件
     blocks = parser.parse(Path("chart.png"))
-
-    # 解析指定 PDF 页面（由 PDFTextParser 标记后传入）
-    blocks = parser.parse_pdf_pages(Path("doc.pdf"), page_indices=[0, 3, 7])
     """
 
     def __init__(self) -> None:
@@ -93,40 +75,10 @@ class VisionParser(BaseDocumentParser):
             ParsedBlock(
                 content=content,
                 block_type=BlockType.FIGURE,
-                bbox=BoundingBox(0, 0, 1, 1, page=0),
                 page_num=0,
                 metadata={"source": "vision_parser", "file": file_path.name},
             )
         ]
-
-    def parse_pdf_pages(
-        self, file_path: Path, page_indices: list[int]
-    ) -> list[ParsedBlock]:
-        """
-        将指定 PDF 页面渲染后交由 Qwen-VL 解析。
-        由 DocumentRouter 在检测到图像主导页时调用。
-        """
-        blocks: list[ParsedBlock] = []
-        for page_num in page_indices:
-            logger.info(
-                f"[VisionParser] 正在处理第 {page_num} 页：{file_path.name}"
-            )
-            image = _pdf_page_to_image(file_path, page_num)
-            content = self._call_vl_model(image, source=f"{file_path.name}:p{page_num}")
-            blocks.append(
-                ParsedBlock(
-                    content=content,
-                    block_type=BlockType.FIGURE,
-                    bbox=BoundingBox(0, 0, 1, 1, page=page_num),
-                    page_num=page_num,
-                    metadata={
-                        "source": "vision_parser",
-                        "file": file_path.name,
-                        "parsed_by": "qwen_vl",
-                    },
-                )
-            )
-        return blocks
 
     # ──────────────────────────────────────────────────────────────────────
     # 内部方法

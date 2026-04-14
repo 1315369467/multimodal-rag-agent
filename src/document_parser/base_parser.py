@@ -21,20 +21,6 @@ class BlockType(str, Enum):
 
 
 @dataclass
-class BoundingBox:
-    """相对于页面尺寸的归一化坐标（范围 0~1）。"""
-    x0: float
-    y0: float
-    x1: float
-    y1: float
-    page: int = 0
-
-    @property
-    def area(self) -> float:
-        return max(0.0, self.x1 - self.x0) * max(0.0, self.y1 - self.y0)
-
-
-@dataclass
 class ParsedBlock:
     """
     流经 Pipeline 的最小内容单元。
@@ -43,13 +29,11 @@ class ParsedBlock:
     --------
     content:    文本内容（图表块为视觉模型生成的描述文字）。
     block_type: 该块的语义类型。
-    bbox:       页面级版面坐标（供语义切分器使用）。
     page_num:   在源文档中的页码（0 起始）。
     metadata:   任意扩展信息（字体大小、图片路径、置信度等）。
     """
     content: str
     block_type: BlockType
-    bbox: BoundingBox | None = None
     page_num: int = 0
     metadata: dict[str, Any] = field(default_factory=dict)
 
@@ -60,7 +44,6 @@ class ParsedBlock:
             "metadata": {
                 "block_type": self.block_type.value,
                 "page_num": self.page_num,
-                "bbox": vars(self.bbox) if self.bbox else None,
                 **self.metadata,
             },
         }

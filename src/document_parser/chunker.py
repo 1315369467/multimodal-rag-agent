@@ -322,7 +322,6 @@ class SemanticChunker:
             "page_num": block.page_num,
             "block_type": block.block_type.value,
             "header_context": header_context,
-            "bbox": vars(block.bbox) if block.bbox else None,
             **block.metadata,
         }
 
