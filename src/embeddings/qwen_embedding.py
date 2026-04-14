@@ -44,7 +44,7 @@ class QwenLocalEmbeddings(Embeddings):
         self,
         model_name_or_path: str | None = None,
         dimensions: int = 1024,
-        max_length: int = 8192,
+        max_length: int = 4096,
         batch_size: int = 8,
         instruction: str | None = None,
     ) -> None:
@@ -116,6 +116,7 @@ class QwenLocalEmbeddings(Embeddings):
                     pooled = pooled[:, : self.dimensions]
                 pooled = F.normalize(pooled, p=2, dim=1)
             all_vectors.extend(pooled.cpu().tolist())
+            torch.cuda.empty_cache()
 
         return all_vectors
 
