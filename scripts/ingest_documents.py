@@ -14,6 +14,7 @@ python scripts/ingest_documents.py --files report.pdf scan.png table.pdf
 
 # 先清空集合再入库
 python scripts/ingest_documents.py --input-dir ./data/eval_corpus --reset
+python scripts/ingest_documents.py --input-dir ./data/pdf_output --reset
 
 # 指定切分策略（fixed / sentence / paragraph / markdown / recursive / semantic）
 python scripts/ingest_documents.py --input-dir ./data/eval_corpus --chunk-strategy recursive

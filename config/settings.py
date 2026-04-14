@@ -45,7 +45,7 @@ class Settings(BaseSettings):
     # ── 文档处理 ───────────────────────────────────────────────────────────
     # chunk 切分策略： fixed | sentence | paragraph | markdown | recursive | semantic
     chunk_strategy: str = "semantic"
-    chunk_size: int = 512
+    chunk_size: int = 1024
     chunk_overlap: int = 32
     max_workers: int = 4
 
@@ -70,20 +70,17 @@ class Settings(BaseSettings):
     log_level: str = "INFO"
     log_file: str = "./logs/app.log"
 
-    # ── 派生属性 ───────────────────────────────────────────────────────────
+    # ── 派生属性 ──────────────────────────────────────────────────────────────
     @property
     def effective_llm_model(self) -> str:
-        """根据 llm_mode 返回实际使用的模型名称。"""
         return self.local_llm_model if self.llm_mode == "local" else self.llm_model
 
     @property
     def effective_llm_base_url(self) -> str:
-        """根据 llm_mode 返回实际使用的 base_url。"""
         return self.local_llm_base_url if self.llm_mode == "local" else self.dashscope_base_url
 
     @property
     def effective_llm_api_key(self) -> str:
-        """根据 llm_mode 返回实际使用的 api_key（本地模型填占位符即可）。"""
         return "local" if self.llm_mode == "local" else self.dashscope_api_key
 
     @property

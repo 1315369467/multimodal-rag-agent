@@ -26,28 +26,28 @@ RAG 检索评估脚本
 
 用法
 ────
-  # 离线模式（默认，无需 API）
-  python scripts/evaluate.py
+# 离线模式（默认，无需 API）
+python scripts/evaluate.py
 
-  # 指定数据集和语料库
-  python scripts/evaluate.py --dataset data/eval_dataset.jsonl --corpus data/eval_corpus
+# 指定数据集和语料库
+python scripts/evaluate.py --dataset data/eval_dataset.jsonl --corpus data/eval_corpus
 
-  # 在线模式（完整 RAG 流水线）
-  python scripts/evaluate.py --online --dataset data/eval_dataset.jsonl
-  python scripts/evaluate.py --online --dataset data/eval_dataset_ocr.jsonl
+# 在线模式（完整 RAG 流水线）
+python scripts/evaluate.py --online --dataset data/eval_dataset.jsonl
+python scripts/evaluate.py --online --dataset data/eval_dataset_ocr.jsonl
+python scripts/evaluate.py --online --dataset data/eval_dataset_ocr_dedup.jsonl
 
+# 消融实验：仅 Dense / 仅 Sparse
+python scripts/evaluate.py --online --ablation dense
+python scripts/evaluate.py --online --ablation sparse
 
-  # 消融实验：仅 Dense / 仅 Sparse
-  python scripts/evaluate.py --online --ablation dense
-  python scripts/evaluate.py --online --ablation sparse
-
-  # Chunk 切分方法消融（离线模式，对比各切分策略）
-  python scripts/evaluate.py --chunk-ablation fixed
-  python scripts/evaluate.py --chunk-ablation sentence
-  python scripts/evaluate.py --chunk-ablation paragraph
-  python scripts/evaluate.py --chunk-ablation markdown
-  python scripts/evaluate.py --chunk-ablation recursive
-  python scripts/evaluate.py --chunk-ablation all      # 对比全部方法，输出汇总表
+# Chunk 切分方法消融（离线模式，对比各切分策略）
+python scripts/evaluate.py --chunk-ablation fixed
+python scripts/evaluate.py --chunk-ablation sentence
+python scripts/evaluate.py --chunk-ablation paragraph
+python scripts/evaluate.py --chunk-ablation markdown
+python scripts/evaluate.py --chunk-ablation recursive
+python scripts/evaluate.py --chunk-ablation all      # 对比全部方法，输出汇总表
 """
 from __future__ import annotations
 
@@ -69,19 +69,26 @@ from src.retrieval.sparse_retriever import SparseRetriever
 
 # ── 指标函数 ──────────────────────────────────────────────────────────────
 
+def _norm_source(s: str) -> str:
+    """去掉扩展名，统一 source 比较格式（如 'BLIP-2.txt' → 'BLIP-2'）。"""
+    return Path(s).stem if s else s
+
+
 def recall_at_k(
     retrieved_sources: list[str], ground_truth: str, k: int
 ) -> float:
     """若正确来源出现在 top-k 中则返回 1，否则返回 0。"""
-    return float(ground_truth in retrieved_sources[:k])
+    gt = _norm_source(ground_truth)
+    return float(gt in [_norm_source(s) for s in retrieved_sources[:k]])
 
 
 def reciprocal_rank(
     retrieved_sources: list[str], ground_truth: str, k: int
 ) -> float:
     """找到正确来源则返回 1/rank，否则返回 0。仅在 top-k 范围内计算。"""
+    gt = _norm_source(ground_truth)
     for rank, src in enumerate(retrieved_sources[:k], start=1):
-        if src == ground_truth:
+        if _norm_source(src) == gt:
             return 1.0 / rank
     return 0.0
 
@@ -90,7 +97,8 @@ def precision_at_k(
     retrieved_sources: list[str], ground_truth: str, k: int
 ) -> float:
     """top-k 中命中正确来源的比例。"""
-    hits = sum(1 for s in retrieved_sources[:k] if s == ground_truth)
+    gt = _norm_source(ground_truth)
+    hits = sum(1 for s in retrieved_sources[:k] if _norm_source(s) == gt)
     return hits / k
 
 
@@ -101,10 +109,11 @@ def ndcg_at_k(
     NDCG@K（单一正确答案版本）。
     仅计算首次命中的排名位置，后续重复命中不计入 DCG。
     """
+    gt = _norm_source(ground_truth)
     dcg = 0.0
     found = False
     for rank, src in enumerate(retrieved_sources[:k], start=1):
-        if src == ground_truth and not found:
+        if _norm_source(src) == gt and not found:
             dcg += 1.0 / math.log2(rank + 1)
             found = True
     idcg = 1.0 / math.log2(2)  # 理想情况：正确来源在第1位
@@ -235,7 +244,15 @@ def retrieve_online(
     retriever, query: str, k: int
 ) -> list[dict]:
     """使用完整 Hybrid 检索流水线。"""
-    docs = retriever.retrieve(query, dense_k=k * 2, sparse_k=k * 2, rerank_k=k * 2, final_k=k)
+    from config.settings import get_settings
+    _s = get_settings()
+    docs = retriever.retrieve(
+        query,
+        dense_k=_s.dense_top_k,
+        sparse_k=_s.sparse_top_k,
+        rerank_k=_s.rerank_top_k,
+        final_k=_s.final_top_k,
+    )
     return [
         {
             "source": doc.metadata.get("source", ""),
@@ -412,7 +429,6 @@ def print_results(output: dict, k_values: list[int], mode: str, elapsed: float) 
     print("=" * 60)
     print(f"  评估查询数  : {n}")
     print(f"  评估耗时    : {elapsed:.1f}s")
-    print()
 
     # 主指标表格
     print("  ┌─────────────┬──────────┬──────────┬──────────┬──────────┐")
@@ -429,7 +445,7 @@ def print_results(output: dict, k_values: list[int], mode: str, elapsed: float) 
     # 失败案例
     failed = output.get("failed_queries", [])
     if failed:
-        print(f"\n  未命中查询（{len(failed)} 条）:")
+        print(f"未命中查询（{len(failed)} 条）:")
         for i, q in enumerate(failed[:10], 1):
             print(f"    {i}. [{q['ground_truth_source']}] {q['question']}")
             if q.get("retrieved_top3"):
@@ -437,7 +453,7 @@ def print_results(output: dict, k_values: list[int], mode: str, elapsed: float) 
         if len(failed) > 10:
             print(f"    ... 共 {len(failed)} 条未命中")
 
-    print("\n" + "=" * 60)
+    print("=" * 60)
 
 
 # ── 主函数 ────────────────────────────────────────────────────────────────
