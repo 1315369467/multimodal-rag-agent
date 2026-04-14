@@ -147,7 +147,7 @@ def call_llm(client: OpenAI, doc_name: str, content: str, n: int) -> list[dict]:
                     {"role": "system", "content": _SYSTEM_PROMPT},
                     {"role": "user", "content": build_user_prompt(doc_name, content, n)},
                 ],
-                temperature=0.4,
+                temperature=0.7,
                 max_tokens=10000,
             )
             raw = response.choices[0].message.content or ""
