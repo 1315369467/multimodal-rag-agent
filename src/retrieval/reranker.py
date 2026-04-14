@@ -102,7 +102,9 @@ class QwenLocalReranker:
 
     # ── 内部方法 ──────────────────────────────────────────────────────────
 
-    def _compute_scores(self, query: str, documents: list[str]) -> list[float]:
+    def _compute_scores(
+        self, query: str, documents: list[str], batch_size: int = 4
+    ) -> list[float]:
         import torch
 
         pairs = [
@@ -110,27 +112,37 @@ class QwenLocalReranker:
             for doc in documents
         ]
 
-        out = self._tokenizer(
-            pairs, padding=False, truncation="longest_first",
-            return_attention_mask=False,
-            max_length=self.max_length - len(self._prefix_tokens) - len(self._suffix_tokens),
-        )
-        for i, ele in enumerate(out["input_ids"]):
-            out["input_ids"][i] = self._prefix_tokens + ele + self._suffix_tokens
+        body_max = self.max_length - len(self._prefix_tokens) - len(self._suffix_tokens)
+        all_scores: list[float] = []
 
-        out = self._tokenizer.pad(out, padding=True, return_tensors="pt", max_length=self.max_length)
-        for key in out:
-            out[key] = out[key].to(self._model.device)
+        for start in range(0, len(pairs), batch_size):
+            batch_pairs = pairs[start: start + batch_size]
 
-        with torch.no_grad():
-            logits = self._model(**out).logits[:, -1, :]
-            true_vec = logits[:, self._token_true_id]
-            false_vec = logits[:, self._token_false_id]
-            stacked = torch.stack([false_vec, true_vec], dim=1)
-            probs = torch.nn.functional.log_softmax(stacked, dim=1)
-            scores = probs[:, 1].exp().tolist()
+            out = self._tokenizer(
+                batch_pairs, padding=False, truncation="longest_first",
+                return_attention_mask=False,
+                max_length=body_max,
+            )
+            for i, ele in enumerate(out["input_ids"]):
+                out["input_ids"][i] = self._prefix_tokens + ele + self._suffix_tokens
 
-        return scores
+            out = self._tokenizer.pad(
+                out, padding=True, return_tensors="pt", max_length=self.max_length
+            )
+            for key in out:
+                out[key] = out[key].to(self._model.device)
+
+            with torch.no_grad():
+                logits = self._model(**out).logits[:, -1, :]
+                true_vec = logits[:, self._token_true_id]
+                false_vec = logits[:, self._token_false_id]
+                stacked = torch.stack([false_vec, true_vec], dim=1)
+                probs = torch.nn.functional.log_softmax(stacked, dim=1)
+                batch_scores = probs[:, 1].exp().tolist()
+
+            all_scores.extend(batch_scores)
+
+        return all_scores
 
 
 # ═══════════════════════════════════════════════════════════════════════════
