@@ -1,28 +1,32 @@
 # 多模态 RAG 本地知识库问答 Agent
 
-企业级多模态文档解析 → RAG 问答全链路系统。支持 PDF、TXT、Markdown、扫描件、图表、公式等复杂排版文档的结构化检索与智能问答。内置 Streamlit 可视化前端，支持知识库浏览、增删改查及交互式问答。
+企业级多模态文档解析 → RAG 问答全链路系统。复杂排版文档（含表格、图表、公式、扫描件）经 MinerU OCR 预处理统一转为结构化 Markdown，再通过语义感知切分写入向量库，最终支持混合检索与智能问答。内置 Streamlit 可视化前端，支持知识库浏览、增删改查及交互式问答。
 
 
 ## 架构总览
 
 ```
-输入文档 (PDF / TXT / Markdown / 图片)
+输入文档 (PDF / 扫描件 / 图表)
+       │
+       ▼ MinerU OCR 预处理（布局识别 + OCR）
+       │
+结构化 Markdown (.md)
        │
        ▼
 ┌─────────────────────────────────────────────────────┐
 │              DocumentRouter  (路由层)                │
 │                                                     │
-│  文本页面 → PDFTextParser (PyMuPDF + pdfplumber)    │
-│  纯文本   → TextParser    (TXT / Markdown 解析)     │
-│  图像页面 → VisionParser  (Qwen-VL 多模态理解)      │
+│  .md / .txt  → TextParser  (结构化 Markdown 解析)   │
+│  图像文件    → VisionParser (Qwen-VL 多模态理解)     │
 └──────────────────────┬──────────────────────────────┘
                        │ ParsedBlock[]
+                       │  HEADER / TEXT / TABLE / FIGURE
                        ▼
 ┌─────────────────────────────────────────────────────┐
 │           SemanticChunker  (语义感知切分)            │
 │  • 表格/图注/公式 → 原子 chunk (不切断)              │
 │  • 标题作为 context 附加到后续 chunk                 │
-│  • 基于版面坐标 + 字体层级决定切分边界               │
+│  • 识别 Markdown 结构（标题层级、表格、代码块）       │
 └──────────────────────┬──────────────────────────────┘
                        │ LangChain Document[]
                        ▼
@@ -46,7 +50,7 @@
                        │
                        ▼
           MultimodalRAGAgent (LangGraph ReAct)
-          Qwen3-235B 生成最终答案
+          Qwen3 生成最终答案
                        │
                        ▼
 ┌─────────────────────────────────────────────────────┐
@@ -59,7 +63,7 @@
 | 角色 | 模型 | 说明 |
 |------|------|------|
 | 主 LLM | `qwen3-235b-a22b` | 问答生成、推理 |
-| 视觉理解 | `qwen-vl-max` | 扫描页/图表/公式转录 |
+| 视觉理解 | `qwen-vl-max` | 独立图像文件内容理解 |
 | 向量化（本地，默认） | `Qwen/Qwen3-Embedding-0.6B` | 本地推理，无需 API（1024 维） |
 | 向量化（API 模式） | `text-embedding-v3` | DashScope API 调用（1024 维） |
 | 重排序（可选，默认关闭） | `gte-rerank` / `Qwen/Qwen3-Reranker-0.6B` | Cross-encoder 精排，可按模式切换 |
@@ -120,20 +124,41 @@ ENABLE_RERANK=false               # 默认关闭
 CHUNK_STRATEGY=semantic           # fixed|sentence|paragraph|markdown|recursive|semantic
 ```
 
-### 3. 文档入库
+### 3. 文档预处理（MinerU OCR）
+
+PDF、扫描件等复杂排版文档需先通过 MinerU 转换为结构化 Markdown：
 
 ```bash
-# 批量入库目录下所有文档
-python scripts/ingest_documents.py --input-dir ./data/documents
-
-# 指定文件入库（支持 PDF / TXT / MD / PNG / JPG）
-python scripts/ingest_documents.py --files report.pdf notes.md data.txt
-
-# 清空后重新入库
-python scripts/ingest_documents.py --input-dir ./data/documents --reset
+# 对 data/documents 下所有文档执行 OCR，输出到 data/ocr_output
+python scripts/mineru_ocr.py --input-dir ./data/documents
 ```
 
-### 4. 启动 API 服务
+输出目录结构：
+```
+data/ocr_output/
+  {文档名}/
+    {backend}/
+      {文档名}.md      ← 入库目标
+      images/          ← 提取出的图片
+```
+
+### 4. 文档入库
+
+```bash
+# 批量入库 OCR 输出目录下所有 Markdown
+python scripts/ingest_ocr_output.py
+
+# 指定其他 OCR 输出目录
+python scripts/ingest_ocr_output.py --ocr-dir ./my_ocr_results
+
+# 清空后重新入库
+python scripts/ingest_ocr_output.py --reset
+
+# 指定切分策略
+python scripts/ingest_ocr_output.py --chunk-strategy markdown
+```
+
+### 5. 启动 API 服务
 
 ```bash
 # 开发模式（热重载）
@@ -143,7 +168,7 @@ python run_server.py --reload
 python run_server.py --host 0.0.0.0 --port 8000 --workers 4
 ```
 
-### 5. 启动前端
+### 6. 启动前端
 
 ```bash
 streamlit run frontend/app.py
@@ -155,10 +180,10 @@ streamlit run frontend/app.py
 |------|------|
 | 知识库浏览 | 分页列表、展开查看、单条/批量删除 |
 | 智能问答 | 流式 Agent 问答（实时显示工具调用步骤）、来源引用、多轮对话 |
-| 文档入库 | 上传文件（PDF/TXT/MD/PNG/JPG）、查看处理结果 |
+| 文档入库 | 上传文件（TXT/MD/PNG/JPG）、查看处理结果 |
 | 系统管理 | 健康状态、文档统计、重置集合 |
 
-### 6. API 接口
+### 7. API 接口
 
 ```bash
 # 健康检查
@@ -174,9 +199,8 @@ curl -N -X POST http://localhost:8000/v1/query/stream \
   -H "Content-Type: application/json" \
   -d '{"question": "公司主营业务是什么？"}'
 
-# 上传并入库文件
+# 上传并入库文件（支持 TXT / MD / PNG / JPG）
 curl -X POST http://localhost:8000/v1/ingest/upload \
-  -F "files=@report.pdf" \
   -F "files=@notes.md"
 
 # 多轮对话
@@ -199,7 +223,7 @@ curl http://localhost:8000/v1/documents/{doc_id}
 # 更新文档
 curl -X PUT http://localhost:8000/v1/documents/{doc_id} \
   -H "Content-Type: application/json" \
-  -d '{"content": "更新后的内容", "metadata": {"source": "doc.pdf"}}'
+  -d '{"content": "更新后的内容", "metadata": {"source": "doc.md"}}'
 
 # 删除文档
 curl -X DELETE http://localhost:8000/v1/documents/{doc_id}
@@ -219,7 +243,7 @@ data: {"type": "answer", "answer": "...", "sources": [...], "total_elapsed_ms": 
 data: [DONE]
 ```
 
-### 7. 运行评估
+### 8. 运行评估
 
 ```bash
 # 离线模式（BM25，无需 API Key）
@@ -239,7 +263,7 @@ python scripts/evaluate.py --online --ablation sparse
 
 评估数据集格式（JSONL，每行一条）：
 ```jsonl
-{"question": "什么是RAG？", "answer": "检索增强生成...", "source": "intro.pdf", "page": 5}
+{"question": "什么是RAG？", "answer": "检索增强生成...", "source": "intro.md", "page": 5}
 ```
 
 #### Chunk 切分方法消融实验
@@ -278,7 +302,7 @@ python scripts/evaluate.py --chunk-ablation all --chunk-size 512
 
 消融结果自动保存至 `eval_results_chunk_ablation.json`。
 
-### 8. 运行测试
+### 9. 运行测试
 
 ```bash
 pytest tests/ -v
@@ -293,10 +317,9 @@ multimodal-rag-agent/
 ├── src/
 │   ├── document_parser/
 │   │   ├── base_parser.py       # ParsedBlock 数据结构 + 抽象基类
-│   │   ├── pdf_parser.py        # PyMuPDF + pdfplumber 文本提取
-│   │   ├── text_parser.py       # TXT / Markdown 纯文本解析
-│   │   ├── vision_parser.py     # Qwen-VL 视觉理解
-│   │   ├── router.py            # 多通道路由编排
+│   │   ├── text_parser.py       # Markdown / TXT 结构化解析
+│   │   ├── vision_parser.py     # Qwen-VL 视觉理解（独立图像文件）
+│   │   ├── router.py            # 文件类型路由
 │   │   └── chunker.py           # 版面感知语义切分
 │   ├── embeddings/
 │   │   └── qwen_embedding.py    # Qwen3-Embedding LangChain 封装（本地/API 双模式）
@@ -324,7 +347,8 @@ multimodal-rag-agent/
 │   ├── app.py                   # Streamlit 可视化前端
 │   └── style.css                # 自定义样式
 ├── scripts/
-│   ├── ingest_documents.py      # 批量文档入库 CLI
+│   ├── mineru_ocr.py            # MinerU OCR 预处理（PDF → Markdown）
+│   ├── ingest_ocr_output.py     # OCR 结果批量入库 CLI
 │   └── evaluate.py              # Recall/MRR/Precision 评估
 ├── tests/
 │   ├── test_parser.py           # 解析层单元测试（含 TextParser）
@@ -339,8 +363,19 @@ multimodal-rag-agent/
 
 ## 关键设计决策
 
-### 多通道解析
-PDF 页面首先经过文本提取（低延迟），若检测到图像覆盖率超过阈值或文字量不足，自动切换到 Qwen-VL 视觉通道，确保图表/扫描页内容不丢失。同时支持 TXT/Markdown 文件的直接解析，Markdown 标题自动识别为 HEADER 块。
+### 文档解析策略
+
+复杂排版文档（PDF、扫描件）先通过 **MinerU OCR** 进行布局识别与 OCR，统一输出为结构化 Markdown，再交由 `TextParser` 解析。`TextParser` 能识别以下 Markdown 元素并映射为带类型标注的 `ParsedBlock`：
+
+| Markdown 元素 | BlockType | 切分行为 |
+|---|---|---|
+| `# 标题` | `HEADER` | 不单独输出，作为后续 chunk 的 `header_context` |
+| `\| 表格 \|` | `TABLE` | 原子块，整体输出，不跨行截断 |
+| `![alt](url)` 独立行 | `FIGURE` | 原子块，整体输出 |
+| ` ``` ``` ` 代码块 | `TEXT` | 整体保留，携带 `subtype=code_block` |
+| 其余段落 | `TEXT` | 按 chunk_size 滚动切分 |
+
+独立图像文件（PNG/JPG 等）直接由 `VisionParser` 通过 Qwen-VL 转录为 Markdown 文本。
 
 ### Embedding 双模式
 系统支持本地推理和 API 调用两种 Embedding 模式：
@@ -359,7 +394,7 @@ PDF 页面首先经过文本提取（低延迟），若检测到图像覆盖率�
 | `paragraph` | 按连续空行，短段自动合并 | 普通文章、报告 |
 | `markdown` | 按 `##`/`###` 标题 | Markdown/结构化文档 |
 | `recursive` | LangChain 递归切分，优先段落→句子→字符 | 混合格式文档 |
-| `semantic` | ParsedBlock 感知切分，保留版面语义（**默认**） | PDF/扫描件/结构复杂文档 |
+| `semantic` | ParsedBlock 感知切分，保留版面语义（**默认**） | 结构复杂的 Markdown 文档 |
 
 #### 关于 `chunk_overlap`
 
@@ -394,8 +429,6 @@ ParsedBlock[]
      │
      └─ 普通文本块（TEXT）
           │
-          ├─ 跨页？→ 刷出缓冲区，重置
-          │
           ├─ 加入当前块后超过 chunk_size？
           │    刷出缓冲区
           │    从上一个 chunk 末尾取 chunk_overlap 个词作为新缓冲区起始
@@ -412,7 +445,6 @@ ParsedBlock[]
 
 - **标题即上下文**：遇到 HEADER 块时不单独输出，而是将标题文本存入 `header_context`，拼入后续所有 chunk 的开头，使每个 chunk 都能回溯所属章节
 - **原子块不切断**：TABLE / FIGURE / FORMULA 整体输出为一个独立 chunk，防止表格行或公式被切断
-- **跨页刷新**：页码变化时强制刷出缓冲区，避免将不同页的内容混入同一 chunk
 - **重叠保留上下文**：超出 `chunk_size` 时，从上一 chunk 末尾取 `chunk_overlap` 个词作为新 chunk 起始
 
 ### RRF 融合

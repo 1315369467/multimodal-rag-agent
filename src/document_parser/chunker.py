@@ -156,7 +156,7 @@ def chunk_text(
     text: str,
     source: str,
     strategy: str,
-    chunk_size: int = 256,
+    chunk_size: int = 512,
     chunk_overlap: int = 64,
 ) -> list[Document]:
     """对原始文本应用指定策略，返回 Document 列表。"""
