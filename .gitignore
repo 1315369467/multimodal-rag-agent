@@ -16,3 +16,4 @@ chroma_db/
 eval_results*
 data/pdfs
 data/ocr_output
+data/pdf_output
