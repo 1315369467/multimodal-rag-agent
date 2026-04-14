@@ -45,13 +45,9 @@ class Settings(BaseSettings):
     # ── 文档处理 ───────────────────────────────────────────────────────────
     # chunk 切分策略： fixed | sentence | paragraph | markdown | recursive | semantic
     chunk_strategy: str = "semantic"
-    chunk_size: int = 256
+    chunk_size: int = 512
     chunk_overlap: int = 32
     max_workers: int = 4
-    # PDF 页面文字字符数低于此值时，降级到视觉解析通道
-    min_text_chars_for_text_path: int = 100
-    # 图像面积占页面面积的比例超过此阈值时，判定为图像主导页
-    image_coverage_threshold: float = 0.6
 
     # ── 检索参数 ───────────────────────────────────────────────────────────
     dense_top_k: int = 10
@@ -62,9 +58,9 @@ class Settings(BaseSettings):
     sparse_weight: float = 0.3
 
     # ── LLM 生成参数 ───────────────────────────────────────────────────────
-    llm_temperature: float = 0.1
+    llm_temperature: float = 0.3
     llm_max_tokens: int = 2048
-    llm_request_timeout: int = 60
+    llm_request_timeout: int = 30
 
     # ── API 服务 ───────────────────────────────────────────────────────────
     api_host: str = "0.0.0.0"

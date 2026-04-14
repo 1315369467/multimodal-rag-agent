@@ -426,23 +426,6 @@ def print_results(output: dict, k_values: list[int], mode: str, elapsed: float) 
         print(f"  │  K = {k:<6} │ {r:>7.2%}  │ {m:>7.4f}  │ {p:>7.2%}  │ {nd:>7.4f}  │")
     print("  └─────────────┴──────────┴──────────┴──────────┴──────────┘")
 
-    # 分类细分
-    cat_summary = output.get("category_summary", {})
-    if cat_summary:
-        print(f"\n  分类细分（K={k_values[0]}）:")
-        print("  ┌─────────────┬──────┬──────────┬──────────┐")
-        print("  │ 分类        │ 数量 │ Recall   │ MRR      │")
-        print("  ├─────────────┼──────┼──────────┼──────────┤")
-        k_last = k_values[0]
-        for cat, data in sorted(cat_summary.items()):
-            cnt = data.get("count", 0)
-            recall = data.get(f"recall@{k_last}", 0)
-            mrr = data.get(f"mrr@{k_last}", 0)
-            print(
-                f"  │ {cat:<11} │ {cnt:>4} │ {recall:>7.2%}  │ {mrr:>7.4f}  │"
-            )
-        print("  └─────────────┴──────┴──────────┴──────────┘")
-
     # 失败案例
     failed = output.get("failed_queries", [])
     if failed:

@@ -141,6 +141,8 @@ class QwenLocalReranker:
                 batch_scores = probs[:, 1].exp().tolist()
 
             all_scores.extend(batch_scores)
+            del out, logits, true_vec, false_vec, stacked, probs
+            torch.cuda.empty_cache()
 
         return all_scores
 

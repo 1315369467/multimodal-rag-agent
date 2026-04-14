@@ -1,54 +1,54 @@
 {
   "summary": {
-    "Recall@1": 0.8785714285714286,
-    "MRR@1": 0.8785714285714286,
-    "Precision@1": 0.8785714285714286,
-    "NDCG@1": 0.8785714285714286,
+    "Recall@1": 0.8714285714285714,
+    "MRR@1": 0.8714285714285714,
+    "Precision@1": 0.8714285714285714,
+    "NDCG@1": 0.8714285714285714,
     "Recall@3": 0.9857142857142858,
-    "MRR@3": 0.9273809523809522,
-    "Precision@3": 0.8285714285714286,
-    "NDCG@3": 0.9424301949234714,
-    "Recall@5": 0.9928571428571429,
-    "MRR@5": 0.9288095238095238,
-    "Precision@5": 0.7828571428571425,
-    "NDCG@5": 0.9451934292608608,
+    "MRR@3": 0.9261904761904761,
+    "Precision@3": 0.8071428571428578,
+    "NDCG@3": 0.9416644039285741,
+    "Recall@5": 1.0,
+    "MRR@5": 0.9297619047619047,
+    "Precision@5": 0.7428571428571423,
+    "NDCG@5": 0.947816926186765,
     "Recall@10": 1.0,
-    "MRR@10": 0.9298299319727891,
-    "Precision@10": 0.6900000000000002,
-    "NDCG@10": 0.9475743816418133
+    "MRR@10": 0.9297619047619047,
+    "Precision@10": 0.6507142857142857,
+    "NDCG@10": 0.947816926186765
   },
   "category_summary": {
     "factual": {
       "recall@1": 0.8961038961038961,
       "mrr@1": 0.8961038961038961,
       "recall@3": 0.987012987012987,
-      "mrr@3": 0.9393939393939396,
-      "recall@5": 0.987012987012987,
-      "mrr@5": 0.9393939393939396,
+      "mrr@3": 0.9393939393939393,
+      "recall@5": 1.0,
+      "mrr@5": 0.9426406926406926,
       "recall@10": 1.0,
-      "mrr@10": 0.9412492269635128,
+      "mrr@10": 0.9426406926406926,
       "count": 77
     },
     "comparative": {
-      "recall@1": 0.9285714285714286,
-      "mrr@1": 0.9285714285714286,
+      "recall@1": 0.9642857142857143,
+      "mrr@1": 0.9642857142857143,
       "recall@3": 1.0,
-      "mrr@3": 0.9642857142857143,
+      "mrr@3": 0.9821428571428571,
       "recall@5": 1.0,
-      "mrr@5": 0.9642857142857143,
+      "mrr@5": 0.9821428571428571,
       "recall@10": 1.0,
-      "mrr@10": 0.9642857142857143,
+      "mrr@10": 0.9821428571428571,
       "count": 28
     },
     "procedural": {
-      "recall@1": 0.8,
-      "mrr@1": 0.8,
+      "recall@1": 0.7428571428571429,
+      "mrr@1": 0.7428571428571429,
       "recall@3": 0.9714285714285714,
-      "mrr@3": 0.8714285714285713,
+      "mrr@3": 0.8523809523809524,
       "recall@5": 1.0,
-      "mrr@5": 0.877142857142857,
+      "mrr@5": 0.8595238095238095,
       "recall@10": 1.0,
-      "mrr@10": 0.877142857142857,
+      "mrr@10": 0.8595238095238095,
       "count": 35
     }
   },
@@ -107,8 +107,8 @@
       "category": "factual",
       "retrieved_top3": [
         "DeepSeek-v1",
-        "DeepSeek-v1",
-        "DeepSeek-v2"
+        "DeepSeek-v2",
+        "DeepSeek-v1"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -202,23 +202,23 @@
       "ground_truth_source": "DeepSeek-v1",
       "category": "procedural",
       "retrieved_top3": [
-        "DeepSeek-v3.2",
-        "DeepSeek-v3",
-        "DeepSeek-v1"
+        "DeepSeek-v2",
+        "DeepSeek-v1",
+        "DeepSeek-v3.2"
       ],
       "metrics": {
         "recall@1": 0.0,
         "mrr@1": 0.0,
         "ndcg@1": 0.0,
         "recall@3": 1.0,
-        "mrr@3": 0.3333333333333333,
-        "ndcg@3": 0.5,
+        "mrr@3": 0.5,
+        "ndcg@3": 0.6309297535714575,
         "recall@5": 1.0,
-        "mrr@5": 0.3333333333333333,
-        "ndcg@5": 0.5,
+        "mrr@5": 0.5,
+        "ndcg@5": 0.6309297535714575,
         "recall@10": 1.0,
-        "mrr@10": 0.3333333333333333,
-        "ndcg@10": 0.5
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
       }
     },
     {
@@ -227,7 +227,7 @@
       "category": "procedural",
       "retrieved_top3": [
         "DeepSeek-v1",
-        "DeepSeek-v3.2",
+        "DeepSeek-v1",
         "DeepSeek-v1"
       ],
       "metrics": {
@@ -324,7 +324,7 @@
       "retrieved_top3": [
         "DeepSeek-v1",
         "DeepSeek-v1",
-        "DeepSeek-v2"
+        "DeepSeek-v1"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -348,7 +348,7 @@
       "retrieved_top3": [
         "DeepSeek-v1",
         "DeepSeek-v1",
-        "DeepSeek-v1"
+        "Qwen3 Technical Report"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -420,7 +420,7 @@
       "retrieved_top3": [
         "DeepSeek-v1",
         "DeepSeek-v1",
-        "DeepSeek-v2"
+        "DeepSeek-v3"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -454,11 +454,11 @@
         "mrr@3": 0.0,
         "ndcg@3": 0.0,
         "recall@5": 1.0,
-        "mrr@5": 0.2,
-        "ndcg@5": 0.38685280723454163,
+        "mrr@5": 0.25,
+        "ndcg@5": 0.43067655807339306,
         "recall@10": 1.0,
-        "mrr@10": 0.2,
-        "ndcg@10": 0.38685280723454163
+        "mrr@10": 0.25,
+        "ndcg@10": 0.43067655807339306
       }
     },
     {
@@ -491,7 +491,7 @@
       "category": "factual",
       "retrieved_top3": [
         "DeepSeek-v1",
-        "DeepSeek-v1",
+        "DeepSeek-v3",
         "DeepSeek-R1"
       ],
       "metrics": {
@@ -564,7 +564,7 @@
       "retrieved_top3": [
         "DeepSeek-v2",
         "DeepSeek-v2",
-        "DeepSeek-v2"
+        "DeepSeek-v3"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -803,7 +803,7 @@
       "category": "procedural",
       "retrieved_top3": [
         "DeepSeek-v2",
-        "DeepSeek-v2",
+        "DeepSeek-v3",
         "DeepSeek-v2"
       ],
       "metrics": {
@@ -874,23 +874,23 @@
       "ground_truth_source": "DeepSeek-v2",
       "category": "procedural",
       "retrieved_top3": [
-        "DeepSeek-v3",
         "DeepSeek-v2",
+        "DeepSeek-v3",
         "DeepSeek-v2"
       ],
       "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
         "recall@3": 1.0,
-        "mrr@3": 0.5,
-        "ndcg@3": 0.6309297535714575,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
         "recall@5": 1.0,
-        "mrr@5": 0.5,
-        "ndcg@5": 0.6309297535714575,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
         "recall@10": 1.0,
-        "mrr@10": 0.5,
-        "ndcg@10": 0.6309297535714575
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
@@ -922,23 +922,23 @@
       "ground_truth_source": "DeepSeek-v2",
       "category": "procedural",
       "retrieved_top3": [
-        "DeepSeek-v2",
+        "DeepSeek-v3.2",
         "DeepSeek-v2",
         "DeepSeek-v2"
       ],
       "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
+        "recall@1": 0.0,
+        "mrr@1": 0.0,
+        "ndcg@1": 0.0,
         "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
+        "mrr@3": 0.5,
+        "ndcg@3": 0.6309297535714575,
         "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
+        "mrr@5": 0.5,
+        "ndcg@5": 0.6309297535714575,
         "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
       }
     },
     {
@@ -970,23 +970,23 @@
       "ground_truth_source": "DeepSeek-v2",
       "category": "comparative",
       "retrieved_top3": [
-        "DeepSeek-v3",
         "DeepSeek-v2",
+        "DeepSeek-v3",
         "DeepSeek-v2"
       ],
       "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
         "recall@3": 1.0,
-        "mrr@3": 0.5,
-        "ndcg@3": 0.6309297535714575,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
         "recall@5": 1.0,
-        "mrr@5": 0.5,
-        "ndcg@5": 0.6309297535714575,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
         "recall@10": 1.0,
-        "mrr@10": 0.5,
-        "ndcg@10": 0.6309297535714575
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
@@ -1042,23 +1042,23 @@
       "ground_truth_source": "DeepSeek-v3",
       "category": "procedural",
       "retrieved_top3": [
-        "DeepSeek-v3",
         "DeepSeek-v2",
-        "DeepSeek-v3"
+        "DeepSeek-v3",
+        "DeepSeek-v2"
       ],
       "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
+        "recall@1": 0.0,
+        "mrr@1": 0.0,
+        "ndcg@1": 0.0,
         "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
+        "mrr@3": 0.5,
+        "ndcg@3": 0.6309297535714575,
         "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
+        "mrr@5": 0.5,
+        "ndcg@5": 0.6309297535714575,
         "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
       }
     },
     {
@@ -1187,7 +1187,7 @@
       "category": "comparative",
       "retrieved_top3": [
         "DeepSeek-v3",
-        "DeepSeek-v3",
+        "Qwen3 Technical Report",
         "DeepSeek-v3"
       ],
       "metrics": {
@@ -1260,7 +1260,7 @@
       "retrieved_top3": [
         "DeepSeek-v3",
         "DeepSeek-v3",
-        "DeepSeek-v3.2"
+        "DeepSeek-v3"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -1307,8 +1307,8 @@
       "category": "comparative",
       "retrieved_top3": [
         "DeepSeek-v3",
-        "DeepSeek-v2",
-        "DeepSeek-v3"
+        "DeepSeek-v3",
+        "Qwen3 Technical Report"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -1330,23 +1330,23 @@
       "ground_truth_source": "DeepSeek-v3",
       "category": "factual",
       "retrieved_top3": [
-        "DeepSeek-v3",
         "DeepSeek-R1",
-        "DeepSeek-v3.2"
+        "DeepSeek-v3",
+        "DeepSeek-v3"
       ],
       "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
+        "recall@1": 0.0,
+        "mrr@1": 0.0,
+        "ndcg@1": 0.0,
         "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
+        "mrr@3": 0.5,
+        "ndcg@3": 0.6309297535714575,
         "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
+        "mrr@5": 0.5,
+        "ndcg@5": 0.6309297535714575,
         "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
       }
     },
     {
@@ -1476,7 +1476,7 @@
       "retrieved_top3": [
         "DeepSeek-v3",
         "DeepSeek-R1",
-        "DeepSeek-v3"
+        "DeepSeek-v3.2"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -1500,7 +1500,7 @@
       "retrieved_top3": [
         "DeepSeek-v3.2",
         "DeepSeek-v3.2",
-        "DeepSeek-v3.2"
+        "DeepSeek-v3"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -1595,7 +1595,7 @@
       "category": "factual",
       "retrieved_top3": [
         "Qwen3 Technical Report",
-        "Qwen2 Technical Report",
+        "DeepSeek-v3.2",
         "DeepSeek-v3.2"
       ],
       "metrics": {
@@ -1603,14 +1603,14 @@
         "mrr@1": 0.0,
         "ndcg@1": 0.0,
         "recall@3": 1.0,
-        "mrr@3": 0.3333333333333333,
-        "ndcg@3": 0.5,
+        "mrr@3": 0.5,
+        "ndcg@3": 0.6309297535714575,
         "recall@5": 1.0,
-        "mrr@5": 0.3333333333333333,
-        "ndcg@5": 0.5,
+        "mrr@5": 0.5,
+        "ndcg@5": 0.6309297535714575,
         "recall@10": 1.0,
-        "mrr@10": 0.3333333333333333,
-        "ndcg@10": 0.5
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
       }
     },
     {
@@ -1644,7 +1644,7 @@
       "retrieved_top3": [
         "DeepSeek-v3.2",
         "DeepSeek-v3.2",
-        "DeepSeek-v3.2"
+        "DeepSeek-R1"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -1714,23 +1714,23 @@
       "ground_truth_source": "DeepSeek-v3.2",
       "category": "procedural",
       "retrieved_top3": [
-        "Qwen3 Technical Report",
         "DeepSeek-R1",
-        "DeepSeek-v3.2"
+        "DeepSeek-v3.2",
+        "Qwen3 Technical Report"
       ],
       "metrics": {
         "recall@1": 0.0,
         "mrr@1": 0.0,
         "ndcg@1": 0.0,
         "recall@3": 1.0,
-        "mrr@3": 0.3333333333333333,
-        "ndcg@3": 0.5,
+        "mrr@3": 0.5,
+        "ndcg@3": 0.6309297535714575,
         "recall@5": 1.0,
-        "mrr@5": 0.3333333333333333,
-        "ndcg@5": 0.5,
+        "mrr@5": 0.5,
+        "ndcg@5": 0.6309297535714575,
         "recall@10": 1.0,
-        "mrr@10": 0.3333333333333333,
-        "ndcg@10": 0.5
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
       }
     },
     {
@@ -1786,23 +1786,23 @@
       "ground_truth_source": "DeepSeek-v3.2",
       "category": "procedural",
       "retrieved_top3": [
-        "DeepSeek-v3.2",
+        "DeepSeek-v2",
         "Qwen2 Technical Report",
         "DeepSeek-v3.2"
       ],
       "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
+        "recall@1": 0.0,
+        "mrr@1": 0.0,
+        "ndcg@1": 0.0,
         "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
+        "mrr@3": 0.3333333333333333,
+        "ndcg@3": 0.5,
         "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
+        "mrr@5": 0.3333333333333333,
+        "ndcg@5": 0.5,
         "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
+        "mrr@10": 0.3333333333333333,
+        "ndcg@10": 0.5
       }
     },
     {
@@ -1931,7 +1931,7 @@
       "category": "factual",
       "retrieved_top3": [
         "DeepSeek-v3.2",
-        "DeepSeek-v3",
+        "DeepSeek-v3.2",
         "DeepSeek-v3"
       ],
       "metrics": {
@@ -2002,9 +2002,9 @@
       "ground_truth_source": "Qwen Technical Report",
       "category": "factual",
       "retrieved_top3": [
-        "Qwen3 Technical Report",
         "Qwen2 Technical Report",
-        "Qwen2 Technical Report"
+        "Qwen3 Technical Report",
+        "Qwen3 Technical Report"
       ],
       "metrics": {
         "recall@1": 0.0,
@@ -2013,12 +2013,12 @@
         "recall@3": 0.0,
         "mrr@3": 0.0,
         "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
+        "recall@5": 1.0,
+        "mrr@5": 0.25,
+        "ndcg@5": 0.43067655807339306,
         "recall@10": 1.0,
-        "mrr@10": 0.14285714285714285,
-        "ndcg@10": 0.3333333333333333
+        "mrr@10": 0.25,
+        "ndcg@10": 0.43067655807339306
       }
     },
     {
@@ -2050,9 +2050,33 @@
       "ground_truth_source": "Qwen Technical Report",
       "category": "factual",
       "retrieved_top3": [
+        "Qwen Technical Report",
+        "Qwen3 Technical Report",
+        "Qwen Technical Report"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "预训练阶段使用了哪些优化技术？",
+      "ground_truth_source": "Qwen Technical Report",
+      "category": "procedural",
+      "retrieved_top3": [
         "Qwen3 Technical Report",
         "Qwen Technical Report",
-        "Qwen2 Technical Report"
+        "Qwen Technical Report"
       ],
       "metrics": {
         "recall@1": 0.0,
@@ -2067,30 +2091,6 @@
         "recall@10": 1.0,
         "mrr@10": 0.5,
         "ndcg@10": 0.6309297535714575
-      }
-    },
-    {
-      "question": "预训练阶段使用了哪些优化技术？",
-      "ground_truth_source": "Qwen Technical Report",
-      "category": "procedural",
-      "retrieved_top3": [
-        "Qwen3 Technical Report",
-        "Qwen3 Technical Report",
-        "Qwen Technical Report"
-      ],
-      "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
-        "recall@3": 1.0,
-        "mrr@3": 0.3333333333333333,
-        "ndcg@3": 0.5,
-        "recall@5": 1.0,
-        "mrr@5": 0.3333333333333333,
-        "ndcg@5": 0.5,
-        "recall@10": 1.0,
-        "mrr@10": 0.3333333333333333,
-        "ndcg@10": 0.5
       }
     },
     {
@@ -2196,7 +2196,7 @@
       "retrieved_top3": [
         "Qwen Technical Report",
         "Qwen3 Technical Report",
-        "Qwen2 Technical Report"
+        "Qwen Technical Report"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -2268,7 +2268,7 @@
       "retrieved_top3": [
         "Qwen Technical Report",
         "Qwen Technical Report",
-        "Qwen Technical Report"
+        "DeepSeek-v3"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -2290,23 +2290,23 @@
       "ground_truth_source": "Qwen Technical Report",
       "category": "factual",
       "retrieved_top3": [
-        "Qwen Technical Report",
+        "Qwen2 Technical Report",
         "Qwen Technical Report",
         "Qwen Technical Report"
       ],
       "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
+        "recall@1": 0.0,
+        "mrr@1": 0.0,
+        "ndcg@1": 0.0,
         "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
+        "mrr@3": 0.5,
+        "ndcg@3": 0.6309297535714575,
         "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
+        "mrr@5": 0.5,
+        "ndcg@5": 0.6309297535714575,
         "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
       }
     },
     {
@@ -2315,8 +2315,8 @@
       "category": "procedural",
       "retrieved_top3": [
         "Qwen Technical Report",
-        "Qwen3 Technical Report",
-        "Qwen Technical Report"
+        "Qwen Technical Report",
+        "Qwen3 Technical Report"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -2339,7 +2339,7 @@
       "category": "factual",
       "retrieved_top3": [
         "Qwen Technical Report",
-        "Qwen3 Technical Report",
+        "Qwen2 Technical Report",
         "Qwen3 Technical Report"
       ],
       "metrics": {
@@ -2363,7 +2363,7 @@
       "category": "factual",
       "retrieved_top3": [
         "Qwen Technical Report",
-        "Qwen3 Technical Report",
+        "Qwen Technical Report",
         "Qwen3 Technical Report"
       ],
       "metrics": {
@@ -2387,7 +2387,7 @@
       "category": "factual",
       "retrieved_top3": [
         "Qwen Technical Report",
-        "Qwen Technical Report",
+        "Qwen3 Technical Report",
         "Qwen Technical Report"
       ],
       "metrics": {
@@ -2435,8 +2435,8 @@
       "category": "procedural",
       "retrieved_top3": [
         "Qwen Technical Report",
-        "Qwen3 Technical Report",
-        "Qwen Technical Report"
+        "Qwen Technical Report",
+        "Qwen3 Technical Report"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -2506,32 +2506,8 @@
       "ground_truth_source": "Qwen2 Technical Report",
       "category": "factual",
       "retrieved_top3": [
+        "Qwen2 Technical Report",
         "Qwen3 Technical Report",
-        "Qwen2 Technical Report",
-        "Qwen2 Technical Report"
-      ],
-      "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
-        "recall@3": 1.0,
-        "mrr@3": 0.5,
-        "ndcg@3": 0.6309297535714575,
-        "recall@5": 1.0,
-        "mrr@5": 0.5,
-        "ndcg@5": 0.6309297535714575,
-        "recall@10": 1.0,
-        "mrr@10": 0.5,
-        "ndcg@10": 0.6309297535714575
-      }
-    },
-    {
-      "question": "Qwen2的MoE模型中每个token激活的参数量是多少？",
-      "ground_truth_source": "Qwen2 Technical Report",
-      "category": "factual",
-      "retrieved_top3": [
-        "Qwen2 Technical Report",
-        "DeepSeek-v2",
         "Qwen2 Technical Report"
       ],
       "metrics": {
@@ -2550,13 +2526,37 @@
       }
     },
     {
+      "question": "Qwen2的MoE模型中每个token激活的参数量是多少？",
+      "ground_truth_source": "Qwen2 Technical Report",
+      "category": "factual",
+      "retrieved_top3": [
+        "DeepSeek-v2",
+        "Qwen2 Technical Report",
+        "Qwen3 Technical Report"
+      ],
+      "metrics": {
+        "recall@1": 0.0,
+        "mrr@1": 0.0,
+        "ndcg@1": 0.0,
+        "recall@3": 1.0,
+        "mrr@3": 0.5,
+        "ndcg@3": 0.6309297535714575,
+        "recall@5": 1.0,
+        "mrr@5": 0.5,
+        "ndcg@5": 0.6309297535714575,
+        "recall@10": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
+      }
+    },
+    {
       "question": "Qwen2的tokenizer词汇量是多少？",
       "ground_truth_source": "Qwen2 Technical Report",
       "category": "factual",
       "retrieved_top3": [
         "Qwen2 Technical Report",
         "Qwen Technical Report",
-        "Qwen3 Technical Report"
+        "Qwen2 Technical Report"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -2628,7 +2628,7 @@
       "retrieved_top3": [
         "Qwen2 Technical Report",
         "Qwen2 Technical Report",
-        "Qwen2 Technical Report"
+        "Qwen3 Technical Report"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -2676,7 +2676,7 @@
       "retrieved_top3": [
         "Qwen2 Technical Report",
         "Qwen2 Technical Report",
-        "Qwen2 Technical Report"
+        "DeepSeek-v2"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -2700,7 +2700,7 @@
       "retrieved_top3": [
         "Qwen2 Technical Report",
         "Qwen2 Technical Report",
-        "Qwen2 Technical Report"
+        "DeepSeek-v3"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -2819,7 +2819,7 @@
       "category": "comparative",
       "retrieved_top3": [
         "Qwen2 Technical Report",
-        "Qwen2 Technical Report",
+        "Qwen3 Technical Report",
         "Qwen2 Technical Report"
       ],
       "metrics": {
@@ -2844,7 +2844,7 @@
       "retrieved_top3": [
         "Qwen2 Technical Report",
         "Qwen3 Technical Report",
-        "Qwen3 Technical Report"
+        "Qwen2 Technical Report"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -2916,7 +2916,7 @@
       "retrieved_top3": [
         "Qwen2 Technical Report",
         "Qwen2 Technical Report",
-        "Qwen2 Technical Report"
+        "DeepSeek-v2"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -2940,7 +2940,7 @@
       "retrieved_top3": [
         "Qwen3 Technical Report",
         "Qwen3 Technical Report",
-        "Qwen3 Technical Report"
+        "Qwen2 Technical Report"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -2987,8 +2987,8 @@
       "category": "factual",
       "retrieved_top3": [
         "Qwen3 Technical Report",
-        "Qwen3 Technical Report",
-        "Qwen2 Technical Report"
+        "Qwen2 Technical Report",
+        "Qwen3 Technical Report"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -3010,23 +3010,23 @@
       "ground_truth_source": "Qwen3 Technical Report",
       "category": "factual",
       "retrieved_top3": [
-        "Qwen2 Technical Report",
         "Qwen3 Technical Report",
+        "Qwen2 Technical Report",
         "Qwen3 Technical Report"
       ],
       "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
         "recall@3": 1.0,
-        "mrr@3": 0.5,
-        "ndcg@3": 0.6309297535714575,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
         "recall@5": 1.0,
-        "mrr@5": 0.5,
-        "ndcg@5": 0.6309297535714575,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
         "recall@10": 1.0,
-        "mrr@10": 0.5,
-        "ndcg@10": 0.6309297535714575
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
@@ -3034,23 +3034,23 @@
       "ground_truth_source": "Qwen3 Technical Report",
       "category": "comparative",
       "retrieved_top3": [
-        "Qwen2 Technical Report",
         "Qwen3 Technical Report",
-        "Qwen2 Technical Report"
+        "Qwen2 Technical Report",
+        "Qwen3 Technical Report"
       ],
       "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
         "recall@3": 1.0,
-        "mrr@3": 0.5,
-        "ndcg@3": 0.6309297535714575,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
         "recall@5": 1.0,
-        "mrr@5": 0.5,
-        "ndcg@5": 0.6309297535714575,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
         "recall@10": 1.0,
-        "mrr@10": 0.5,
-        "ndcg@10": 0.6309297535714575
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
@@ -3107,8 +3107,8 @@
       "category": "procedural",
       "retrieved_top3": [
         "Qwen3 Technical Report",
-        "Qwen3 Technical Report",
-        "Qwen2 Technical Report"
+        "Qwen2 Technical Report",
+        "Qwen3 Technical Report"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -3178,31 +3178,7 @@
       "ground_truth_source": "Qwen3 Technical Report",
       "category": "comparative",
       "retrieved_top3": [
-        "Qwen3 Technical Report",
         "DeepSeek-R1",
-        "Qwen3 Technical Report"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "Qwen3的tokenizer使用什么编码技术？",
-      "ground_truth_source": "Qwen3 Technical Report",
-      "category": "factual",
-      "retrieved_top3": [
-        "Qwen2 Technical Report",
         "Qwen3 Technical Report",
         "Qwen3 Technical Report"
       ],
@@ -3219,6 +3195,30 @@
         "recall@10": 1.0,
         "mrr@10": 0.5,
         "ndcg@10": 0.6309297535714575
+      }
+    },
+    {
+      "question": "Qwen3的tokenizer使用什么编码技术？",
+      "ground_truth_source": "Qwen3 Technical Report",
+      "category": "factual",
+      "retrieved_top3": [
+        "Qwen2 Technical Report",
+        "Qwen Technical Report",
+        "Qwen3 Technical Report"
+      ],
+      "metrics": {
+        "recall@1": 0.0,
+        "mrr@1": 0.0,
+        "ndcg@1": 0.0,
+        "recall@3": 1.0,
+        "mrr@3": 0.3333333333333333,
+        "ndcg@3": 0.5,
+        "recall@5": 1.0,
+        "mrr@5": 0.3333333333333333,
+        "ndcg@5": 0.5,
+        "recall@10": 1.0,
+        "mrr@10": 0.3333333333333333,
+        "ndcg@10": 0.5
       }
     },
     {
@@ -3252,7 +3252,7 @@
       "retrieved_top3": [
         "Qwen2 Technical Report",
         "Qwen3 Technical Report",
-        "DeepSeek-v3"
+        "Qwen2 Technical Report"
       ],
       "metrics": {
         "recall@1": 0.0,
@@ -3426,7 +3426,7 @@
       10
     ],
     "num_queries": 140,
-    "elapsed_seconds": 236.58,
+    "elapsed_seconds": 337.84,
     "ablation": null
   }
 }
