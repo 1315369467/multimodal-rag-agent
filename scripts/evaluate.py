@@ -467,12 +467,6 @@ def parse_args() -> argparse.Namespace:
         help="指标计算的 Top-K 值列表（默认：3 5 10）",
     )
     parser.add_argument(
-        "--output",
-        type=Path,
-        default=Path("eval_results.json"),
-        help="结果输出 JSON 路径（默认：eval_results.json）",
-    )
-    parser.add_argument(
         "--online",
         action="store_true",
         help="使用在线模式（完整 Dense+Sparse+Reranker 流水线）",
@@ -566,27 +560,6 @@ def main() -> None:
         if args.chunk_ablation == "all":
             print_chunk_ablation_table(ablation_records, k_values)
 
-        # 保存消融结果
-        output_path = args.output.with_stem(args.output.stem + "_chunk_ablation")
-        output_path.parent.mkdir(parents=True, exist_ok=True)
-        output_path.write_text(
-            json.dumps(
-                {
-                    "meta": {
-                        "dataset":    str(args.dataset),
-                        "k_values":   k_values,
-                        "num_queries": len(queries),
-                        "chunk_size": args.chunk_size,
-                    },
-                    "ablation_results": ablation_records,
-                },
-                ensure_ascii=False,
-                indent=2,
-                default=str,
-            ),
-            encoding="utf-8",
-        )
-        print(f"\n  消融实验结果已保存至：{output_path}")
         return
 
     # ── 初始化检索器 ──────────────────────────────────────────────────────
@@ -621,21 +594,6 @@ def main() -> None:
     ablation_label = f"（消融：仅{args.ablation}）" if args.ablation else ""
     print_results(output, sorted(args.k), f"{mode}{ablation_label}", elapsed)
 
-    # ── 保存详细结果 ──────────────────────────────────────────────────────
-    output["meta"] = {
-        "mode": mode,
-        "dataset": str(args.dataset),
-        "k_values": sorted(args.k),
-        "num_queries": len(queries),
-        "elapsed_seconds": round(elapsed, 2),
-        "ablation": args.ablation,
-    }
-    args.output.parent.mkdir(parents=True, exist_ok=True)
-    args.output.write_text(
-        json.dumps(output, ensure_ascii=False, indent=2, default=str),
-        encoding="utf-8",
-    )
-    print(f"\n  详细结果已保存至：{args.output}")
     print(f"  总耗时       : {time.perf_counter() - _start_time:.1f}s")
 
 

@@ -1,66 +1,88 @@
 {
   "summary": {
-    "Recall@1": 0.7285714285714285,
-    "MRR@1": 0.7285714285714285,
-    "Precision@1": 0.7285714285714285,
-    "NDCG@1": 0.7285714285714285,
-    "Recall@3": 0.9428571428571428,
-    "MRR@3": 0.8321428571428571,
-    "Precision@3": 0.7071428571428573,
-    "NDCG@3": 0.8609650239030661,
-    "Recall@5": 0.9785714285714285,
-    "MRR@5": 0.84,
-    "Precision@5": 0.6814285714285708,
-    "NDCG@5": 0.8754072491734262,
-    "Recall@10": 0.9928571428571429,
-    "MRR@10": 0.8422108843537415,
-    "Precision@10": 0.5757142857142858,
-    "NDCG@10": 0.8803325386051501
+    "Recall@1": 0.89375,
+    "MRR@1": 0.89375,
+    "Precision@1": 0.89375,
+    "NDCG@1": 0.89375,
+    "Recall@3": 0.98125,
+    "MRR@3": 0.9364583333333332,
+    "Precision@3": 0.7770833333333335,
+    "NDCG@3": 0.9481380424776805,
+    "Recall@5": 0.9875,
+    "MRR@5": 0.9380208333333332,
+    "Precision@5": 0.7187499999999997,
+    "NDCG@5": 0.9508297709656391,
+    "Recall@10": 0.9875,
+    "MRR@10": 0.9380208333333332,
+    "Precision@10": 0.6099999999999999,
+    "NDCG@10": 0.9508297709656391
   },
   "category_summary": {
     "factual": {
-      "recall@1": 0.6883116883116883,
-      "mrr@1": 0.6883116883116883,
-      "recall@3": 0.922077922077922,
-      "mrr@3": 0.8030303030303031,
-      "recall@5": 0.987012987012987,
-      "mrr@5": 0.8173160173160174,
-      "recall@10": 1.0,
-      "mrr@10": 0.8194805194805196,
-      "count": 77
-    },
-    "comparative": {
-      "recall@1": 0.9642857142857143,
-      "mrr@1": 0.9642857142857143,
+      "recall@1": 0.96875,
+      "mrr@1": 0.96875,
       "recall@3": 1.0,
-      "mrr@3": 0.9821428571428571,
+      "mrr@3": 0.984375,
       "recall@5": 1.0,
-      "mrr@5": 0.9821428571428571,
+      "mrr@5": 0.984375,
       "recall@10": 1.0,
-      "mrr@10": 0.9821428571428571,
-      "count": 28
+      "mrr@10": 0.984375,
+      "count": 32
     },
     "procedural": {
-      "recall@1": 0.6285714285714286,
-      "mrr@1": 0.6285714285714286,
-      "recall@3": 0.9428571428571428,
-      "mrr@3": 0.7761904761904761,
-      "recall@5": 0.9428571428571428,
-      "mrr@5": 0.7761904761904761,
-      "recall@10": 0.9714285714285714,
-      "mrr@10": 0.7802721088435374,
-      "count": 35
+      "recall@1": 0.90625,
+      "mrr@1": 0.90625,
+      "recall@3": 0.9375,
+      "mrr@3": 0.921875,
+      "recall@5": 0.96875,
+      "mrr@5": 0.9296875,
+      "recall@10": 0.96875,
+      "mrr@10": 0.9296875,
+      "count": 32
+    },
+    "table_lookup": {
+      "recall@1": 0.9117647058823529,
+      "mrr@1": 0.9117647058823529,
+      "recall@3": 1.0,
+      "mrr@3": 0.9558823529411765,
+      "recall@5": 1.0,
+      "mrr@5": 0.9558823529411765,
+      "recall@10": 1.0,
+      "mrr@10": 0.9558823529411765,
+      "count": 34
+    },
+    "definition": {
+      "recall@1": 0.8125,
+      "mrr@1": 0.8125,
+      "recall@3": 1.0,
+      "mrr@3": 0.9010416666666667,
+      "recall@5": 1.0,
+      "mrr@5": 0.9010416666666667,
+      "recall@10": 1.0,
+      "mrr@10": 0.9010416666666667,
+      "count": 32
+    },
+    "limitation": {
+      "recall@1": 0.8666666666666667,
+      "mrr@1": 0.8666666666666667,
+      "recall@3": 0.9666666666666667,
+      "mrr@3": 0.9166666666666666,
+      "recall@5": 0.9666666666666667,
+      "mrr@5": 0.9166666666666666,
+      "recall@10": 0.9666666666666667,
+      "mrr@10": 0.9166666666666666,
+      "count": 30
     }
   },
   "per_query": [
     {
-      "question": "DeepSeek LLM的预训练数据量是多少？",
-      "ground_truth_source": "DeepSeek-v1",
+      "question": "BLIP-2相比Flamingo80B在可训练参数数量上减少了多少倍？",
+      "ground_truth_source": "BLIP-2",
       "category": "factual",
       "retrieved_top3": [
-        "DeepSeek-v1",
-        "DeepSeek-v1",
-        "DeepSeek-v1"
+        "BLIP-2",
+        "BLIP-2",
+        "BLIP-2"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -75,6 +97,942 @@
         "recall@10": 1.0,
         "mrr@10": 1.0,
         "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "Q-Former模块包含多少参数？使用的查询向量数量和维度分别是多少？",
+      "ground_truth_source": "BLIP-2",
+      "category": "factual",
+      "retrieved_top3": [
+        "BLIP-2",
+        "BLIP-2",
+        "Qwen3 Technical Report"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "在BLIP-2的第一阶段预训练中，Q-Former通过哪三个联合优化的目标函数进行视觉-语言表示学习？",
+      "ground_truth_source": "BLIP-2",
+      "category": "procedural",
+      "retrieved_top3": [
+        "BLIP-2",
+        "BLIP-2",
+        "BLIP-2"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "在BLIP-2的第二阶段生成学习中，如何将Q-Former的输出与冻结的LLM连接？",
+      "ground_truth_source": "BLIP-2",
+      "category": "procedural",
+      "retrieved_top3": [
+        "BLIP-2",
+        "BLIP-2",
+        "BLIP-2"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "根据Table 1，BLIP-2在零样本VQA任务中的VQA准确率是多少？",
+      "ground_truth_source": "BLIP-2",
+      "category": "table_lookup",
+      "retrieved_top3": [
+        "BLIP-2",
+        "BLIP-2",
+        "Qwen-VL"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "根据Table 2，BLIP-2 ViT-g FlanT5XXL模型的可训练参数总数是多少？",
+      "ground_truth_source": "BLIP-2",
+      "category": "table_lookup",
+      "retrieved_top3": [
+        "BLIP-2",
+        "BLIP-2",
+        "BLIP-2"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "什么是Q-Former（Querying Transformer）的核心作用？",
+      "ground_truth_source": "BLIP-2",
+      "category": "definition",
+      "retrieved_top3": [
+        "BLIP-2",
+        "BLIP-2",
+        "BLIP-2"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "BLIP-2名称的全称是什么？",
+      "ground_truth_source": "BLIP-2",
+      "category": "definition",
+      "retrieved_top3": [
+        "BLIP-2",
+        "BLIP-2",
+        "BLIP-2"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "BLIP-2在上下文学习能力方面存在什么限制？",
+      "ground_truth_source": "BLIP-2",
+      "category": "limitation",
+      "retrieved_top3": [
+        "BLIP-2",
+        "BLIP-2",
+        "BLIP-3"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "BLIP-2的图像到文本生成可能出现哪些问题？",
+      "ground_truth_source": "BLIP-2",
+      "category": "limitation",
+      "retrieved_top3": [
+        "BLIP-2",
+        "BLIP-2",
+        "BLIP-2"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "BLIP-3发布的模型参数量包括哪两种规模？",
+      "ground_truth_source": "BLIP-3",
+      "category": "factual",
+      "retrieved_top3": [
+        "BLIP-3",
+        "BLIP-3",
+        "BLIP-3"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "Stage-1预训练阶段使用的多模态token总量是多少？",
+      "ground_truth_source": "BLIP-3",
+      "category": "factual",
+      "retrieved_top3": [
+        "BLIP-3",
+        "BLIP-3",
+        "Qwen3-VL"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "Stage-2高分辨率预训练阶段采用了哪些关键策略？",
+      "ground_truth_source": "BLIP-3",
+      "category": "procedural",
+      "retrieved_top3": [
+        "BLIP-3",
+        "BLIP-3",
+        "BLIP-3"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "多图像监督微调阶段的主要训练目标是什么？",
+      "ground_truth_source": "BLIP-3",
+      "category": "procedural",
+      "retrieved_top3": [
+        "BLIP-3",
+        "BLIP-3",
+        "Qwen-VL"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "在单图像基准测试中，BLIP-3-14B模型的MMMU(val)得分是多少？",
+      "ground_truth_source": "BLIP-3",
+      "category": "table_lookup",
+      "retrieved_top3": [
+        "BLIP-3",
+        "BLIP-3",
+        "BLIP-3"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "多图像基准测试中，BLIP-3-14B-MI模型在BLINK任务的得分是多少？",
+      "ground_truth_source": "BLIP-3",
+      "category": "table_lookup",
+      "retrieved_top3": [
+        "BLIP-3",
+        "BLIP-3",
+        "BLIP-3"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "BLIP3-OCR-HD-30M数据集的核心特征是什么？",
+      "ground_truth_source": "BLIP-3",
+      "category": "definition",
+      "retrieved_top3": [
+        "BLIP-3",
+        "BLIP-3",
+        "BLIP-3"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "什么是vision token sampler（视觉token采样器）的核心作用？",
+      "ground_truth_source": "BLIP-3",
+      "category": "definition",
+      "retrieved_top3": [
+        "BLIP-3",
+        "DeepSeek-OCR2",
+        "BLIP-3"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "单图像监督微调（SFT）可能导致什么局限性？",
+      "ground_truth_source": "BLIP-3",
+      "category": "limitation",
+      "retrieved_top3": [
+        "BLIP-3",
+        "Qwen Technical Report",
+        "CLIP"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "Perceiver Resampler的固定采样策略存在什么缺陷？",
+      "ground_truth_source": "BLIP-3",
+      "category": "limitation",
+      "retrieved_top3": [
+        "BLIP-3",
+        "BLIP-3",
+        "BLIP-3"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "CLIP模型的预训练使用了多少个(image, text)数据对？",
+      "ground_truth_source": "CLIP",
+      "category": "factual",
+      "retrieved_top3": [
+        "BLIP-2",
+        "CLIP",
+        "CLIP"
+      ],
+      "metrics": {
+        "recall@1": 0.0,
+        "mrr@1": 0.0,
+        "ndcg@1": 0.0,
+        "recall@3": 1.0,
+        "mrr@3": 0.5,
+        "ndcg@3": 0.6309297535714575,
+        "recall@5": 1.0,
+        "mrr@5": 0.5,
+        "ndcg@5": 0.6309297535714575,
+        "recall@10": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
+      }
+    },
+    {
+      "question": "表1中CLIP在ImageNet数据集上的Top-5准确率是多少？",
+      "ground_truth_source": "CLIP",
+      "category": "table_lookup",
+      "retrieved_top3": [
+        "CLIP",
+        "CLIP",
+        "CLIP"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "CLIP模型如何实现多模态嵌入空间的构建？",
+      "ground_truth_source": "CLIP",
+      "category": "procedural",
+      "retrieved_top3": [
+        "CLIP",
+        "Qwen3-VL-Embedding",
+        "CLIP"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "什么是零样本迁移学习（zero-shot transfer）在CLIP中的具体实现方式？",
+      "ground_truth_source": "CLIP",
+      "category": "definition",
+      "retrieved_top3": [
+        "CLIP",
+        "CLIP",
+        "CLIP"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "CLIP在OCR任务中的局限性主要体现在哪些方面？",
+      "ground_truth_source": "CLIP",
+      "category": "limitation",
+      "retrieved_top3": [
+        "CLIP",
+        "CLIP",
+        "CLIP"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "附录A表9中，STL-10数据集的测试集大小是多少？",
+      "ground_truth_source": "CLIP",
+      "category": "table_lookup",
+      "retrieved_top3": [
+        "CLIP",
+        "CLIP",
+        "CLIP"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "CLIP模型在训练过程中采用了哪些数据增强技术？",
+      "ground_truth_source": "CLIP",
+      "category": "procedural",
+      "retrieved_top3": [
+        "CLIP",
+        "CLIP",
+        "CLIP"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "什么是对比学习目标（contrastive objective）在CLIP中的定义？",
+      "ground_truth_source": "CLIP",
+      "category": "definition",
+      "retrieved_top3": [
+        "CLIP",
+        "CLIP",
+        "CLIP"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "CLIP在数据重叠分析中检测到的平均数据污染比例是多少？",
+      "ground_truth_source": "CLIP",
+      "category": "factual",
+      "retrieved_top3": [
+        "CLIP",
+        "CLIP",
+        "Qwen2 Technical Report"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "表5中CLIP模型在East Asian种族类别上的性别分类准确率是多少？",
+      "ground_truth_source": "CLIP",
+      "category": "table_lookup",
+      "retrieved_top3": [
+        "CLIP",
+        "CLIP",
+        "CLIP"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "DeepSeek-OCR在压缩比低于10倍时的OCR解码精度是多少？",
+      "ground_truth_source": "DeepSeek-OCR",
+      "category": "factual",
+      "retrieved_top3": [
+        "DeepSeek-OCR",
+        "DeepSeek-OCR",
+        "DeepSeek-OCR"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "DeepSeek-OCR在OmniDocBench上使用多少视觉标记就超过了GOT-OCR2.0的性能？",
+      "ground_truth_source": "DeepSeek-OCR",
+      "category": "factual",
+      "retrieved_top3": [
+        "DeepSeek-OCR",
+        "DeepSeek-OCR",
+        "DeepSeek-OCR"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "DeepEncoder如何实现高分辨率输入下的低激活内存？",
+      "ground_truth_source": "DeepSeek-OCR",
+      "category": "procedural",
+      "retrieved_top3": [
+        "DeepSeek-OCR",
+        "DeepSeek-OCR",
+        "DeepSeek-OCR"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "OCR 2.0数据包含哪些类型的数据？",
+      "ground_truth_source": "DeepSeek-OCR",
+      "category": "procedural",
+      "retrieved_top3": [
+        "DeepSeek-OCR",
+        "DeepSeek-OCR",
+        "DeepSeek-OCR2"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "根据Table 2，在文本标记数为600-700的区间，使用64个视觉标记的OCR精度是多少？",
+      "ground_truth_source": "DeepSeek-OCR",
+      "category": "table_lookup",
+      "retrieved_top3": [
+        "DeepSeek-OCR",
+        "DeepSeek-OCR",
+        "DeepSeek-OCR"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "根据Table 3，在英文整体指标下，Gundam-M模式的编辑距离是多少？",
+      "ground_truth_source": "DeepSeek-OCR",
+      "category": "table_lookup",
+      "retrieved_top3": [
+        "DeepSeek-OCR",
+        "DeepSeek-OCR2",
+        "Qwen3 Technical Report"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "什么是DeepEncoder？",
+      "ground_truth_source": "DeepSeek-OCR",
+      "category": "definition",
+      "retrieved_top3": [
+        "DeepSeek-OCR",
+        "DeepSeek-OCR",
+        "DeepSeek-OCR2"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "文档中提到的OCR 2.0数据具体指什么？",
+      "ground_truth_source": "DeepSeek-OCR",
+      "category": "definition",
+      "retrieved_top3": [
+        "DeepSeek-OCR",
+        "DeepSeek-OCR",
+        "DeepSeek-OCR"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "DeepSeek-OCR在压缩比超过10倍时面临什么问题？",
+      "ground_truth_source": "DeepSeek-OCR",
+      "category": "limitation",
+      "retrieved_top3": [
+        "DeepSeek-OCR",
+        "DeepSeek-OCR",
+        "DeepSeek-OCR"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "当前模型在处理超长上下文时存在哪些未解决的挑战？",
+      "ground_truth_source": "DeepSeek-OCR",
+      "category": "limitation",
+      "retrieved_top3": [
+        "Qwen Technical Report",
+        "DeepSeek-v3",
+        "Qwen3 Technical Report"
+      ],
+      "metrics": {
+        "recall@1": 0.0,
+        "mrr@1": 0.0,
+        "ndcg@1": 0.0,
+        "recall@3": 0.0,
+        "mrr@3": 0.0,
+        "ndcg@3": 0.0,
+        "recall@5": 0.0,
+        "mrr@5": 0.0,
+        "ndcg@5": 0.0,
+        "recall@10": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
       }
     },
     {
@@ -102,153 +1060,9 @@
       }
     },
     {
-      "question": "DeepSeek LLM 67B模型使用了哪种注意力机制？",
+      "question": "DeepSeek LLM预训练阶段使用的数据量是多少？",
       "ground_truth_source": "DeepSeek-v1",
       "category": "factual",
-      "retrieved_top3": [
-        "DeepSeek-v1",
-        "DeepSeek-v1",
-        "DeepSeek-v1"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "DeepSeek LLM预训练阶段使用了哪种学习率调度器？",
-      "ground_truth_source": "DeepSeek-v1",
-      "category": "factual",
-      "retrieved_top3": [
-        "DeepSeek-v1",
-        "DeepSeek-v1",
-        "DeepSeek-v1"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "DeepSeek LLM 67B模型在哪些领域显著优于LLaMA-2 70B？",
-      "ground_truth_source": "DeepSeek-v1",
-      "category": "comparative",
-      "retrieved_top3": [
-        "DeepSeek-v1",
-        "DeepSeek-v1",
-        "DeepSeek-v1"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "扩展定律研究中模型规模的表示方法有何改进？",
-      "ground_truth_source": "DeepSeek-v1",
-      "category": "procedural",
-      "retrieved_top3": [
-        "DeepSeek-v1",
-        "DeepSeek-v1",
-        "Qwen2-VL"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "DeepSeek LLM预训练数据处理包含哪些主要阶段？",
-      "ground_truth_source": "DeepSeek-v1",
-      "category": "procedural",
-      "retrieved_top3": [
-        "DeepSeek-v1",
-        "DeepSeek-OCR2",
-        "DeepSeek-v1"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "DeepSeek LLM的对齐阶段采用了哪些方法？",
-      "ground_truth_source": "DeepSeek-v1",
-      "category": "procedural",
-      "retrieved_top3": [
-        "DeepSeek-v1",
-        "DeepSeek-R1",
-        "DeepSeek-v3"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "DeepSeek LLM 67B Chat模型在中文开放生成评估中的表现如何？",
-      "ground_truth_source": "DeepSeek-v1",
-      "category": "comparative",
       "retrieved_top3": [
         "DeepSeek-v1",
         "DeepSeek-v1",
@@ -270,205 +1084,37 @@
       }
     },
     {
-      "question": "DeepSeek LLM评估中使用的安全测试包含哪些主要类别？",
+      "question": "DeepSeek LLM的数据处理流程包含哪些主要阶段？",
       "ground_truth_source": "DeepSeek-v1",
-      "category": "factual",
-      "retrieved_top3": [
-        "DeepSeek-v1",
-        "DeepSeek-v1",
-        "DeepSeek-v1"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "DeepSeek LLM的tokenizer使用了哪种编码算法？",
-      "ground_truth_source": "DeepSeek-v1",
-      "category": "factual",
+      "category": "procedural",
       "retrieved_top3": [
         "DeepSeek-OCR2",
-        "DeepSeek-v1",
-        "DeepSeek-v2"
-      ],
-      "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
-        "recall@3": 1.0,
-        "mrr@3": 0.5,
-        "ndcg@3": 0.6309297535714575,
-        "recall@5": 1.0,
-        "mrr@5": 0.5,
-        "ndcg@5": 0.6309297535714575,
-        "recall@10": 1.0,
-        "mrr@10": 0.5,
-        "ndcg@10": 0.6309297535714575
-      }
-    },
-    {
-      "question": "DeepSeek LLM 7B和67B模型的序列批处理大小分别是多少？",
-      "ground_truth_source": "DeepSeek-v1",
-      "category": "factual",
-      "retrieved_top3": [
-        "DeepSeek-v1",
-        "DeepSeek-v1",
-        "DeepSeek-v1"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "多步学习率调度器的三个阶段比例如何分配？",
-      "ground_truth_source": "DeepSeek-v1",
-      "category": "factual",
-      "retrieved_top3": [
-        "Qwen-VL",
-        "DeepSeek-v1",
-        "DeepSeek-v1"
-      ],
-      "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
-        "recall@3": 1.0,
-        "mrr@3": 0.5,
-        "ndcg@3": 0.6309297535714575,
-        "recall@5": 1.0,
-        "mrr@5": 0.5,
-        "ndcg@5": 0.6309297535714575,
-        "recall@10": 1.0,
-        "mrr@10": 0.5,
-        "ndcg@10": 0.6309297535714575
-      }
-    },
-    {
-      "question": "DeepSeek LLM的扩展定律研究发现了什么数据质量影响？",
-      "ground_truth_source": "DeepSeek-v1",
-      "category": "procedural",
-      "retrieved_top3": [
-        "DeepSeek-v1",
-        "DeepSeek-v1",
-        "DeepSeek-v1"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "DeepSeek LLM 67B Chat模型在MT-Bench基准测试中的平均得分是多少？",
-      "ground_truth_source": "DeepSeek-v1",
-      "category": "factual",
-      "retrieved_top3": [
-        "DeepSeek-v1",
-        "DeepSeek-v1",
-        "DeepSeek-v2"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "DeepSeek LLM的评估中使用了哪些数学基准测试？",
-      "ground_truth_source": "DeepSeek-v1",
-      "category": "factual",
-      "retrieved_top3": [
-        "DeepSeek-v1",
-        "DeepSeek-v2",
+        "DeepSeek-OCR2",
         "DeepSeek-v3"
       ],
       "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "DeepSeek LLM的预训练框架集成了哪些并行技术？",
-      "ground_truth_source": "DeepSeek-v1",
-      "category": "procedural",
-      "retrieved_top3": [
-        "DeepSeek-v2",
-        "DeepSeek-v1",
-        "DeepSeek-R1"
-      ],
-      "metrics": {
         "recall@1": 0.0,
         "mrr@1": 0.0,
         "ndcg@1": 0.0,
-        "recall@3": 1.0,
-        "mrr@3": 0.5,
-        "ndcg@3": 0.6309297535714575,
+        "recall@3": 0.0,
+        "mrr@3": 0.0,
+        "ndcg@3": 0.0,
         "recall@5": 1.0,
-        "mrr@5": 0.5,
-        "ndcg@5": 0.6309297535714575,
+        "mrr@5": 0.25,
+        "ndcg@5": 0.43067655807339306,
         "recall@10": 1.0,
-        "mrr@10": 0.5,
-        "ndcg@10": 0.6309297535714575
+        "mrr@10": 0.25,
+        "ndcg@10": 0.43067655807339306
       }
     },
     {
-      "question": "DeepSeek LLM的DPO阶段如何影响模型性能？",
+      "question": "在模型训练中，DeepSeek LLM采用了哪些优化策略？",
       "ground_truth_source": "DeepSeek-v1",
       "category": "procedural",
       "retrieved_top3": [
         "DeepSeek-v1",
         "DeepSeek-v1",
-        "DeepSeek-v1"
+        "DeepSeek-v2"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -486,12 +1132,12 @@
       }
     },
     {
-      "question": "DeepSeek LLM的评估中，LeetCode测试的pass@1得分是多少？",
+      "question": "表1中显示当使用91个Common Crawl数据块时，去重率是多少？",
       "ground_truth_source": "DeepSeek-v1",
-      "category": "factual",
+      "category": "table_lookup",
       "retrieved_top3": [
         "DeepSeek-v1",
-        "DeepSeek-v2",
+        "DeepSeek-v1",
         "DeepSeek-v2"
       ],
       "metrics": {
@@ -510,9 +1156,33 @@
       }
     },
     {
-      "question": "DeepSeek LLM的扩展定律研究中，模型扩展指数a和数据扩展指数b分别是多少？",
+      "question": "表2中DeepSeek LLM 7B模型的上下文长度和序列批处理大小分别是多少？",
       "ground_truth_source": "DeepSeek-v1",
-      "category": "factual",
+      "category": "table_lookup",
+      "retrieved_top3": [
+        "DeepSeek-v1",
+        "DeepSeek-v2",
+        "DeepSeek-v2"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "什么是DeepSeek LLM研究中的缩放定律（Scaling Laws）？",
+      "ground_truth_source": "DeepSeek-v1",
+      "category": "definition",
       "retrieved_top3": [
         "DeepSeek-v1",
         "DeepSeek-v1",
@@ -534,13 +1204,13 @@
       }
     },
     {
-      "question": "DeepSeek-V2的总参数量是多少？",
-      "ground_truth_source": "DeepSeek-v2",
-      "category": "factual",
+      "question": "DPO（直接偏好优化）在DeepSeek LLM中的作用是什么？",
+      "ground_truth_source": "DeepSeek-v1",
+      "category": "definition",
       "retrieved_top3": [
-        "DeepSeek-v2",
-        "DeepSeek-v2",
-        "DeepSeek-v2"
+        "DeepSeek-v1",
+        "DeepSeek-v1",
+        "DeepSeek-v1"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -558,83 +1228,11 @@
       }
     },
     {
-      "question": "DeepSeek-V2每个token激活的参数量是多少？",
-      "ground_truth_source": "DeepSeek-v2",
-      "category": "factual",
+      "question": "DeepSeek LLM在知识更新方面存在哪些局限性？",
+      "ground_truth_source": "DeepSeek-v1",
+      "category": "limitation",
       "retrieved_top3": [
-        "DeepSeek-v2",
-        "DeepSeek-v2",
-        "DeepSeek-v2"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "DeepSeek-V2支持的上下文长度是多少？",
-      "ground_truth_source": "DeepSeek-v2",
-      "category": "factual",
-      "retrieved_top3": [
-        "DeepSeek-v3",
-        "DeepSeek-v2",
-        "DeepSeek-v2"
-      ],
-      "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
-        "recall@3": 1.0,
-        "mrr@3": 0.5,
-        "ndcg@3": 0.6309297535714575,
-        "recall@5": 1.0,
-        "mrr@5": 0.5,
-        "ndcg@5": 0.6309297535714575,
-        "recall@10": 1.0,
-        "mrr@10": 0.5,
-        "ndcg@10": 0.6309297535714575
-      }
-    },
-    {
-      "question": "DeepSeek-V2采用的创新注意力机制是什么？",
-      "ground_truth_source": "DeepSeek-v2",
-      "category": "factual",
-      "retrieved_top3": [
-        "DeepSeek-v2",
-        "DeepSeek-v2",
-        "DeepSeek-v2"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "DeepSeek-V2的FFN模块采用的架构名称是什么？",
-      "ground_truth_source": "DeepSeek-v2",
-      "category": "factual",
-      "retrieved_top3": [
-        "DeepSeek-v2",
+        "DeepSeek-v1",
         "DeepSeek-v2",
         "DeepSeek-v1"
       ],
@@ -654,13 +1252,13 @@
       }
     },
     {
-      "question": "与DeepSeek 67B相比，DeepSeek-V2的训练成本降低了多少？",
-      "ground_truth_source": "DeepSeek-v2",
-      "category": "comparative",
+      "question": "DeepSeek LLM在中文特定任务上的主要限制是什么？",
+      "ground_truth_source": "DeepSeek-v1",
+      "category": "limitation",
       "retrieved_top3": [
+        "DeepSeek-v1",
         "DeepSeek-v2",
-        "DeepSeek-v2",
-        "DeepSeek-v2"
+        "DeepSeek-v1"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -678,33 +1276,9 @@
       }
     },
     {
-      "question": "DeepSeek-V2的KV缓存相比DeepSeek 67B减少了多少？",
+      "question": "DeepSeek-V2的总参数量和每个token激活的参数量分别是多少？",
       "ground_truth_source": "DeepSeek-v2",
-      "category": "comparative",
-      "retrieved_top3": [
-        "DeepSeek-v2",
-        "DeepSeek-v2",
-        "DeepSeek-v2"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "DeepSeek-V2的最大生成吞吐量是DeepSeek 67B的多少倍？",
-      "ground_truth_source": "DeepSeek-v2",
-      "category": "comparative",
+      "category": "factual",
       "retrieved_top3": [
         "DeepSeek-v2",
         "DeepSeek-v2",
@@ -726,31 +1300,7 @@
       }
     },
     {
-      "question": "DeepSeek-V2的预训练数据量是多少？",
-      "ground_truth_source": "DeepSeek-v2",
-      "category": "factual",
-      "retrieved_top3": [
-        "DeepSeek-v2",
-        "DeepSeek-v2",
-        "DeepSeek-v2"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "DeepSeek-V2的MLA架构如何减少KV缓存？",
+      "question": "DeepSeek-V2通过何种技术实现上下文长度扩展？其目标最大上下文长度是多少？",
       "ground_truth_source": "DeepSeek-v2",
       "category": "procedural",
       "retrieved_top3": [
@@ -774,201 +1324,9 @@
       }
     },
     {
-      "question": "DeepSeekMoE架构的两个关键创新点是什么？",
-      "ground_truth_source": "DeepSeek-v2",
-      "category": "procedural",
-      "retrieved_top3": [
-        "DeepSeek-v2",
-        "DeepSeek-v3",
-        "DeepSeek-OCR2"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "DeepSeek-V2的设备限制路由机制如何工作？",
-      "ground_truth_source": "DeepSeek-v2",
-      "category": "procedural",
-      "retrieved_top3": [
-        "DeepSeek-v2",
-        "DeepSeek-v2",
-        "DeepSeek-v2"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "DeepSeek-V2的中文数据占比相比DeepSeek 67B增加了多少？",
+      "question": "在MLA架构中，Key-Value缓存的压缩维度d_c与查询压缩维度d_c'分别是多少？",
       "ground_truth_source": "DeepSeek-v2",
       "category": "factual",
-      "retrieved_top3": [
-        "DeepSeek-v2",
-        "DeepSeek-v2",
-        "DeepSeek-v2"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "DeepSeek-V2的MLA架构在KV缓存比较中相当于GQA的多少组？",
-      "ground_truth_source": "DeepSeek-v2",
-      "category": "factual",
-      "retrieved_top3": [
-        "DeepSeek-v2",
-        "DeepSeek-v2",
-        "DeepSeek-v2"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "DeepSeek-V2的预训练阶段使用了哪种优化策略扩展上下文窗口？",
-      "ground_truth_source": "DeepSeek-v2",
-      "category": "procedural",
-      "retrieved_top3": [
-        "DeepSeek-v3",
-        "DeepSeek-v2",
-        "DeepSeek-v3.2"
-      ],
-      "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
-        "recall@3": 1.0,
-        "mrr@3": 0.5,
-        "ndcg@3": 0.6309297535714575,
-        "recall@5": 1.0,
-        "mrr@5": 0.5,
-        "ndcg@5": 0.6309297535714575,
-        "recall@10": 1.0,
-        "mrr@10": 0.5,
-        "ndcg@10": 0.6309297535714575
-      }
-    },
-    {
-      "question": "DeepSeek-V2的SFT阶段使用了多少个实例？",
-      "ground_truth_source": "DeepSeek-v2",
-      "category": "factual",
-      "retrieved_top3": [
-        "DeepSeek-v2",
-        "DeepSeek-v3",
-        "DeepSeek-v2"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "DeepSeek-V2的RL训练采用了哪种算法？",
-      "ground_truth_source": "DeepSeek-v2",
-      "category": "procedural",
-      "retrieved_top3": [
-        "DeepSeek-v2",
-        "DeepSeek-v2",
-        "DeepSeek-v2"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "DeepSeek-V2的MLA架构在MMLU基准上的表现如何？",
-      "ground_truth_source": "DeepSeek-v2",
-      "category": "comparative",
-      "retrieved_top3": [
-        "DeepSeek-v2",
-        "DeepSeek-v2",
-        "DeepSeek-v2"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "DeepSeek-V2的DeepSeekMoE架构相比GShard的优势是什么？",
-      "ground_truth_source": "DeepSeek-v2",
-      "category": "comparative",
       "retrieved_top3": [
         "DeepSeek-v2",
         "DeepSeek-v2",
@@ -990,9 +1348,153 @@
       }
     },
     {
-      "question": "DeepSeek-V2的预训练数据过滤策略对齐评估结果有何影响？",
+      "question": "在DeepSeekMoE架构中，设备限制路由(Device-Limited Routing)的具体实现方法是什么？",
       "ground_truth_source": "DeepSeek-v2",
-      "category": "comparative",
+      "category": "procedural",
+      "retrieved_top3": [
+        "DeepSeek-v2",
+        "DeepSeek-v3",
+        "DeepSeek-v2"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "根据Table 1比较，MLA的KV缓存元素数量是传统MHA的多少百分比？",
+      "ground_truth_source": "DeepSeek-v2",
+      "category": "table_lookup",
+      "retrieved_top3": [
+        "DeepSeek-v2",
+        "DeepSeek-v2",
+        "DeepSeek-v2"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "在Table 2中，DeepSeek-V2的Pile-test语言模型测试结果（BPB）是多少？",
+      "ground_truth_source": "DeepSeek-v2",
+      "category": "table_lookup",
+      "retrieved_top3": [
+        "DeepSeek-v2",
+        "DeepSeek-v3",
+        "DeepSeek-v2"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "Multi-head Latent Attention (MLA)的定义和核心作用是什么？",
+      "ground_truth_source": "DeepSeek-v2",
+      "category": "definition",
+      "retrieved_top3": [
+        "DeepSeek-v3",
+        "DeepSeek-v2",
+        "DeepSeek-v2"
+      ],
+      "metrics": {
+        "recall@1": 0.0,
+        "mrr@1": 0.0,
+        "ndcg@1": 0.0,
+        "recall@3": 1.0,
+        "mrr@3": 0.5,
+        "ndcg@3": 0.6309297535714575,
+        "recall@5": 1.0,
+        "mrr@5": 0.5,
+        "ndcg@5": 0.6309297535714575,
+        "recall@10": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
+      }
+    },
+    {
+      "question": "DeepSeekMoE架构中的共享专家（Shared Experts）和路由专家（Routed Experts）如何协同工作？",
+      "ground_truth_source": "DeepSeek-v2",
+      "category": "definition",
+      "retrieved_top3": [
+        "DeepSeek-v2",
+        "DeepSeek-v3",
+        "DeepSeek-v2"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "DeepSeek-V2模型存在哪些主要局限性？",
+      "ground_truth_source": "DeepSeek-v2",
+      "category": "limitation",
+      "retrieved_top3": [
+        "DeepSeek-v2",
+        "DeepSeek-v2",
+        "DeepSeek-v3"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "在Table 1对比中，MLA相比MHA的KV缓存减少比例是多少？",
+      "ground_truth_source": "DeepSeek-v2",
+      "category": "table_lookup",
       "retrieved_top3": [
         "DeepSeek-v2",
         "DeepSeek-v2",
@@ -1020,7 +1522,7 @@
       "retrieved_top3": [
         "DeepSeek-v3",
         "DeepSeek-v3",
-        "DeepSeek-v2"
+        "DeepSeek-v3"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -1038,9 +1540,177 @@
       }
     },
     {
-      "question": "DeepSeek-V3采用的Multi-Head Latent Attention（MLA）如何减少KV缓存？",
+      "question": "DeepSeek-V3的预训练阶段消耗了多少H800 GPU小时？",
+      "ground_truth_source": "DeepSeek-v3",
+      "category": "factual",
+      "retrieved_top3": [
+        "DeepSeek-v3",
+        "DeepSeek-v3",
+        "DeepSeek-v3"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "DualPipe算法如何优化跨节点MoE训练的通信开销？",
       "ground_truth_source": "DeepSeek-v3",
       "category": "procedural",
+      "retrieved_top3": [
+        "DeepSeek-v3",
+        "DeepSeek-v3",
+        "DeepSeek-v3"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "跨节点all-to-all通信优化采用了哪些关键技术？",
+      "ground_truth_source": "DeepSeek-v3",
+      "category": "procedural",
+      "retrieved_top3": [
+        "DeepSeek-v3",
+        "DeepSeek-v3",
+        "DeepSeek-v3"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "根据表3，DeepSeek-V3在MMLU-Pro基准测试中的表现相比Qwen2.5 72B Base提升了多少百分比？",
+      "ground_truth_source": "DeepSeek-v3",
+      "category": "table_lookup",
+      "retrieved_top3": [
+        "DeepSeek-v3",
+        "DeepSeek-v3",
+        "DeepSeek-v3"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "表1显示DeepSeek-V3全训练阶段的总成本是多少美元？",
+      "ground_truth_source": "DeepSeek-v3",
+      "category": "table_lookup",
+      "retrieved_top3": [
+        "DeepSeek-v3",
+        "DeepSeek-v3",
+        "DeepSeek-v3"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "Multi-Token Prediction(MTP)的目标是什么？",
+      "ground_truth_source": "DeepSeek-v3",
+      "category": "definition",
+      "retrieved_top3": [
+        "DeepSeek-v3",
+        "DeepSeek-v3",
+        "DeepSeek-v3"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "DeepSeekMoE架构中的共享专家和路由专家如何协作？",
+      "ground_truth_source": "DeepSeek-v3",
+      "category": "definition",
+      "retrieved_top3": [
+        "DeepSeek-v2",
+        "DeepSeek-v2",
+        "DeepSeek-v3"
+      ],
+      "metrics": {
+        "recall@1": 0.0,
+        "mrr@1": 0.0,
+        "ndcg@1": 0.0,
+        "recall@3": 1.0,
+        "mrr@3": 0.3333333333333333,
+        "ndcg@3": 0.5,
+        "recall@5": 1.0,
+        "mrr@5": 0.3333333333333333,
+        "ndcg@5": 0.5,
+        "recall@10": 1.0,
+        "mrr@10": 0.3333333333333333,
+        "ndcg@10": 0.5
+      }
+    },
+    {
+      "question": "DeepSeek-V3部署面临的两个潜在效率挑战是什么？",
+      "ground_truth_source": "DeepSeek-v3",
+      "category": "limitation",
       "retrieved_top3": [
         "DeepSeek-v2",
         "DeepSeek-v3",
@@ -1062,153 +1732,9 @@
       }
     },
     {
-      "question": "DeepSeekMoE的Auxiliary-Loss-Free负载均衡策略与传统方法有何区别？",
+      "question": "DeepSeek-V3在部署时需要较大推荐单元的主要原因是什么？",
       "ground_truth_source": "DeepSeek-v3",
-      "category": "comparative",
-      "retrieved_top3": [
-        "DeepSeek-v3",
-        "DeepSeek-v3",
-        "DeepSeek-v3"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "Multi-Token Prediction（MTP）训练目标的核心改进是什么？",
-      "ground_truth_source": "DeepSeek-v3",
-      "category": "procedural",
-      "retrieved_top3": [
-        "DeepSeek-v3",
-        "DeepSeek-v3",
-        "DeepSeek-v3"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "DualPipe算法如何实现计算与通信的重叠？",
-      "ground_truth_source": "DeepSeek-v3",
-      "category": "procedural",
-      "retrieved_top3": [
-        "DeepSeek-v3",
-        "DeepSeek-v3",
-        "DeepSeek-v3"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "FP8训练框架中tile-wise和block-wise量化的具体实现方式是什么？",
-      "ground_truth_source": "DeepSeek-v3",
-      "category": "factual",
-      "retrieved_top3": [
-        "DeepSeek-v3",
-        "DeepSeek-v3",
-        "DeepSeek-v3"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "DeepSeek-V3的预训练语料库包含多少高质量token？",
-      "ground_truth_source": "DeepSeek-v3",
-      "category": "factual",
-      "retrieved_top3": [
-        "DeepSeek-v3",
-        "DeepSeek-v3",
-        "DeepSeek-v3"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "在MMLU-Pro基准测试中，DeepSeek-V3与LLaMA-3.1 405B Base的得分差距是多少？",
-      "ground_truth_source": "DeepSeek-v3",
-      "category": "comparative",
-      "retrieved_top3": [
-        "DeepSeek-v3",
-        "DeepSeek-v3",
-        "DeepSeek-v3"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "DeepSeek-V3的上下文长度扩展到多少token？",
-      "ground_truth_source": "DeepSeek-v3",
-      "category": "factual",
+      "category": "limitation",
       "retrieved_top3": [
         "DeepSeek-v3",
         "DeepSeek-v3",
@@ -1230,295 +1756,7 @@
       }
     },
     {
-      "question": "在HumanEval-Mul基准测试中，DeepSeek-V3的Pass@1得分是多少？",
-      "ground_truth_source": "DeepSeek-v3",
-      "category": "factual",
-      "retrieved_top3": [
-        "DeepSeek-v3",
-        "DeepSeek-v2",
-        "DeepSeek-v3"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "DeepSeek-V3的推理部署阶段如何实现专家冗余策略？",
-      "ground_truth_source": "DeepSeek-v3",
-      "category": "procedural",
-      "retrieved_top3": [
-        "DeepSeek-v3.2",
-        "DeepSeek-v3",
-        "DeepSeek-v3"
-      ],
-      "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
-        "recall@3": 1.0,
-        "mrr@3": 0.5,
-        "ndcg@3": 0.6309297535714575,
-        "recall@5": 1.0,
-        "mrr@5": 0.5,
-        "ndcg@5": 0.6309297535714575,
-        "recall@10": 1.0,
-        "mrr@10": 0.5,
-        "ndcg@10": 0.6309297535714575
-      }
-    },
-    {
-      "question": "FP8训练框架中累加精度提升的具体实现方法是什么？",
-      "ground_truth_source": "DeepSeek-v3",
-      "category": "procedural",
-      "retrieved_top3": [
-        "DeepSeek-v3",
-        "DeepSeek-v3",
-        "DeepSeek-v3"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "DeepSeek-V3的训练成本相比72B和405B密集模型有何优势？",
-      "ground_truth_source": "DeepSeek-v3",
-      "category": "comparative",
-      "retrieved_top3": [
-        "DeepSeek-v3",
-        "DeepSeek-v3",
-        "DeepSeek-v3"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "在AIME 2024数学竞赛基准测试中，DeepSeek-V3的得分是多少？",
-      "ground_truth_source": "DeepSeek-v3",
-      "category": "factual",
-      "retrieved_top3": [
-        "DeepSeek-R1",
-        "DeepSeek-v3",
-        "DeepSeek-v2"
-      ],
-      "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
-        "recall@3": 1.0,
-        "mrr@3": 0.5,
-        "ndcg@3": 0.6309297535714575,
-        "recall@5": 1.0,
-        "mrr@5": 0.5,
-        "ndcg@5": 0.6309297535714575,
-        "recall@10": 1.0,
-        "mrr@10": 0.5,
-        "ndcg@10": 0.6309297535714575
-      }
-    },
-    {
-      "question": "DeepSeek-V3的专家负载均衡策略如何应对推理阶段的领域偏移问题？",
-      "ground_truth_source": "DeepSeek-v3",
-      "category": "procedural",
-      "retrieved_top3": [
-        "DeepSeek-v3",
-        "DeepSeek-v3.2",
-        "DeepSeek-v3"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "DeepSeek-V3的多token预测（MTP）策略在解码阶段的接受率是多少？",
-      "ground_truth_source": "DeepSeek-v3",
-      "category": "factual",
-      "retrieved_top3": [
-        "DeepSeek-v3",
-        "DeepSeek-v3",
-        "DeepSeek-v3"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "DeepSeek-V3的Chinese SimpleQA基准测试得分与Qwen2.5-72B相比差距多少？",
-      "ground_truth_source": "DeepSeek-v3",
-      "category": "comparative",
-      "retrieved_top3": [
-        "DeepSeek-v3",
-        "DeepSeek-v3",
-        "DeepSeek-v3"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "FP8混合精度框架中哪些组件保留了更高精度？",
-      "ground_truth_source": "DeepSeek-v3",
-      "category": "factual",
-      "retrieved_top3": [
-        "DeepSeek-v3",
-        "DeepSeek-v3",
-        "DeepSeek-v3"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "DeepSeek-V3的预训练阶段需要多少H800 GPU小时？",
-      "ground_truth_source": "DeepSeek-v3",
-      "category": "factual",
-      "retrieved_top3": [
-        "DeepSeek-v3",
-        "DeepSeek-v3",
-        "DeepSeek-v3"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "DeepSeek-V3的蒸馏策略在LiveCodeBench基准测试中提升了多少Pass@1得分？",
-      "ground_truth_source": "DeepSeek-v3",
-      "category": "comparative",
-      "retrieved_top3": [
-        "DeepSeek-v3",
-        "DeepSeek-v3",
-        "DeepSeek-v3.2"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "DeepSeek-V3.2的三个关键技术突破是什么？",
-      "ground_truth_source": "DeepSeek-v3.2",
-      "category": "factual",
-      "retrieved_top3": [
-        "DeepSeek-v3",
-        "DeepSeek-v3.2",
-        "DeepSeek-v3"
-      ],
-      "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
-        "recall@3": 1.0,
-        "mrr@3": 0.5,
-        "ndcg@3": 0.6309297535714575,
-        "recall@5": 1.0,
-        "mrr@5": 0.5,
-        "ndcg@5": 0.6309297535714575,
-        "recall@10": 1.0,
-        "mrr@10": 0.5,
-        "ndcg@10": 0.6309297535714575
-      }
-    },
-    {
-      "question": "DSA注意力机制将核心注意力复杂度从O(L²)降低到什么级别？",
+      "question": "DeepSeek-V3.2-Speciale在2025国际数学奥林匹克（IMO）中的总分是多少？",
       "ground_truth_source": "DeepSeek-v3.2",
       "category": "factual",
       "retrieved_top3": [
@@ -1542,31 +1780,7 @@
       }
     },
     {
-      "question": "DeepSeek-V3.2在Codeforces竞赛中的评分为多少？",
-      "ground_truth_source": "DeepSeek-v3.2",
-      "category": "factual",
-      "retrieved_top3": [
-        "DeepSeek-v3.2",
-        "DeepSeek-v3",
-        "DeepSeek-v3.2"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "DeepSeek-V3.2-Speciale在IMO 2025中的总得分为多少？",
+      "question": "在AIME 2025基准测试中，DeepSeek-V3.2-Speciale的Pass@1得分和输出令牌数分别是多少？",
       "ground_truth_source": "DeepSeek-v3.2",
       "category": "factual",
       "retrieved_top3": [
@@ -1590,132 +1804,12 @@
       }
     },
     {
-      "question": "密集预训练阶段使用了多少token进行训练？",
-      "ground_truth_source": "DeepSeek-v3.2",
-      "category": "factual",
-      "retrieved_top3": [
-        "Qwen-VL",
-        "Qwen3 Technical Report",
-        "Qwen-VL"
-      ],
-      "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 1.0,
-        "mrr@5": 0.25,
-        "ndcg@5": 0.43067655807339306,
-        "recall@10": 1.0,
-        "mrr@10": 0.25,
-        "ndcg@10": 0.43067655807339306
-      }
-    },
-    {
-      "question": "稀疏训练阶段的top-k选择值是多少？",
-      "ground_truth_source": "DeepSeek-v3.2",
-      "category": "factual",
-      "retrieved_top3": [
-        "Qwen-VL",
-        "DeepSeek-v3.2",
-        "DeepSeek-v3.2"
-      ],
-      "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
-        "recall@3": 1.0,
-        "mrr@3": 0.5,
-        "ndcg@3": 0.6309297535714575,
-        "recall@5": 1.0,
-        "mrr@5": 0.5,
-        "ndcg@5": 0.6309297535714575,
-        "recall@10": 1.0,
-        "mrr@10": 0.5,
-        "ndcg@10": 0.6309297535714575
-      }
-    },
-    {
-      "question": "GRPO算法如何处理策略发散的负样本？",
+      "question": "冷启动阶段如何生成训练数据以整合推理与工具调用？",
       "ground_truth_source": "DeepSeek-v3.2",
       "category": "procedural",
       "retrieved_top3": [
         "DeepSeek-v3.2",
-        "DeepSeek-R1",
-        "DeepSeek-v3.2"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "合成代理任务中代码代理的数据来源是什么？",
-      "ground_truth_source": "DeepSeek-v3.2",
-      "category": "factual",
-      "retrieved_top3": [
-        "Qwen3-VL-Embedding",
         "DeepSeek-v3.2",
-        "DeepSeek-v3.2"
-      ],
-      "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
-        "recall@3": 1.0,
-        "mrr@3": 0.5,
-        "ndcg@3": 0.6309297535714575,
-        "recall@5": 1.0,
-        "mrr@5": 0.5,
-        "ndcg@5": 0.6309297535714575,
-        "recall@10": 1.0,
-        "mrr@10": 0.5,
-        "ndcg@10": 0.6309297535714575
-      }
-    },
-    {
-      "question": "DeepSeek-V3.2在HMMT Feb 2025基准上的表现与Gemini-3.0-Pro相比如何？",
-      "ground_truth_source": "DeepSeek-v3.2",
-      "category": "comparative",
-      "retrieved_top3": [
-        "DeepSeek-v3.2",
-        "DeepSeek-v3.2",
-        "DeepSeek-v3.2"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "冷启动阶段如何管理推理内容保留？",
-      "ground_truth_source": "DeepSeek-v3.2",
-      "category": "procedural",
-      "retrieved_top3": [
-        "DeepSeek-v3.2",
-        "DeepSeek-R1",
         "DeepSeek-R1"
       ],
       "metrics": {
@@ -1734,33 +1828,9 @@
       }
     },
     {
-      "question": "数学代理任务合成中生成了多少个环境？",
+      "question": "大规模代理任务合成流水线的三个主要步骤是什么？",
       "ground_truth_source": "DeepSeek-v3.2",
-      "category": "factual",
-      "retrieved_top3": [
-        "Qwen3-VL-Embedding",
-        "DeepSeek-v3.2",
-        "DeepSeek-v3.2"
-      ],
-      "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
-        "recall@3": 1.0,
-        "mrr@3": 0.5,
-        "ndcg@3": 0.6309297535714575,
-        "recall@5": 1.0,
-        "mrr@5": 0.5,
-        "ndcg@5": 0.6309297535714575,
-        "recall@10": 1.0,
-        "mrr@10": 0.5,
-        "ndcg@10": 0.6309297535714575
-      }
-    },
-    {
-      "question": "DeepSeek-V3.2的推理token效率与Gemini-3.0-Pro相比如何？",
-      "ground_truth_source": "DeepSeek-v3.2",
-      "category": "comparative",
+      "category": "procedural",
       "retrieved_top3": [
         "DeepSeek-v3.2",
         "DeepSeek-v3.2",
@@ -1782,87 +1852,87 @@
       }
     },
     {
-      "question": "混合RL训练阶段使用了哪些奖励机制？",
+      "question": "根据表1，搜索代理任务的环境类型和提示来源分别是什么？",
       "ground_truth_source": "DeepSeek-v3.2",
-      "category": "procedural",
+      "category": "table_lookup",
       "retrieved_top3": [
         "DeepSeek-v3.2",
+        "DeepSeek-v3.2",
+        "DeepSeek-R1"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "在τ2-Bench基准测试中，DeepSeek-V3.2-Thinking的Pass@1得分比Kimi-K2-Thinking高多少？",
+      "ground_truth_source": "DeepSeek-v3.2",
+      "category": "table_lookup",
+      "retrieved_top3": [
+        "DeepSeek-v3.2",
+        "DeepSeek-v3.2",
+        "DeepSeek-v3.2"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "什么是DeepSeek Sparse Attention（DSA）的核心机制？",
+      "ground_truth_source": "DeepSeek-v3.2",
+      "category": "definition",
+      "retrieved_top3": [
+        "DeepSeek-v3.2",
+        "DeepSeek-v3.2",
+        "DeepSeek-v3.2"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "GRPO算法在强化学习中的核心目标函数是什么？",
+      "ground_truth_source": "DeepSeek-v3.2",
+      "category": "definition",
+      "retrieved_top3": [
+        "DeepSeek-R1",
         "DeepSeek-v3.2",
         "DeepSeek-v2"
       ],
       "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "DSA架构中闪电索引器的计算效率优势来源于什么？",
-      "ground_truth_source": "DeepSeek-v3.2",
-      "category": "factual",
-      "retrieved_top3": [
-        "DeepSeek-v3.2",
-        "DeepSeek-v3.2",
-        "DeepSeek-v3.2"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "DeepSeek-V3.2-Speciale相比DeepSeek-V3.2在AIME 2025上的提升幅度是多少？",
-      "ground_truth_source": "DeepSeek-v3.2",
-      "category": "comparative",
-      "retrieved_top3": [
-        "DeepSeek-v3.2",
-        "DeepSeek-v3.2",
-        "DeepSeek-v3.2"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "代理任务合成中如何验证解决方案的正确性？",
-      "ground_truth_source": "DeepSeek-v3.2",
-      "category": "procedural",
-      "retrieved_top3": [
-        "Qwen3-VL-Embedding",
-        "DeepSeek-v3.2",
-        "DeepSeek-v3.2"
-      ],
-      "metrics": {
         "recall@1": 0.0,
         "mrr@1": 0.0,
         "ndcg@1": 0.0,
@@ -1878,12 +1948,84 @@
       }
     },
     {
-      "question": "非思维模式在Terminal Bench 2.0上的得分是多少？",
+      "question": "DeepSeek-V3.2在知识广度和token效率方面存在哪些局限性？",
       "ground_truth_source": "DeepSeek-v3.2",
-      "category": "factual",
+      "category": "limitation",
       "retrieved_top3": [
         "DeepSeek-v3.2",
-        "Qwen3 Technical Report",
+        "DeepSeek-v3.2",
+        "DeepSeek-v3.2"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "在代理场景评估中，DeepSeek-V3.2的冗余自我验证行为导致什么问题？",
+      "ground_truth_source": "DeepSeek-v3.2",
+      "category": "limitation",
+      "retrieved_top3": [
+        "DeepSeek-v3.2",
+        "DeepSeek-v3.2",
+        "DeepSeek-v3.2"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "QWEN-CHAT-14B在MMLU数据集上的5-shot准确率是多少？",
+      "ground_truth_source": "Qwen Technical Report",
+      "category": "factual",
+      "retrieved_top3": [
+        "Qwen Technical Report",
+        "Qwen Technical Report",
+        "Qwen Technical Report"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "QWEN基础模型预训练使用了多少token的数据？",
+      "ground_truth_source": "Qwen Technical Report",
+      "category": "factual",
+      "retrieved_top3": [
+        "Qwen Technical Report",
+        "Qwen Technical Report",
         "Qwen3 Technical Report"
       ],
       "metrics": {
@@ -1902,13 +2044,13 @@
       }
     },
     {
-      "question": "上下文管理策略中哪种方法在BrowseComp基准上达到67.6分？",
-      "ground_truth_source": "DeepSeek-v3.2",
-      "category": "factual",
+      "question": "代码预训练阶段如何避免模型过拟合？",
+      "ground_truth_source": "Qwen Technical Report",
+      "category": "procedural",
       "retrieved_top3": [
-        "DeepSeek-v3.2",
-        "DeepSeek-v3.2",
-        "DeepSeek-v3.2"
+        "Qwen Technical Report",
+        "Qwen-VL",
+        "Qwen3 Technical Report"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -1926,36 +2068,108 @@
       }
     },
     {
-      "question": "DeepSeek-V3.2的RL训练预算占预训练成本的比例是多少？",
-      "ground_truth_source": "DeepSeek-v3.2",
-      "category": "factual",
+      "question": "RLHF训练中KL散度系数和奖励归一化方式是什么？",
+      "ground_truth_source": "Qwen Technical Report",
+      "category": "procedural",
       "retrieved_top3": [
-        "DeepSeek-v3",
-        "DeepSeek-v2",
-        "DeepSeek-v2"
+        "Qwen Technical Report",
+        "DeepSeek-R1",
+        "Qwen2 Technical Report"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "根据表2，QWEN-CHAT-7B在HumanEval的pass@1表现如何？",
+      "ground_truth_source": "Qwen Technical Report",
+      "category": "table_lookup",
+      "retrieved_top3": [
+        "Qwen2 Technical Report",
+        "Qwen Technical Report",
+        "Qwen2 Technical Report"
       ],
       "metrics": {
         "recall@1": 0.0,
         "mrr@1": 0.0,
         "ndcg@1": 0.0,
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
+        "recall@3": 1.0,
+        "mrr@3": 0.5,
+        "ndcg@3": 0.6309297535714575,
+        "recall@5": 1.0,
+        "mrr@5": 0.5,
+        "ndcg@5": 0.6309297535714575,
         "recall@10": 1.0,
-        "mrr@10": 0.16666666666666666,
-        "ndcg@10": 0.3562071871080222
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
       }
     },
     {
-      "question": "与DeepSeek-V3.1-Terminus相比，DeepSeek-V3.2的架构改进是什么？",
-      "ground_truth_source": "DeepSeek-v3.2",
-      "category": "comparative",
+      "question": "表12显示MATH-QWEN-CHAT-14B在GSM8K数据集上的准确率是多少？",
+      "ground_truth_source": "Qwen Technical Report",
+      "category": "table_lookup",
       "retrieved_top3": [
-        "DeepSeek-v3.2",
-        "DeepSeek-v3.2",
+        "Qwen Technical Report",
+        "Qwen Technical Report",
+        "Qwen3 Technical Report"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "什么是QWEN模型系列的核心定位？",
+      "ground_truth_source": "Qwen Technical Report",
+      "category": "definition",
+      "retrieved_top3": [
+        "Qwen Technical Report",
+        "Qwen Technical Report",
+        "Qwen Technical Report"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "NTK-aware插值技术的原理是什么？",
+      "ground_truth_source": "Qwen Technical Report",
+      "category": "definition",
+      "retrieved_top3": [
+        "Qwen Technical Report",
+        "Qwen Technical Report",
         "DeepSeek-v3"
       ],
       "metrics": {
@@ -1974,85 +2188,13 @@
       }
     },
     {
-      "question": "Qwen系列模型的基础模型和聊天模型分别是什么？",
+      "question": "传统基准评估在衡量对齐模型时存在什么局限性？",
       "ground_truth_source": "Qwen Technical Report",
-      "category": "factual",
+      "category": "limitation",
       "retrieved_top3": [
-        "Qwen3 Embedding",
         "Qwen Technical Report",
-        "Qwen Technical Report"
-      ],
-      "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
-        "recall@3": 1.0,
-        "mrr@3": 0.5,
-        "ndcg@3": 0.6309297535714575,
-        "recall@5": 1.0,
-        "mrr@5": 0.5,
-        "ndcg@5": 0.6309297535714575,
-        "recall@10": 1.0,
-        "mrr@10": 0.5,
-        "ndcg@10": 0.6309297535714575
-      }
-    },
-    {
-      "question": "Qwen的预训练数据量是多少？",
-      "ground_truth_source": "Qwen Technical Report",
-      "category": "factual",
-      "retrieved_top3": [
-        "Qwen2 Technical Report",
         "Qwen3 Technical Report",
-        "Qwen3 Technical Report"
-      ],
-      "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 1.0,
-        "mrr@5": 0.2,
-        "ndcg@5": 0.38685280723454163,
-        "recall@10": 1.0,
-        "mrr@10": 0.2,
-        "ndcg@10": 0.38685280723454163
-      }
-    },
-    {
-      "question": "Qwen的tokenization方法是什么？",
-      "ground_truth_source": "Qwen Technical Report",
-      "category": "factual",
-      "retrieved_top3": [
-        "Qwen3 Embedding",
-        "Qwen2 Technical Report",
         "Qwen Technical Report"
-      ],
-      "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
-        "recall@3": 1.0,
-        "mrr@3": 0.3333333333333333,
-        "ndcg@3": 0.5,
-        "recall@5": 1.0,
-        "mrr@5": 0.3333333333333333,
-        "ndcg@5": 0.5,
-        "recall@10": 1.0,
-        "mrr@10": 0.3333333333333333,
-        "ndcg@10": 0.5
-      }
-    },
-    {
-      "question": "Qwen-14B模型的层数是多少？",
-      "ground_truth_source": "Qwen Technical Report",
-      "category": "factual",
-      "retrieved_top3": [
-        "Qwen Technical Report",
-        "Qwen2 Technical Report",
-        "Qwen2 Technical Report"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -2070,39 +2212,63 @@
       }
     },
     {
-      "question": "预训练阶段使用了哪些优化技术？",
+      "question": "MATH-QWEN-CHAT模型在数学推理领域相较于GPT-4的局限性是什么？",
       "ground_truth_source": "Qwen Technical Report",
-      "category": "procedural",
+      "category": "limitation",
+      "retrieved_top3": [
+        "Qwen Technical Report",
+        "Qwen Technical Report",
+        "Qwen Technical Report"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "Qwen-VL模型的总参数量是多少？",
+      "ground_truth_source": "Qwen-VL",
+      "category": "factual",
+      "retrieved_top3": [
+        "Qwen-VL",
+        "Qwen2-VL",
+        "Qwen3-VL"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "预训练数据清理后剩余多少图像-文本对？",
+      "ground_truth_source": "Qwen-VL",
+      "category": "factual",
       "retrieved_top3": [
         "Qwen-VL",
         "Qwen-VL",
         "Qwen-VL"
       ],
       "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 1.0,
-        "mrr@10": 0.14285714285714285,
-        "ndcg@10": 0.3333333333333333
-      }
-    },
-    {
-      "question": "Qwen-CHAT模型在哪些方面进行了优化？",
-      "ground_truth_source": "Qwen Technical Report",
-      "category": "factual",
-      "retrieved_top3": [
-        "Qwen Technical Report",
-        "Qwen Technical Report",
-        "Qwen Technical Report"
-      ],
-      "metrics": {
         "recall@1": 1.0,
         "mrr@1": 1.0,
         "ndcg@1": 1.0,
@@ -2118,279 +2284,15 @@
       }
     },
     {
-      "question": "CODE-QWEN的预训练数据量是多少？",
-      "ground_truth_source": "Qwen Technical Report",
-      "category": "factual",
-      "retrieved_top3": [
-        "Qwen Technical Report",
-        "Qwen Technical Report",
-        "Qwen2 Technical Report"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "MATH-QWEN-CHAT的训练序列长度是多少？",
-      "ground_truth_source": "Qwen Technical Report",
-      "category": "factual",
-      "retrieved_top3": [
-        "Qwen Technical Report",
-        "Qwen Technical Report",
-        "Qwen Technical Report"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "Qwen的上下文长度扩展技术有哪些？",
-      "ground_truth_source": "Qwen Technical Report",
+      "question": "监督微调阶段使用了多少指令调整数据？",
+      "ground_truth_source": "Qwen-VL",
       "category": "procedural",
       "retrieved_top3": [
-        "Qwen2 Technical Report",
-        "Qwen2 Technical Report",
-        "Qwen Technical Report"
-      ],
-      "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
-        "recall@3": 1.0,
-        "mrr@3": 0.3333333333333333,
-        "ndcg@3": 0.5,
-        "recall@5": 1.0,
-        "mrr@5": 0.3333333333333333,
-        "ndcg@5": 0.5,
-        "recall@10": 1.0,
-        "mrr@10": 0.3333333333333333,
-        "ndcg@10": 0.5
-      }
-    },
-    {
-      "question": "在MMLU数据集上，Qwen-14B的5-shot准确率是多少？",
-      "ground_truth_source": "Qwen Technical Report",
-      "category": "factual",
-      "retrieved_top3": [
-        "Qwen2 Technical Report",
-        "Qwen3 Technical Report",
-        "Qwen2 Technical Report"
-      ],
-      "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 1.0,
-        "mrr@5": 0.25,
-        "ndcg@5": 0.43067655807339306,
-        "recall@10": 1.0,
-        "mrr@10": 0.25,
-        "ndcg@10": 0.43067655807339306
-      }
-    },
-    {
-      "question": "Qwen-CHAT与GPT-4相比在人类评估中的表现如何？",
-      "ground_truth_source": "Qwen Technical Report",
-      "category": "comparative",
-      "retrieved_top3": [
-        "Qwen Technical Report",
-        "Qwen Technical Report",
-        "Qwen Technical Report"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "监督微调中使用的优化器及其参数是什么？",
-      "ground_truth_source": "Qwen Technical Report",
-      "category": "procedural",
-      "retrieved_top3": [
+        "Qwen-VL",
         "BLIP-3",
-        "DeepSeek-v1",
-        "Qwen Technical Report"
-      ],
-      "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
-        "recall@3": 1.0,
-        "mrr@3": 0.3333333333333333,
-        "ndcg@3": 0.5,
-        "recall@5": 1.0,
-        "mrr@5": 0.3333333333333333,
-        "ndcg@5": 0.5,
-        "recall@10": 1.0,
-        "mrr@10": 0.3333333333333333,
-        "ndcg@10": 0.5
-      }
-    },
-    {
-      "question": "CODE-QWEN-CHAT在HumanEval的pass@1指标表现如何？",
-      "ground_truth_source": "Qwen Technical Report",
-      "category": "factual",
-      "retrieved_top3": [
-        "Qwen Technical Report",
-        "Qwen Technical Report",
-        "Qwen Technical Report"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "奖励模型训练中使用的学习率是多少？",
-      "ground_truth_source": "Qwen Technical Report",
-      "category": "factual",
-      "retrieved_top3": [
-        "DeepSeek-v2",
-        "Qwen Technical Report",
         "DeepSeek-v1"
       ],
       "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
-        "recall@3": 1.0,
-        "mrr@3": 0.5,
-        "ndcg@3": 0.6309297535714575,
-        "recall@5": 1.0,
-        "mrr@5": 0.5,
-        "ndcg@5": 0.6309297535714575,
-        "recall@10": 1.0,
-        "mrr@10": 0.5,
-        "ndcg@10": 0.6309297535714575
-      }
-    },
-    {
-      "question": "预训练阶段的优化器参数是什么？",
-      "ground_truth_source": "Qwen Technical Report",
-      "category": "procedural",
-      "retrieved_top3": [
-        "Qwen-VL",
-        "Qwen-VL",
-        "BLIP-2"
-      ],
-      "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 0.0,
-        "mrr@5": 0.0,
-        "ndcg@5": 0.0,
-        "recall@10": 0.0,
-        "mrr@10": 0.0,
-        "ndcg@10": 0.0
-      }
-    },
-    {
-      "question": "Qwen的架构修改包括哪些部分？",
-      "ground_truth_source": "Qwen Technical Report",
-      "category": "factual",
-      "retrieved_top3": [
-        "Qwen3-VL",
-        "Qwen Technical Report",
-        "Qwen2-VL"
-      ],
-      "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
-        "recall@3": 1.0,
-        "mrr@3": 0.5,
-        "ndcg@3": 0.6309297535714575,
-        "recall@5": 1.0,
-        "mrr@5": 0.5,
-        "ndcg@5": 0.6309297535714575,
-        "recall@10": 1.0,
-        "mrr@10": 0.5,
-        "ndcg@10": 0.6309297535714575
-      }
-    },
-    {
-      "question": "在8192长度的arXiv3测试中，Qwen-14B的困惑度是多少？",
-      "ground_truth_source": "Qwen Technical Report",
-      "category": "factual",
-      "retrieved_top3": [
-        "Qwen3 Technical Report",
-        "Qwen3 Technical Report",
-        "Qwen3 Technical Report"
-      ],
-      "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 1.0,
-        "mrr@5": 0.2,
-        "ndcg@5": 0.38685280723454163,
-        "recall@10": 1.0,
-        "mrr@10": 0.2,
-        "ndcg@10": 0.38685280723454163
-      }
-    },
-    {
-      "question": "使用代码解释器时，Qwen-14B生成的代码可执行比例是多少？",
-      "ground_truth_source": "Qwen Technical Report",
-      "category": "factual",
-      "retrieved_top3": [
-        "Qwen Technical Report",
-        "Qwen2 Technical Report",
-        "Qwen3 Technical Report"
-      ],
-      "metrics": {
         "recall@1": 1.0,
         "mrr@1": 1.0,
         "ndcg@1": 1.0,
@@ -2406,39 +2308,63 @@
       }
     },
     {
-      "question": "MATH-QWEN-CHAT在MATH数据集上的准确率是多少？",
-      "ground_truth_source": "Qwen Technical Report",
-      "category": "factual",
-      "retrieved_top3": [
-        "Qwen Technical Report",
-        "Qwen Technical Report",
-        "Qwen Technical Report"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "Qwen的对齐过程包含哪些步骤？",
-      "ground_truth_source": "Qwen Technical Report",
+      "question": "视觉语言适配器如何压缩视觉特征序列？",
+      "ground_truth_source": "Qwen-VL",
       "category": "procedural",
       "retrieved_top3": [
-        "Qwen3-VL",
-        "Qwen Technical Report",
+        "Qwen-VL",
+        "Qwen-VL",
         "Qwen-VL"
       ],
       "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "Qwen-VL在Flickr30K图像字幕任务的CIDEr分数是多少？",
+      "ground_truth_source": "Qwen-VL",
+      "category": "table_lookup",
+      "retrieved_top3": [
+        "Qwen-VL",
+        "Qwen-VL",
+        "CLIP"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "Qwen-VL-7B在RefCOCO test-A的准确率是多少？",
+      "ground_truth_source": "Qwen-VL",
+      "category": "table_lookup",
+      "retrieved_top3": [
+        "Qwen2-VL",
+        "Qwen-VL",
+        "Qwen3-VL"
+      ],
+      "metrics": {
         "recall@1": 0.0,
         "mrr@1": 0.0,
         "ndcg@1": 0.0,
@@ -2454,27 +2380,99 @@
       }
     },
     {
-      "question": "Qwen2系列包含哪些参数规模的模型？",
-      "ground_truth_source": "Qwen2 Technical Report",
-      "category": "factual",
+      "question": "什么是Qwen-VL中的视觉受体组件？",
+      "ground_truth_source": "Qwen-VL",
+      "category": "definition",
       "retrieved_top3": [
-        "Qwen2-VL",
-        "Qwen2 Technical Report",
-        "Qwen2-VL"
+        "Qwen-VL",
+        "Qwen-VL",
+        "Qwen-VL"
       ],
       "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
         "recall@3": 1.0,
-        "mrr@3": 0.5,
-        "ndcg@3": 0.6309297535714575,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
         "recall@5": 1.0,
-        "mrr@5": 0.5,
-        "ndcg@5": 0.6309297535714575,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
         "recall@10": 1.0,
-        "mrr@10": 0.5,
-        "ndcg@10": 0.6309297535714575
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "位置感知视觉语言适配器的设计目的是什么？",
+      "ground_truth_source": "Qwen-VL",
+      "category": "definition",
+      "retrieved_top3": [
+        "Qwen-VL",
+        "Qwen2-VL",
+        "Qwen-VL"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "当前开源视觉语言模型面临的主要挑战是什么？",
+      "ground_truth_source": "Qwen-VL",
+      "category": "limitation",
+      "retrieved_top3": [
+        "Qwen-VL",
+        "DeepSeek-OCR",
+        "Qwen-VL"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "Qwen-VL未来扩展方向涉及哪些模态？",
+      "ground_truth_source": "Qwen-VL",
+      "category": "limitation",
+      "retrieved_top3": [
+        "Qwen-VL",
+        "Qwen3-VL",
+        "Qwen-VL"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
@@ -2483,7 +2481,79 @@
       "category": "factual",
       "retrieved_top3": [
         "Qwen2 Technical Report",
-        "Qwen Technical Report",
+        "Qwen2 Technical Report",
+        "Qwen2 Technical Report"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "Qwen2 MoE模型的总参数量和每次激活的参数量分别是多少？",
+      "ground_truth_source": "Qwen2 Technical Report",
+      "category": "factual",
+      "retrieved_top3": [
+        "Qwen2 Technical Report",
+        "Qwen2 Technical Report",
+        "Qwen3 Technical Report"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "Qwen2的预训练数据改进包含哪三个关键步骤？",
+      "ground_truth_source": "Qwen2 Technical Report",
+      "category": "procedural",
+      "retrieved_top3": [
+        "Qwen3 Technical Report",
+        "Qwen2 Technical Report",
+        "Qwen2 Technical Report"
+      ],
+      "metrics": {
+        "recall@1": 0.0,
+        "mrr@1": 0.0,
+        "ndcg@1": 0.0,
+        "recall@3": 1.0,
+        "mrr@3": 0.5,
+        "ndcg@3": 0.6309297535714575,
+        "recall@5": 1.0,
+        "mrr@5": 0.5,
+        "ndcg@5": 0.6309297535714575,
+        "recall@10": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
+      }
+    },
+    {
+      "question": "后训练阶段的数据收集包含哪两个主要过程？",
+      "ground_truth_source": "Qwen2 Technical Report",
+      "category": "procedural",
+      "retrieved_top3": [
+        "Qwen2 Technical Report",
+        "Qwen2 Technical Report",
         "Qwen Technical Report"
       ],
       "metrics": {
@@ -2502,60 +2572,12 @@
       }
     },
     {
-      "question": "Qwen2的预训练数据规模是多少？",
+      "question": "根据表1，Qwen2-7B模型的注意力头数量是多少？",
       "ground_truth_source": "Qwen2 Technical Report",
-      "category": "factual",
+      "category": "table_lookup",
       "retrieved_top3": [
-        "Qwen2-VL",
         "Qwen2 Technical Report",
-        "Qwen3 Technical Report"
-      ],
-      "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
-        "recall@3": 1.0,
-        "mrr@3": 0.5,
-        "ndcg@3": 0.6309297535714575,
-        "recall@5": 1.0,
-        "mrr@5": 0.5,
-        "ndcg@5": 0.6309297535714575,
-        "recall@10": 1.0,
-        "mrr@10": 0.5,
-        "ndcg@10": 0.6309297535714575
-      }
-    },
-    {
-      "question": "Qwen2的MoE模型中每个token激活的参数量是多少？",
-      "ground_truth_source": "Qwen2 Technical Report",
-      "category": "factual",
-      "retrieved_top3": [
         "Qwen3 Technical Report",
-        "Qwen2 Technical Report",
-        "Qwen3 Technical Report"
-      ],
-      "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
-        "recall@3": 1.0,
-        "mrr@3": 0.5,
-        "ndcg@3": 0.6309297535714575,
-        "recall@5": 1.0,
-        "mrr@5": 0.5,
-        "ndcg@5": 0.6309297535714575,
-        "recall@10": 1.0,
-        "mrr@10": 0.5,
-        "ndcg@10": 0.6309297535714575
-      }
-    },
-    {
-      "question": "Qwen2的tokenizer词汇量是多少？",
-      "ground_truth_source": "Qwen2 Technical Report",
-      "category": "factual",
-      "retrieved_top3": [
-        "Qwen2 Technical Report",
-        "Qwen2-VL",
         "Qwen2 Technical Report"
       ],
       "metrics": {
@@ -2574,36 +2596,36 @@
       }
     },
     {
-      "question": "Qwen2-7B在MMLU-Pro基准测试中与Llama-3-8B相比表现如何？",
+      "question": "根据表2，Qwen2-72B在MATH基准上的得分是多少？",
       "ground_truth_source": "Qwen2 Technical Report",
-      "category": "comparative",
+      "category": "table_lookup",
       "retrieved_top3": [
-        "Qwen3 Technical Report",
+        "Qwen2 Technical Report",
         "Qwen2 Technical Report",
         "Qwen2 Technical Report"
       ],
       "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
         "recall@3": 1.0,
-        "mrr@3": 0.5,
-        "ndcg@3": 0.6309297535714575,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
         "recall@5": 1.0,
-        "mrr@5": 0.5,
-        "ndcg@5": 0.6309297535714575,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
         "recall@10": 1.0,
-        "mrr@10": 0.5,
-        "ndcg@10": 0.6309297535714575
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
-      "question": "Qwen2-72B在GSM8K数学基准测试中的得分比Qwen1.5-72B高多少？",
+      "question": "Grouped Query Attention（GQA）的核心作用是什么？",
       "ground_truth_source": "Qwen2 Technical Report",
-      "category": "comparative",
+      "category": "definition",
       "retrieved_top3": [
         "Qwen2 Technical Report",
-        "Qwen2 Technical Report",
+        "DeepSeek-v2",
         "DeepSeek-v2"
       ],
       "metrics": {
@@ -2622,59 +2644,107 @@
       }
     },
     {
-      "question": "Qwen2的预训练数据改进主要体现在哪些方面？",
+      "question": "Dual Chunk Attention（DCA）的主要功能是什么？",
       "ground_truth_source": "Qwen2 Technical Report",
-      "category": "procedural",
+      "category": "definition",
       "retrieved_top3": [
-        "Qwen2-VL",
+        "Qwen2 Technical Report",
+        "Vision Transformer",
+        "DeepSeek-v3.2"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "Qwen2-7B-Instruct在长上下文测试中存在什么限制？",
+      "ground_truth_source": "Qwen2 Technical Report",
+      "category": "limitation",
+      "retrieved_top3": [
+        "Qwen2 Technical Report",
         "Qwen2 Technical Report",
         "Qwen2 Technical Report"
       ],
       "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
         "recall@3": 1.0,
-        "mrr@3": 0.5,
-        "ndcg@3": 0.6309297535714575,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
         "recall@5": 1.0,
-        "mrr@5": 0.5,
-        "ndcg@5": 0.6309297535714575,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
         "recall@10": 1.0,
-        "mrr@10": 0.5,
-        "ndcg@10": 0.6309297535714575
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
-      "question": "Qwen2如何实现长上下文训练？",
+      "question": "在多语言评估中，Qwen2-72B-Instruct哪个语言的得分最低？",
       "ground_truth_source": "Qwen2 Technical Report",
-      "category": "procedural",
+      "category": "limitation",
       "retrieved_top3": [
-        "Qwen2-VL",
+        "Qwen2 Technical Report",
         "Qwen2 Technical Report",
         "Qwen2 Technical Report"
       ],
       "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
         "recall@3": 1.0,
-        "mrr@3": 0.5,
-        "ndcg@3": 0.6309297535714575,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
         "recall@5": 1.0,
-        "mrr@5": 0.5,
-        "ndcg@5": 0.6309297535714575,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
         "recall@10": 1.0,
-        "mrr@10": 0.5,
-        "ndcg@10": 0.6309297535714575
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
       }
     },
     {
-      "question": "Qwen2的MoE模型专家路由机制有何特点？",
-      "ground_truth_source": "Qwen2 Technical Report",
-      "category": "procedural",
+      "question": "Qwen2-VL系列模型包含哪三个不同参数规模的版本？",
+      "ground_truth_source": "Qwen2-VL",
+      "category": "factual",
       "retrieved_top3": [
-        "Qwen2 Technical Report",
+        "Qwen2-VL",
+        "Qwen2-VL",
+        "Qwen3-VL"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "在预训练阶段，Qwen2-VL累计处理了多少token？",
+      "ground_truth_source": "Qwen2-VL",
+      "category": "factual",
+      "retrieved_top3": [
+        "Qwen2-VL",
         "Qwen3 Technical Report",
         "Qwen2 Technical Report"
       ],
@@ -2694,61 +2764,13 @@
       }
     },
     {
-      "question": "Qwen2-1.5B在HumanEval代码生成基准测试中的得分是多少？",
-      "ground_truth_source": "Qwen2 Technical Report",
-      "category": "factual",
-      "retrieved_top3": [
-        "Qwen2 Technical Report",
-        "DeepSeek-v3",
-        "Qwen2 Technical Report"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "Qwen2-72B-Instruct在MT-Bench上的得分与GPT-4o相比如何？",
-      "ground_truth_source": "Qwen2 Technical Report",
-      "category": "comparative",
-      "retrieved_top3": [
-        "Qwen2 Technical Report",
-        "Qwen2-VL",
-        "Qwen2 Technical Report"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "Qwen2的专家初始化方法如何增强模型多样性？",
-      "ground_truth_source": "Qwen2 Technical Report",
+      "question": "Qwen2-VL如何处理不同分辨率的图像输入？",
+      "ground_truth_source": "Qwen2-VL",
       "category": "procedural",
       "retrieved_top3": [
-        "Qwen2 Technical Report",
         "Qwen2-VL",
-        "Qwen2 Technical Report"
+        "Qwen2-VL",
+        "Qwen2-VL"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -2766,13 +2788,13 @@
       }
     },
     {
-      "question": "Qwen2-57B-A14B在GSM8K数学基准测试中的得分是多少？",
-      "ground_truth_source": "Qwen2 Technical Report",
-      "category": "factual",
+      "question": "M-RoPE如何实现多模态位置嵌入的分解？",
+      "ground_truth_source": "Qwen2-VL",
+      "category": "procedural",
       "retrieved_top3": [
-        "Qwen2 Technical Report",
-        "Qwen2 Technical Report",
-        "Qwen2 Technical Report"
+        "Qwen2-VL",
+        "Qwen2-VL",
+        "DeepSeek-v2"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -2790,13 +2812,133 @@
       }
     },
     {
-      "question": "Qwen2的多语言能力覆盖哪些语言？",
-      "ground_truth_source": "Qwen2 Technical Report",
-      "category": "factual",
+      "question": "根据表格2，Qwen2-VL-72B在DocVQA测试集上的准确率是多少？",
+      "ground_truth_source": "Qwen2-VL",
+      "category": "table_lookup",
       "retrieved_top3": [
         "Qwen2-VL",
-        "Qwen2 Technical Report",
-        "Qwen2 Technical Report"
+        "Qwen3-VL",
+        "Qwen3-VL"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "根据表格3，Qwen2-VL-72B在阿拉伯语OCR任务中的表现比GPT-4o低多少？",
+      "ground_truth_source": "Qwen2-VL",
+      "category": "table_lookup",
+      "retrieved_top3": [
+        "Qwen2-VL",
+        "Qwen2-VL",
+        "Qwen2-VL"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "什么是Multimodal Rotary Position Embedding（M-RoPE）？",
+      "ground_truth_source": "Qwen2-VL",
+      "category": "definition",
+      "retrieved_top3": [
+        "Qwen2-VL",
+        "Qwen2-VL",
+        "Qwen2-VL"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "Qwen2-VL模型在MMMU基准测试中的主要局限性是什么？",
+      "ground_truth_source": "Qwen2-VL",
+      "category": "limitation",
+      "retrieved_top3": [
+        "Qwen2-VL",
+        "Qwen2-VL",
+        "Qwen2-VL"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "Qwen2-VL在视频处理中的主要限制因素是什么？",
+      "ground_truth_source": "Qwen2-VL",
+      "category": "limitation",
+      "retrieved_top3": [
+        "Qwen2-VL",
+        "Qwen2-VL",
+        "Qwen2-VL"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "Qwen2-VL的视觉编码器参数量是多少？",
+      "ground_truth_source": "Qwen2-VL",
+      "category": "definition",
+      "retrieved_top3": [
+        "Qwen-VL",
+        "Qwen2-VL",
+        "Qwen2-VL"
       ],
       "metrics": {
         "recall@1": 0.0,
@@ -2814,133 +2956,13 @@
       }
     },
     {
-      "question": "Qwen2-7B在MBPP代码生成基准测试中与Phi-2相比表现如何？",
-      "ground_truth_source": "Qwen2 Technical Report",
-      "category": "comparative",
-      "retrieved_top3": [
-        "Qwen2 Technical Report",
-        "Qwen2 Technical Report",
-        "Qwen2 Technical Report"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "Qwen2的后训练数据构建包含哪两个主要步骤？",
-      "ground_truth_source": "Qwen2 Technical Report",
-      "category": "procedural",
-      "retrieved_top3": [
-        "Qwen2 Technical Report",
-        "Qwen2 Technical Report",
-        "Qwen2 Technical Report"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "Qwen2-57B-A14B的模型架构属于哪种类型？",
-      "ground_truth_source": "Qwen2 Technical Report",
-      "category": "factual",
-      "retrieved_top3": [
-        "Qwen2 Technical Report",
-        "Qwen2 Technical Report",
-        "Qwen2 Technical Report"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "Qwen2的长上下文能力测试中，Qwen2-7B-Instruct在128K上下文长度下的准确率是多少？",
-      "ground_truth_source": "Qwen2 Technical Report",
-      "category": "factual",
-      "retrieved_top3": [
-        "Qwen2 Technical Report",
-        "Qwen2 Technical Report",
-        "Qwen2 Technical Report"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "Qwen2-72B在TruthfulQA基准测试中与Mixtral-8x22B相比表现如何？",
-      "ground_truth_source": "Qwen2 Technical Report",
-      "category": "comparative",
-      "retrieved_top3": [
-        "Qwen2 Technical Report",
-        "Qwen2 Technical Report",
-        "Qwen2 Technical Report"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "Qwen3系列包含哪些类型的模型架构？",
+      "question": "Qwen3系列模型的参数规模范围是多少？",
       "ground_truth_source": "Qwen3 Technical Report",
       "category": "factual",
       "retrieved_top3": [
         "Qwen3 Technical Report",
         "Qwen3 Technical Report",
-        "Qwen-VL"
+        "Qwen3 Technical Report"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -2958,9 +2980,177 @@
       }
     },
     {
-      "question": "Qwen3旗舰模型Qwen3-235B-A22B的总参数和激活参数分别是多少？",
+      "question": "Qwen3-235B-A22B在AIME'24基准测试中的得分是多少？",
       "ground_truth_source": "Qwen3 Technical Report",
       "category": "factual",
+      "retrieved_top3": [
+        "Qwen3 Technical Report",
+        "Qwen3 Technical Report",
+        "Qwen3 Technical Report"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "Qwen3的预训练过程分为哪三个阶段？",
+      "ground_truth_source": "Qwen3 Technical Report",
+      "category": "procedural",
+      "retrieved_top3": [
+        "Qwen3 Technical Report",
+        "Qwen-VL",
+        "Qwen3-VL"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "Qwen3后训练流程的四个阶段分别是什么？",
+      "ground_truth_source": "Qwen3 Technical Report",
+      "category": "procedural",
+      "retrieved_top3": [
+        "Qwen3 Technical Report",
+        "Qwen3-VL",
+        "Qwen3-VL"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "根据Table 1，Qwen3-0.6B模型的层数和上下文长度分别是多少？",
+      "ground_truth_source": "Qwen3 Technical Report",
+      "category": "table_lookup",
+      "retrieved_top3": [
+        "Qwen3 Technical Report",
+        "Qwen3 Embedding",
+        "Qwen3 Technical Report"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "根据Table 2，Qwen3-30B-A3B模型的专家数量(总/激活)是多少？",
+      "ground_truth_source": "Qwen3 Technical Report",
+      "category": "table_lookup",
+      "retrieved_top3": [
+        "Qwen3 Technical Report",
+        "Qwen3 Technical Report",
+        "Qwen3 Technical Report"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "什么是Qwen3的'thinking budget'机制？",
+      "ground_truth_source": "Qwen3 Technical Report",
+      "category": "definition",
+      "retrieved_top3": [
+        "Qwen3 Technical Report",
+        "Qwen3 Technical Report",
+        "Qwen3 Technical Report"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "Qwen3的'Strong-to-Weak Distillation'方法如何定义？",
+      "ground_truth_source": "Qwen3 Technical Report",
+      "category": "definition",
+      "retrieved_top3": [
+        "Qwen3-VL",
+        "Qwen3 Technical Report",
+        "Qwen3 Technical Report"
+      ],
+      "metrics": {
+        "recall@1": 0.0,
+        "mrr@1": 0.0,
+        "ndcg@1": 0.0,
+        "recall@3": 1.0,
+        "mrr@3": 0.5,
+        "ndcg@3": 0.6309297535714575,
+        "recall@5": 1.0,
+        "mrr@5": 0.5,
+        "ndcg@5": 0.6309297535714575,
+        "recall@10": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
+      }
+    },
+    {
+      "question": "Qwen3在长上下文处理能力方面存在什么局限性？",
+      "ground_truth_source": "Qwen3 Technical Report",
+      "category": "limitation",
       "retrieved_top3": [
         "Qwen3 Technical Report",
         "Qwen3 Technical Report",
@@ -2982,13 +3172,229 @@
       }
     },
     {
-      "question": "Qwen3的预训练数据规模和语言覆盖范围有何提升？",
+      "question": "Qwen3后训练流程中哪些方面存在局限性？",
       "ground_truth_source": "Qwen3 Technical Report",
+      "category": "limitation",
+      "retrieved_top3": [
+        "Qwen3 Technical Report",
+        "Qwen3 Technical Report",
+        "Qwen-VL"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "Qwen3-VL模型家族支持的最大上下文长度是多少？",
+      "ground_truth_source": "Qwen3-VL",
       "category": "factual",
       "retrieved_top3": [
-        "Qwen2 Technical Report",
+        "Qwen3-VL",
+        "Qwen3-VL",
+        "Qwen3-VL"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "预训练阶段S0使用的训练数据量是多少token？",
+      "ground_truth_source": "Qwen3-VL",
+      "category": "factual",
+      "retrieved_top3": [
+        "Qwen3-VL",
         "Qwen3 Technical Report",
-        "Qwen3 Technical Report"
+        "DeepSeek-v3.2"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "Qwen3-VL的预训练分哪四个阶段，每个阶段的序列长度有何变化？",
+      "ground_truth_source": "Qwen3-VL",
+      "category": "procedural",
+      "retrieved_top3": [
+        "Qwen3-VL",
+        "Qwen3 Technical Report",
+        "Qwen3-VL"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "后训练阶段具体包含哪三个步骤？",
+      "ground_truth_source": "Qwen3-VL",
+      "category": "procedural",
+      "retrieved_top3": [
+        "Qwen-VL",
+        "Qwen3 Technical Report",
+        "DeepSeek-v3.2"
+      ],
+      "metrics": {
+        "recall@1": 0.0,
+        "mrr@1": 0.0,
+        "ndcg@1": 0.0,
+        "recall@3": 0.0,
+        "mrr@3": 0.0,
+        "ndcg@3": 0.0,
+        "recall@5": 0.0,
+        "mrr@5": 0.0,
+        "ndcg@5": 0.0,
+        "recall@10": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "question": "根据表1，预训练阶段S3的序列长度是多少？",
+      "ground_truth_source": "Qwen3-VL",
+      "category": "table_lookup",
+      "retrieved_top3": [
+        "Qwen3-VL",
+        "Qwen3 Technical Report",
+        "Qwen3-VL"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "根据表2，Qwen3-VL-235B-A22B-Thinking模型在MMStar基准测试中的得分是多少？",
+      "ground_truth_source": "Qwen3-VL",
+      "category": "table_lookup",
+      "retrieved_top3": [
+        "Qwen3-VL",
+        "Qwen3-VL",
+        "Qwen2-VL"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "Interleaved MRoPE的具体改进措施是什么？",
+      "ground_truth_source": "Qwen3-VL",
+      "category": "definition",
+      "retrieved_top3": [
+        "Qwen3-VL",
+        "Qwen2-VL",
+        "Qwen2-VL"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "DeepStack机制的核心设计是什么？",
+      "ground_truth_source": "Qwen3-VL",
+      "category": "definition",
+      "retrieved_top3": [
+        "Qwen3-VL",
+        "Qwen3-VL",
+        "Qwen3-VL"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "Qwen3-VL在长视频理解中存在什么潜在限制？",
+      "ground_truth_source": "Qwen3-VL",
+      "category": "limitation",
+      "retrieved_top3": [
+        "Qwen2-VL",
+        "Qwen3-VL",
+        "Qwen3-VL"
       ],
       "metrics": {
         "recall@1": 0.0,
@@ -3006,13 +3412,37 @@
       }
     },
     {
-      "question": "Qwen3的多语言能力通过哪些基准测试验证？",
-      "ground_truth_source": "Qwen3 Technical Report",
+      "question": "文档中提到的多语言OCR支持的主要局限性是什么？",
+      "ground_truth_source": "Qwen3-VL",
+      "category": "limitation",
+      "retrieved_top3": [
+        "DeepSeek-OCR",
+        "Qwen3-VL",
+        "Qwen2-VL"
+      ],
+      "metrics": {
+        "recall@1": 0.0,
+        "mrr@1": 0.0,
+        "ndcg@1": 0.0,
+        "recall@3": 1.0,
+        "mrr@3": 0.5,
+        "ndcg@3": 0.6309297535714575,
+        "recall@5": 1.0,
+        "mrr@5": 0.5,
+        "ndcg@5": 0.6309297535714575,
+        "recall@10": 1.0,
+        "mrr@10": 0.5,
+        "ndcg@10": 0.6309297535714575
+      }
+    },
+    {
+      "question": "Qwen3-VL-Embedding-8B在MMEB-V2基准测试中的总体得分是多少？",
+      "ground_truth_source": "Qwen3-VL-Embedding",
       "category": "factual",
       "retrieved_top3": [
-        "Qwen3 Technical Report",
-        "Qwen3 Technical Report",
-        "Qwen3 Technical Report"
+        "Qwen3-VL-Embedding",
+        "Qwen3-VL-Embedding",
+        "Qwen3-VL-Embedding"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -3030,13 +3460,13 @@
       }
     },
     {
-      "question": "Qwen3的MoE模型在专家设计上与Qwen2.5-MoE有何不同？",
-      "ground_truth_source": "Qwen3 Technical Report",
-      "category": "comparative",
+      "question": "Qwen3-VL-Embedding系列支持的最大输入长度是多少？",
+      "ground_truth_source": "Qwen3-VL-Embedding",
+      "category": "factual",
       "retrieved_top3": [
-        "Qwen3 Technical Report",
-        "Qwen3 Technical Report",
-        "Qwen2 Technical Report"
+        "Qwen3-VL-Embedding",
+        "Qwen3-VL-Embedding",
+        "Qwen3-VL-Embedding"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -3054,37 +3484,13 @@
       }
     },
     {
-      "question": "Qwen3-32B在非思考模式下相比Qwen2.5-72B-Instruct有何优势？",
-      "ground_truth_source": "Qwen3 Technical Report",
-      "category": "comparative",
-      "retrieved_top3": [
-        "Qwen3 Technical Report",
-        "Qwen3 Technical Report",
-        "Qwen3 Technical Report"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "Qwen3的预训练分几个阶段？每个阶段的主要目标是什么？",
-      "ground_truth_source": "Qwen3 Technical Report",
+      "question": "Qwen3-VL-Embedding的训练策略包含哪几个阶段？",
+      "ground_truth_source": "Qwen3-VL-Embedding",
       "category": "procedural",
       "retrieved_top3": [
-        "Qwen3 Technical Report",
-        "Qwen-VL",
-        "Qwen3 Technical Report"
+        "Qwen3-VL-Embedding",
+        "Qwen3-VL-Embedding",
+        "Qwen-VL"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -3102,12 +3508,36 @@
       }
     },
     {
-      "question": "Qwen3的后训练流程包含哪两个核心目标？",
-      "ground_truth_source": "Qwen3 Technical Report",
+      "question": "在视频分类任务中，Qwen3-VL-Embedding如何生成硬负样本？",
+      "ground_truth_source": "Qwen3-VL-Embedding",
       "category": "procedural",
       "retrieved_top3": [
-        "DeepSeek-v3.2",
-        "Qwen3 Technical Report",
+        "Qwen3-VL-Embedding",
+        "Qwen3-VL-Embedding",
+        "Qwen3-VL-Embedding"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "从表1中查找Qwen3-VL-Reranker-8B模型是否支持指令定制？",
+      "ground_truth_source": "Qwen3-VL-Embedding",
+      "category": "table_lookup",
+      "retrieved_top3": [
+        "Qwen3 Embedding",
+        "Qwen3-VL-Embedding",
         "Qwen3-VL-Embedding"
       ],
       "metrics": {
@@ -3126,13 +3556,13 @@
       }
     },
     {
-      "question": "Qwen3的思考预算（Thinking Budget）机制的作用是什么？",
-      "ground_truth_source": "Qwen3 Technical Report",
-      "category": "factual",
+      "question": "根据表2，Qwen3-VL-Embedding-8B在VisDoc领域的总体得分是多少？",
+      "ground_truth_source": "Qwen3-VL-Embedding",
+      "category": "table_lookup",
       "retrieved_top3": [
-        "Qwen3 Technical Report",
-        "Qwen3 Technical Report",
-        "Qwen3 Technical Report"
+        "Qwen3-VL-Embedding",
+        "Qwen3-VL-Embedding",
+        "Qwen3-VL-Embedding"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -3150,13 +3580,13 @@
       }
     },
     {
-      "question": "Qwen3-30B-A3B MoE模型的专家配置参数是多少？",
-      "ground_truth_source": "Qwen3 Technical Report",
-      "category": "factual",
+      "question": "什么是Matryoshka Representation Learning？",
+      "ground_truth_source": "Qwen3-VL-Embedding",
+      "category": "definition",
       "retrieved_top3": [
-        "Qwen3 Technical Report",
-        "Qwen3 Technical Report",
-        "Qwen3-VL"
+        "Qwen3-VL-Embedding",
+        "Qwen3-VL-Embedding",
+        "Qwen3-VL-Embedding"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -3174,181 +3604,13 @@
       }
     },
     {
-      "question": "Qwen3的Strong-to-Weak Distillation方法在轻量模型训练中相比强化学习有何优势？",
-      "ground_truth_source": "Qwen3 Technical Report",
-      "category": "comparative",
-      "retrieved_top3": [
-        "Qwen3 Technical Report",
-        "Qwen3-VL",
-        "Qwen3 Technical Report"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "Qwen3的tokenizer使用什么编码技术？",
-      "ground_truth_source": "Qwen3 Technical Report",
-      "category": "factual",
+      "question": "文档中如何定义reranking模型的训练目标？",
+      "ground_truth_source": "Qwen3-VL-Embedding",
+      "category": "definition",
       "retrieved_top3": [
         "Qwen3 Embedding",
-        "Qwen2 Technical Report",
-        "Qwen2 Technical Report"
-      ],
-      "metrics": {
-        "recall@1": 0.0,
-        "mrr@1": 0.0,
-        "ndcg@1": 0.0,
-        "recall@3": 0.0,
-        "mrr@3": 0.0,
-        "ndcg@3": 0.0,
-        "recall@5": 1.0,
-        "mrr@5": 0.2,
-        "ndcg@5": 0.38685280723454163,
-        "recall@10": 1.0,
-        "mrr@10": 0.2,
-        "ndcg@10": 0.38685280723454163
-      }
-    },
-    {
-      "question": "Qwen3-235B-A22B在AIME’24和AIME’25上的得分分别是多少？",
-      "ground_truth_source": "Qwen3 Technical Report",
-      "category": "factual",
-      "retrieved_top3": [
-        "Qwen3 Technical Report",
-        "Qwen3-VL",
-        "Qwen3 Technical Report"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "Qwen3的长上下文能力如何实现？",
-      "ground_truth_source": "Qwen3 Technical Report",
-      "category": "procedural",
-      "retrieved_top3": [
-        "Qwen3 Technical Report",
-        "Qwen2 Technical Report",
-        "Qwen2 Technical Report"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "Qwen3-14B-Base模型在哪些方面优于DeepSeek-V3和Llama-4-Maverick？",
-      "ground_truth_source": "Qwen3 Technical Report",
-      "category": "comparative",
-      "retrieved_top3": [
-        "Qwen3 Technical Report",
-        "Qwen3 Technical Report",
-        "DeepSeek-v3"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "Qwen3的思维模式融合（Thinking Mode Fusion）阶段如何实现模式切换？",
-      "ground_truth_source": "Qwen3 Technical Report",
-      "category": "procedural",
-      "retrieved_top3": [
-        "Qwen3 Technical Report",
-        "Qwen3 Technical Report",
-        "Qwen3 Technical Report"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "Qwen3的非思考模式在CodeForces上的评分是多少？",
-      "ground_truth_source": "Qwen3 Technical Report",
-      "category": "factual",
-      "retrieved_top3": [
-        "Qwen3 Technical Report",
-        "Qwen3 Technical Report",
-        "Qwen3 Technical Report"
-      ],
-      "metrics": {
-        "recall@1": 1.0,
-        "mrr@1": 1.0,
-        "ndcg@1": 1.0,
-        "recall@3": 1.0,
-        "mrr@3": 1.0,
-        "ndcg@3": 1.0,
-        "recall@5": 1.0,
-        "mrr@5": 1.0,
-        "ndcg@5": 1.0,
-        "recall@10": 1.0,
-        "mrr@10": 1.0,
-        "ndcg@10": 1.0
-      }
-    },
-    {
-      "question": "Qwen3-0.6B在Belebele基准上的表现如何？",
-      "ground_truth_source": "Qwen3 Technical Report",
-      "category": "factual",
-      "retrieved_top3": [
-        "Qwen3 Embedding",
-        "Qwen3 Technical Report",
-        "Qwen3 Technical Report"
+        "Qwen3-VL-Embedding",
+        "Qwen3 Embedding"
       ],
       "metrics": {
         "recall@1": 0.0,
@@ -3366,13 +3628,13 @@
       }
     },
     {
-      "question": "Qwen3的MoE架构相比Dense架构在推理任务中有哪些优势？",
-      "ground_truth_source": "Qwen3 Technical Report",
-      "category": "comparative",
+      "question": "Qwen3-VL-Embedding在文本检索任务中降低嵌入维度会带来什么影响？",
+      "ground_truth_source": "Qwen3-VL-Embedding",
+      "category": "limitation",
       "retrieved_top3": [
-        "Qwen3 Technical Report",
-        "Qwen3 Technical Report",
-        "DeepSeek-v3"
+        "Qwen3-VL-Embedding",
+        "Qwen3-VL-Embedding",
+        "Qwen3-VL-Embedding"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -3390,13 +3652,253 @@
       }
     },
     {
-      "question": "Qwen3的后训练评估中使用了哪些数学推理基准？",
-      "ground_truth_source": "Qwen3 Technical Report",
+      "question": "文档中指出Qwen3-VL-Embedding在哪些方面存在性能权衡？",
+      "ground_truth_source": "Qwen3-VL-Embedding",
+      "category": "limitation",
+      "retrieved_top3": [
+        "Qwen3-VL-Embedding",
+        "Qwen3-VL-Embedding",
+        "Qwen3-VL-Embedding"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "Vision Transformer的ViT-Base模型有多少参数？",
+      "ground_truth_source": "Vision Transformer",
       "category": "factual",
       "retrieved_top3": [
-        "Qwen3 Technical Report",
-        "Qwen3 Technical Report",
-        "Qwen3 Technical Report"
+        "Vision Transformer",
+        "BLIP-2",
+        "Vision Transformer"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "ViT-H/14模型在ImageNet数据集上的最高准确率是多少？",
+      "ground_truth_source": "Vision Transformer",
+      "category": "factual",
+      "retrieved_top3": [
+        "Vision Transformer",
+        "Vision Transformer",
+        "Vision Transformer"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "Vision Transformer如何处理不同分辨率的输入图像？",
+      "ground_truth_source": "Vision Transformer",
+      "category": "procedural",
+      "retrieved_top3": [
+        "Vision Transformer",
+        "Vision Transformer",
+        "Qwen-VL"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "Vision Transformer的输入序列是如何构建的？",
+      "ground_truth_source": "Vision Transformer",
+      "category": "procedural",
+      "retrieved_top3": [
+        "Vision Transformer",
+        "Vision Transformer",
+        "Vision Transformer"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "表1中ViT-Large模型的隐层维度是多少？",
+      "ground_truth_source": "Vision Transformer",
+      "category": "table_lookup",
+      "retrieved_top3": [
+        "Vision Transformer",
+        "CLIP",
+        "Vision Transformer"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "表2中ViT-L/16模型在CIFAR-100数据集上的准确率是多少？",
+      "ground_truth_source": "Vision Transformer",
+      "category": "table_lookup",
+      "retrieved_top3": [
+        "Vision Transformer",
+        "Vision Transformer",
+        "Vision Transformer"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "什么是Vision Transformer的混合架构？",
+      "ground_truth_source": "Vision Transformer",
+      "category": "definition",
+      "retrieved_top3": [
+        "Vision Transformer",
+        "Vision Transformer",
+        "Vision Transformer"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "Vision Transformer的归纳偏置特点是什么？",
+      "ground_truth_source": "Vision Transformer",
+      "category": "definition",
+      "retrieved_top3": [
+        "Vision Transformer",
+        "Vision Transformer",
+        "Vision Transformer"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "在小规模数据集上训练ViT时需要优化哪些正则化参数？",
+      "ground_truth_source": "Vision Transformer",
+      "category": "limitation",
+      "retrieved_top3": [
+        "Vision Transformer",
+        "Vision Transformer",
+        "Vision Transformer"
+      ],
+      "metrics": {
+        "recall@1": 1.0,
+        "mrr@1": 1.0,
+        "ndcg@1": 1.0,
+        "recall@3": 1.0,
+        "mrr@3": 1.0,
+        "ndcg@3": 1.0,
+        "recall@5": 1.0,
+        "mrr@5": 1.0,
+        "ndcg@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0,
+        "ndcg@10": 1.0
+      }
+    },
+    {
+      "question": "自监督预训练的ViT-B/16模型在ImageNet上的准确率与监督预训练相差多少？",
+      "ground_truth_source": "Vision Transformer",
+      "category": "limitation",
+      "retrieved_top3": [
+        "Vision Transformer",
+        "Vision Transformer",
+        "Vision Transformer"
       ],
       "metrics": {
         "recall@1": 1.0,
@@ -3416,13 +3918,37 @@
   ],
   "failed_queries": [
     {
-      "question": "预训练阶段的优化器参数是什么？",
-      "ground_truth_source": "Qwen Technical Report",
+      "question": "当前模型在处理超长上下文时存在哪些未解决的挑战？",
+      "ground_truth_source": "DeepSeek-OCR",
+      "category": "limitation",
+      "retrieved_top3": [
+        "Qwen Technical Report",
+        "DeepSeek-v3",
+        "Qwen3 Technical Report"
+      ],
+      "metrics": {
+        "recall@1": 0.0,
+        "mrr@1": 0.0,
+        "ndcg@1": 0.0,
+        "recall@3": 0.0,
+        "mrr@3": 0.0,
+        "ndcg@3": 0.0,
+        "recall@5": 0.0,
+        "mrr@5": 0.0,
+        "ndcg@5": 0.0,
+        "recall@10": 0.0,
+        "mrr@10": 0.0,
+        "ndcg@10": 0.0
+      }
+    },
+    {
+      "question": "后训练阶段具体包含哪三个步骤？",
+      "ground_truth_source": "Qwen3-VL",
       "category": "procedural",
       "retrieved_top3": [
         "Qwen-VL",
-        "Qwen-VL",
-        "BLIP-2"
+        "Qwen3 Technical Report",
+        "DeepSeek-v3.2"
       ],
       "metrics": {
         "recall@1": 0.0,
@@ -3440,7 +3966,7 @@
       }
     }
   ],
-  "num_queries": 140,
+  "num_queries": 160,
   "meta": {
     "mode": "在线",
     "dataset": "data/eval_dataset_ocr.jsonl",
@@ -3450,8 +3976,8 @@
       5,
       10
     ],
-    "num_queries": 140,
-    "elapsed_seconds": 6.58,
+    "num_queries": 160,
+    "elapsed_seconds": 168.13,
     "ablation": null
   }
 }
