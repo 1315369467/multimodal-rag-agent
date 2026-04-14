@@ -109,13 +109,14 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="整篇文档一次性生成评估问答对。")
     parser.add_argument("--ocr-dir",   type=Path, default=DEFAULT_OCR_DIR)
     parser.add_argument("--output",    type=Path, default=DEFAULT_OUTPUT)
-    parser.add_argument("--questions", type=int,  default=20, help="每篇文档生成的问答对数量（默认 20）")
+    parser.add_argument("--questions", type=int,  default=10, help="每篇文档生成的问答对数量（默认 20）")
     parser.add_argument("--filter",    type=str,  default=None, help="文档名过滤（部分匹配）")
     parser.add_argument("--append",    action="store_true", help="追加写入而非覆盖")
     return parser.parse_args()
 
 
 def main() -> None:
+    _start_time = time.time()
     args = parse_args()
 
     client = OpenAI(
@@ -165,10 +166,12 @@ def main() -> None:
             logger.info(f"  生成 {len(pairs)} 个问答对")
             time.sleep(1)
 
+    elapsed = time.time() - _start_time
     print("\n" + "=" * 50)
     print(f"  文档数     : {len(md_files)}")
     print(f"  问答对总数 : {total}")
     print(f"  输出文件   : {args.output}")
+    print(f"  总耗时     : {elapsed:.1f}s")
     print("=" * 50)
 
 

@@ -2,6 +2,7 @@
 import asyncio
 import os
 import tempfile
+import time
 from pathlib import Path
 
 import httpx
@@ -261,6 +262,7 @@ def main() -> None:
     """如果您由于网络问题无法下载模型，可以设置环境变量MINERU_MODEL_SOURCE为modelscope使用免代理仓库下载模型"""
     # os.environ['MINERU_MODEL_SOURCE'] = "modelscope"
 
+    _start_time = time.time()
     asyncio.run(
         run_demo(
             input_path=input_path,
@@ -276,6 +278,7 @@ def main() -> None:
             end_page_id=end_page_id,
         )
     )
+    print(f"总耗时: {time.time() - _start_time:.1f}s")
 
 
 if __name__ == "__main__":

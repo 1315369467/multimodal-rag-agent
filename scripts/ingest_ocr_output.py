@@ -28,6 +28,7 @@ from __future__ import annotations
 
 import argparse
 import sys
+import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -116,6 +117,7 @@ def collect_md_files(ocr_dir: Path) -> list[tuple[Path, str]]:
 
 
 def main() -> None:
+    _start_time = time.time()
     args = parse_args()
 
     # ── 初始化 ────────────────────────────────────────────────────────────
@@ -176,6 +178,7 @@ def main() -> None:
         sparse.build_index(corpus)
 
     # ── 汇总输出 ──────────────────────────────────────────────────────────
+    elapsed = time.time() - _start_time
     print("\n" + "=" * 60)
     print(f"  OCR 输出目录 : {args.ocr_dir}")
     print(f"  已处理文档数 : {len(md_files) - len(failed)} / {len(md_files)}")
@@ -185,6 +188,7 @@ def main() -> None:
         print(f"  失败文档数   : {len(failed)}")
         for f in failed:
             print(f"    - {f}")
+    print(f"  总耗时       : {elapsed:.1f}s")
     print("=" * 60)
 
 

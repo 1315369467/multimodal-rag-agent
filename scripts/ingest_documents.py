@@ -22,6 +22,7 @@ from __future__ import annotations
 
 import argparse
 import sys
+import time
 from pathlib import Path
 
 # 以脚本方式运行时，将项目根目录加入 sys.path
@@ -102,6 +103,7 @@ def collect_files(args: argparse.Namespace) -> list[Path]:
 
 
 def main() -> None:
+    _start_time = time.time()
     args = parse_args()
 
     # ── 初始化 ────────────────────────────────────────────────────────────
@@ -155,6 +157,7 @@ def main() -> None:
         sparse.build_index(corpus)
 
     # ── 汇总输出 ──────────────────────────────────────────────────────────
+    elapsed = time.time() - _start_time
     print("\n" + "=" * 60)
     print(f"  已处理文件数 : {len(files) - len(failed)} / {len(files)}")
     print(f"  生成 chunk 数 : {total_chunks}")
@@ -163,6 +166,7 @@ def main() -> None:
         print(f"  失败文件数   : {len(failed)}")
         for f in failed:
             print(f"    - {f}")
+    print(f"  总耗时       : {elapsed:.1f}s")
     print("=" * 60)
 
 

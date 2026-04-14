@@ -504,6 +504,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> None:
+    _start_time = time.perf_counter()
     args = parse_args()
 
     # ── 加载数据集 ────────────────────────────────────────────────────────
@@ -635,6 +636,7 @@ def main() -> None:
         encoding="utf-8",
     )
     print(f"\n  详细结果已保存至：{args.output}")
+    print(f"  总耗时       : {time.perf_counter() - _start_time:.1f}s")
 
 
 if __name__ == "__main__":
