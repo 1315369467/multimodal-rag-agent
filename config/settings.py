@@ -26,7 +26,7 @@ class Settings(BaseSettings):
     llm_model: str = "qwen3.6-plus"          # API 模式使用的模型名称
     local_llm_base_url: str = "http://localhost:9000/v1"  # 本地模型地址
     local_llm_model: str = "qwen3-8b"              # 本地模型名称
-    vl_model: str = "qwen-vl-max"               # Qwen3-VL 多模态视觉
+    vl_model: str = "qwen3-vl-plus"               # Qwen3-VL 多模态视觉
     
     embedding_mode: str = "local"              # "local" 或 "api"
     embedding_model: str = "text-embedding-v4"  # API 模式使用的模型名称

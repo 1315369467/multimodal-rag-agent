@@ -33,7 +33,7 @@
 ┌─────────────────────────────────────────────────────┐
 │           ChromaVectorStore  (持久化向量库)          │
 │  本地模式：Qwen3-Embedding-0.6B → 1024维向量        │
-│  API 模式：text-embedding-v3   → 1024维向量         │
+│  API 模式：text-embedding-v4   → 1024维向量         │
 └──────────────────────┬──────────────────────────────┘
                        │
            ┌───────────┴────────────┐
@@ -62,13 +62,15 @@
 
 | 角色 | 模型 | 说明 |
 |------|------|------|
-| 主 LLM | `qwen3-235b-a22b` | 问答生成、推理 |
+| 主 LLM（API，默认） | `qwen3.6-plus` | 问答生成、推理（DashScope API） |
+| 主 LLM（本地模式） | `qwen3-8b` | 本地部署，通过 `LLM_MODE=local` 切换 |
 | 视觉理解 | `qwen-vl-max` | 独立图像文件内容理解 |
 | 向量化（本地，默认） | `Qwen/Qwen3-Embedding-0.6B` | 本地推理，无需 API（1024 维） |
-| 向量化（API 模式） | `text-embedding-v3` | DashScope API 调用（1024 维） |
-| 重排序（可选，默认关闭） | `gte-rerank` / `Qwen/Qwen3-Reranker-0.6B` | Cross-encoder 精排，可按模式切换 |
+| 向量化（API 模式） | `text-embedding-v4` | DashScope API 调用（1024 维） |
+| 重排序（本地，默认） | `Qwen/Qwen3-Reranker-0.6B` | 本地 cross-encoder 精排 |
+| 重排序（API 模式） | `qwen3-rerank` | DashScope API 调用，通过 `RERANKER_MODE=api` 切换 |
 
-主 LLM 和视觉模型通过 DashScope OpenAI-compatible API 调用；Embedding 和 Reranker 支持本地/API 两种模式，可在配置文件中切换。
+主 LLM 和视觉模型通过 DashScope OpenAI-compatible API 调用；Embedding 和 Reranker 支持本地/API 两种模式，可在配置文件中切换。LLM 同样支持本地部署模式（`LLM_MODE=local`），通过 `LOCAL_LLM_BASE_URL` 指向本地推理服务。
 
 ## Agent 工具清单
 
@@ -118,7 +120,7 @@ EMBEDDING_MODE=local              # 默认 local
 LOCAL_EMBEDDING_MODEL=Qwen/Qwen3-Embedding-0.6B
 
 # 是否启用 Reranker 精排（False=跳过，节省延迟）
-ENABLE_RERANK=false               # 默认关闭
+ENABLE_RERANK=true                # 默认开启
 
 # Chunk 切分策略
 CHUNK_STRATEGY=semantic           # fixed|sentence|paragraph|markdown|recursive|semantic
@@ -361,6 +363,32 @@ multimodal-rag-agent/
 └── .env.example
 ```
 
+## 评估基准
+
+基于 173 条问答对的在线评估（混合检索，`chunk_size=1024`，`semantic` 策略）：
+
+**混合检索（Dense + Sparse + RRF，无精排）**
+
+| K | Recall | MRR | Precision | NDCG |
+|---|--------|-----|-----------|------|
+| 1 | 76.30% | 0.7630 | 76.30% | 0.7630 |
+| 3 | 89.02% | 0.8227 | 71.68% | 0.8402 |
+| 5 | 94.80% | 0.8357 | 68.09% | 0.8638 |
+| 10 | 94.80% | 0.8357 | 34.05% | 0.8638 |
+
+**混合检索 + Qwen3-Reranker 精排**
+
+| K | Recall | MRR | Precision | NDCG |
+|---|--------|-----|-----------|------|
+| 1 | **86.71%** | **0.8671** | **86.71%** | **0.8671** |
+| 3 | 94.80% | 0.9066 | 76.49% | 0.9174 |
+| 5 | 95.95% | 0.9094 | 69.94% | 0.9223 |
+| 10 | 95.95% | 0.9094 | 34.97% | 0.9223 |
+
+开启精排后 Recall@1 从 76.30% 提升至 86.71%，MRR@1 从 0.7630 提升至 0.8671。
+
+---
+
 ## 关键设计决策
 
 ### 文档解析策略
@@ -451,7 +479,7 @@ ParsedBlock[]
 倒数排名融合（RRF）对稠密和稀疏两路检索结果做无参数融合，天然处理两路分数分布不同的问题，比线性加权分数插值更鲁棒。
 
 ### 重排精排（可选）
-`ENABLE_RERANK=true` 时，Qwen3-Reranker cross-encoder 对 RRF 候选集（默认 top-10）做精排，从 Recall 优先转向 Precision 优先，最终返回 top-5。支持本地模型（`Qwen/Qwen3-Reranker-0.6B`）和 API（`gte-rerank`）两种模式。默认关闭以降低延迟。
+`ENABLE_RERANK=true` 时（默认开启），Qwen3-Reranker cross-encoder 对 RRF 候选集（默认 top-10）做精排，从 Recall 优先转向 Precision 优先，最终返回 top-5。支持本地模型（`Qwen/Qwen3-Reranker-0.6B`，默认）和 API（`qwen3-rerank`）两种模式，通过 `RERANKER_MODE=local|api` 切换。如需降低延迟，可设置 `ENABLE_RERANK=false` 关闭精排。
 
 ### 流式 Agent 响应
 `POST /v1/query/stream` 接口以 SSE 格式实时推送 Agent 思考步骤（工具调用开始/完成事件），前端可据此渲染动态进度面板，无需等待完整响应。
