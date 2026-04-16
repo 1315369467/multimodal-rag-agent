@@ -20,11 +20,11 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Annotated
 
-from fastapi import Depends, FastAPI, File, HTTPException, UploadFile, status
+from fastapi import Depends, FastAPI, File, HTTPException, Query, UploadFile, status
 from fastapi.middleware.cors import CORSMiddleware
 import json
 
-from fastapi.responses import JSONResponse, StreamingResponse
+from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 from loguru import logger
 
 from config.settings import get_settings
@@ -36,12 +36,16 @@ from src.retrieval.hybrid_retriever import HybridRetriever
 from src.retrieval.reranker import QwenReranker
 from src.retrieval.sparse_retriever import SparseRetriever
 from src.vectorstore.chroma_store import ChromaVectorStore
+from src.vectorstore.image_store import ImageChromaStore
 from .schemas import (
     DocumentItem,
     DocumentListResponse,
     DocumentUpdateRequest,
     ErrorResponse,
     HealthResponse,
+    ImageSearchRequest,
+    ImageSearchResponse,
+    ImageSearchResult,
     IngestRequest,
     IngestResponse,
     QueryRequest,
@@ -52,6 +56,7 @@ settings = get_settings()
 
 # ── 应用级单例 ─────────────────────────────────────────────────────────────
 _store: ChromaVectorStore | None = None
+_image_store: ImageChromaStore | None = None
 _agent: MultimodalRAGAgent | None = None
 _sparse_retriever: SparseRetriever | None = None
 
@@ -59,10 +64,18 @@ _sparse_retriever: SparseRetriever | None = None
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """在服务启动时初始化所有重型组件。"""
-    global _store, _agent, _sparse_retriever
+    global _store, _image_store, _agent, _sparse_retriever
 
     logger.info("正在初始化多模态 RAG 系统……")
     _store = ChromaVectorStore()
+
+    # 图片向量库（懒加载：仅当集合中已有数据或可创建时才加载 VL 模型）
+    try:
+        _image_store = ImageChromaStore()
+        logger.info(f"图片向量库已就绪，共 {_image_store.count()} 张图片")
+    except Exception as exc:
+        logger.warning(f"图片向量库初始化失败，图片检索不可用：{exc}")
+        _image_store = None
 
     dense = DenseRetriever(_store)
     _sparse_retriever = SparseRetriever()
@@ -74,7 +87,7 @@ async def lifespan(app: FastAPI):
         logger.info(f"BM25 索引引导完成：{len(existing_docs)} 条文档")
 
     reranker = QwenReranker()
-    hybrid = HybridRetriever(dense, _sparse_retriever, reranker)
+    hybrid = HybridRetriever(dense, _sparse_retriever, reranker, image_store=_image_store)
     _agent = MultimodalRAGAgent(hybrid)
 
     logger.info("系统就绪。")
@@ -120,8 +133,18 @@ def get_store() -> ChromaVectorStore:
     return _store
 
 
+def get_image_store() -> ImageChromaStore:
+    if _image_store is None:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="图片向量库尚未初始化，请先运行 scripts/ingest_images_from_md.py 入库图片",
+        )
+    return _image_store
+
+
 AgentDep = Annotated[MultimodalRAGAgent, Depends(get_agent)]
 StoreDep = Annotated[ChromaVectorStore, Depends(get_store)]
+ImageStoreDep = Annotated[ImageChromaStore, Depends(get_image_store)]
 
 
 # ── 路由 ──────────────────────────────────────────────────────────────────
@@ -134,6 +157,7 @@ async def health(store: StoreDep) -> HealthResponse:
         model=settings.llm_model,
         collection=settings.chroma_collection_name,
         document_count=store.count(),
+        image_count=_image_store.count() if _image_store is not None else 0,
     )
 
 
@@ -367,6 +391,87 @@ async def reset_collection(store: StoreDep) -> dict[str, str]:
         _sparse_retriever._documents = []
     logger.warning("[API] 集合已通过 API 重置")
     return {"status": "集合已重置", "collection": settings.chroma_collection_name}
+
+
+# ── 图片检索接口 ──────────────────────────────────────────────────────────
+
+@app.post("/v1/images/search", response_model=ImageSearchResponse, tags=["图片检索"])
+async def image_search(
+    request: ImageSearchRequest,
+    img_store: ImageStoreDep,
+) -> ImageSearchResponse:
+    """
+    用文本 query 检索最相关的图片（跨模态检索）。
+
+    返回图片路径、相关元数据及相似度分数。
+    图片可通过 GET /v1/images/file?path=<source_path> 接口获取原图。
+    """
+    try:
+        raw = img_store.search_by_text(request.query, k=request.top_k)
+    except Exception as exc:
+        logger.exception("图片检索错误：{}", exc)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=str(exc),
+        )
+
+    results: list[ImageSearchResult] = []
+    for doc, score in raw:
+        meta = doc.metadata
+        src_path = meta.get("source_path", "")
+        results.append(
+            ImageSearchResult(
+                source_path=src_path,
+                file_name=meta.get("file_name", Path(src_path).name if src_path else ""),
+                alt_text=meta.get("alt_text", ""),
+                caption=meta.get("caption", ""),
+                source=meta.get("source", ""),
+                score=round(float(score), 4),
+                image_url=f"/v1/images/file?path={src_path}" if src_path else "",
+            )
+        )
+
+    return ImageSearchResponse(
+        results=results,
+        total=len(results),
+        image_count=img_store.count(),
+    )
+
+
+@app.get("/v1/images/file", tags=["图片检索"])
+async def get_image_file(
+    path: str = Query(..., description="图片绝对路径"),
+) -> FileResponse:
+    """
+    根据绝对路径返回图片文件（供前端展示使用）。
+
+    出于安全考虑，仅允许访问已入库的图片（路径须存在于文件系统中）。
+    """
+    img_path = Path(path)
+    if not img_path.is_absolute():
+        raise HTTPException(status_code=400, detail="必须提供绝对路径")
+    if not img_path.exists() or not img_path.is_file():
+        raise HTTPException(status_code=404, detail=f"图片文件不存在：{path}")
+
+    # 仅允许图片类型
+    _ALLOWED_SUFFIXES = {".png", ".jpg", ".jpeg", ".webp", ".bmp", ".tiff", ".gif"}
+    if img_path.suffix.lower() not in _ALLOWED_SUFFIXES:
+        raise HTTPException(status_code=400, detail="不支持的图片格式")
+
+    _MEDIA_TYPES = {
+        ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
+        ".webp": "image/webp", ".bmp": "image/bmp",
+        ".tiff": "image/tiff", ".gif": "image/gif",
+    }
+    media_type = _MEDIA_TYPES.get(img_path.suffix.lower(), "image/png")
+    return FileResponse(str(img_path), media_type=media_type)
+
+
+@app.get("/v1/images/count", tags=["图片检索"])
+async def image_count() -> dict[str, int]:
+    """返回图片向量库中已索引的图片数量。"""
+    count = _image_store.count() if _image_store is not None else 0
+    return {"count": count}
 
 
 # ── 全局异常处理 ───────────────────────────────────────────────────────────

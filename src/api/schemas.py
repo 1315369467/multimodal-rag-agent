@@ -7,6 +7,10 @@ from typing import Any, Optional
 
 from pydantic import BaseModel, Field
 
+from config.settings import get_settings
+
+_settings = get_settings()
+
 
 # ── 请求模型 ───────────────────────────────────────────────────────────────
 
@@ -33,6 +37,9 @@ class SourceReference(BaseModel):
     page: str
     block_type: str
     content: str = ""
+    source_path: str = ""   # 图片绝对路径（block_type=="figure" 时填充）
+    image_url: str = ""     # 后端图片服务 URL（如 /v1/images/file?path=...）
+    score: float | None = None  # 相似度分数（image_search 返回）
 
 
 class ToolCallStep(BaseModel):
@@ -78,6 +85,7 @@ class HealthResponse(BaseModel):
     model: str
     collection: str
     document_count: int
+    image_count: int = 0
     version: str = "1.0.0"
 
 
@@ -105,3 +113,29 @@ class DocumentUpdateRequest(BaseModel):
     """文档更新请求，内容和元数据均为可选字段。"""
     content: Optional[str] = None
     metadata: Optional[dict[str, Any]] = None
+
+
+# ── 图片检索模型 ──────────────────────────────────────────────────────────
+
+class ImageSearchRequest(BaseModel):
+    """图片检索请求：用文本 query 检索最相关的图片。"""
+    query: str = Field(..., min_length=1, max_length=2048)
+    top_k: int = Field(default_factory=lambda: _settings.image_top_k, ge=1, le=50)
+
+
+class ImageSearchResult(BaseModel):
+    """单条图片检索结果。"""
+    source_path: str          # 图片绝对路径
+    file_name: str            # 图片文件名
+    alt_text: str = ""        # Markdown 中的 alt 描述
+    caption: str = ""         # 图注文字
+    source: str = ""          # 来源 md 文件名
+    score: float              # 余弦相似度分数（0~1）
+    image_url: str = ""       # 后端图片服务 URL（/v1/images/file?path=...）
+
+
+class ImageSearchResponse(BaseModel):
+    """图片检索响应。"""
+    results: list[ImageSearchResult]
+    total: int                # 本次返回数量
+    image_count: int          # 图片库中图片总数
