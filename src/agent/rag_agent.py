@@ -31,6 +31,7 @@ from __future__ import annotations
 import json
 import time
 from datetime import datetime
+from pathlib import Path
 from typing import Any, Generator
 
 from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
@@ -69,6 +70,15 @@ def _summarize_tool_result(tool_name: str, raw: str) -> str:
         snippets = "；".join(r.get("content", "")[:40] for r in results[:2])
         return f"找到 {len(results)} 个片段{prefix}：{snippets}…"
 
+    if tool_name == "image_search":
+        if not results:
+            return message or "未找到相关图片"
+        names = "、".join(
+            r.get("file_name") or Path(r.get("source_path", "")).name or "?"
+            for r in results[:3]
+        )
+        return f"找到 {len(results)} 张相关图片：{names}"
+
     if results:
         return f"返回 {len(results)} 条结果"
     return raw[:120]
@@ -91,10 +101,12 @@ def _build_system_prompt() -> str:
 3. 如果知识库中没有相关信息，明确告知用户，不要编造内容。
 4. 引用来源时注明文档名称和页码，增强可信度。
 
-检索策略：
-- 简单问题：直接用 knowledge_base_search 检索。
-- 复杂/多概念问题：先用 query_rewrite 生成子查询，再用 multi_round_search 多轮检索。
+检索策略（文本与图像索引已分离，按需独立调用）：
+- 文本问题：用 knowledge_base_search 在文本库检索段落。
+- 复杂/多概念问题：先用 query_rewrite 生成子查询，再用 multi_round_search 多轮文本检索。
 - 用户指定文件：改用 knowledge_base_search_with_filter。
+- 视觉/图像需求（图表、示意图、截图、曲线、架构图等）：用 image_search 在图像库中跨模态检索。
+- 如果问题同时涉及文本与图像，可依次调用 knowledge_base_search 和 image_search，结合结果回答。
 - 单次检索结果不理想时，可调整查询后重试或切换多轮检索。
 
 扩展技能策略：
@@ -317,10 +329,10 @@ class MultimodalRAGAgent:
         return messages
 
     @staticmethod
-    def _extract_sources(messages: list) -> list[dict[str, str]]:
-        """从消息列表中的 ToolMessage 提取被引用的来源信息。"""
+    def _extract_sources(messages: list) -> list[dict[str, Any]]:
+        """从消息列表中的 ToolMessage 提取被引用的来源信息（含图片）。"""
         seen: set[str] = set()
-        sources: list[dict[str, str]] = []
+        sources: list[dict[str, Any]] = []
 
         for msg in messages:
             if not isinstance(msg, ToolMessage):
@@ -330,18 +342,49 @@ class MultimodalRAGAgent:
                 continue
             try:
                 data = json.loads(content)
-                for result in data.get("results", []):
-                    text = result.get("content", "")
-                    key = text[:300] if text else f"{result.get('source')}:{result.get('page')}:{len(sources)}"
-                    if key not in seen:
-                        seen.add(key)
-                        sources.append({
-                            "source": result.get("source", "unknown"),
-                            "page": str(result.get("page", "?")),
-                            "block_type": result.get("block_type", "text"),
-                            "content": text,
-                        })
             except (json.JSONDecodeError, AttributeError):
-                pass
+                continue
+
+            for result in data.get("results", []):
+                block_type = result.get("block_type", "text")
+
+                if block_type == "figure":
+                    src_path = result.get("source_path", "")
+                    file_name = (
+                        result.get("file_name", "")
+                        or (Path(src_path).name if src_path else "")
+                    )
+                    alt = result.get("alt_text", "") or result.get("caption", "")
+                    key = f"img:{src_path or file_name}"
+                    if key in seen:
+                        continue
+                    seen.add(key)
+                    sources.append({
+                        "source": result.get("source") or file_name or "image",
+                        "page": "-",
+                        "block_type": "figure",
+                        "content": alt or file_name,
+                        "source_path": src_path,
+                        "image_url": (
+                            f"/v1/images/file?path={src_path}" if src_path else ""
+                        ),
+                        "score": result.get("score"),
+                    })
+                else:
+                    text = result.get("content", "")
+                    key = (
+                        text[:300]
+                        if text
+                        else f"{result.get('source')}:{result.get('page')}:{len(sources)}"
+                    )
+                    if key in seen:
+                        continue
+                    seen.add(key)
+                    sources.append({
+                        "source": result.get("source", "unknown"),
+                        "page": str(result.get("page", "?")),
+                        "block_type": block_type,
+                        "content": text,
+                    })
 
         return sources

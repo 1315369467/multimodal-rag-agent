@@ -6,10 +6,11 @@ Agent 在生成答案前可调用这些工具获取上下文。
 
 工具清单
 --------
-- knowledge_base_search            : 通用知识库检索
-- knowledge_base_search_with_filter: 限定来源文件的检索
+- knowledge_base_search            : 文本知识库检索（稠密 + 稀疏 + 精排）
+- knowledge_base_search_with_filter: 限定来源文件的文本检索
+- image_search                     : 图像库跨模态检索（文本 query → 相关图片）
 - query_rewrite                    : 将复杂问题改写为多个子查询（需要 LLM）
-- multi_round_search               : 对多个子查询依次检索并合并去重结果
+- multi_round_search               : 对多个子查询依次检索并合并去重结果（文本）
 """
 from __future__ import annotations
 
@@ -20,8 +21,12 @@ from langchain_core.messages import HumanMessage
 from langchain_core.tools import tool
 from loguru import logger
 
+from config.settings import get_settings
+
 if TYPE_CHECKING:
     from src.retrieval.hybrid_retriever import HybridRetriever
+
+_settings = get_settings()
 
 
 # ---------------------------------------------------------------------------
@@ -45,10 +50,11 @@ def build_retrieval_tools(retriever: "HybridRetriever", llm: Any = None) -> list
     @tool
     def knowledge_base_search(query: str) -> str:
         """
-        在多模态知识库中检索与查询相关的信息。
+        在文本知识库中检索与查询相关的段落（不含图片）。
 
-        当需要从已上传文档中获取事实性信息时使用此工具。
+        当需要从已上传文档中获取事实性文本信息时使用此工具。
         返回包含来源元数据的相关段落 JSON 列表。
+        如果用户需要查找图片/图表/示意图等视觉内容，请改用 image_search。
 
         参数
         ----
@@ -177,7 +183,55 @@ def build_retrieval_tools(retriever: "HybridRetriever", llm: Any = None) -> list
             indent=2,
         )
 
-    tools = [knowledge_base_search, knowledge_base_search_with_filter, multi_round_search]
+    _image_top_k_default = _settings.image_top_k
+
+    @tool
+    def image_search(query: str, top_k: int = _image_top_k_default) -> str:
+        """
+        在图像向量库中用自然语言检索最相关的图片（跨模态检索）。
+
+        当用户问题涉及图表、示意图、截图、曲线、架构图等视觉内容，
+        或者需要展示某个概念对应的图片时使用此工具。
+        底层使用 Qwen3-VL-Embedding 将文本与图片映射到同一向量空间。
+
+        参数
+        ----
+        query  : 描述要找的图片的自然语言（例如「模型架构图」「训练损失曲线」）。
+        top_k  : 返回图片数量（默认来自 settings.image_top_k，建议 3~10）。
+        """
+        logger.info(f"[Tool:image_search] query='{query[:80]}' top_k={top_k}")
+
+        pairs = retriever.retrieve_images(query, k=top_k)
+        if not pairs:
+            return json.dumps(
+                {"results": [], "message": "图片库为空或未找到相关图片。"},
+                ensure_ascii=False,
+            )
+
+        results = []
+        for rank, (doc, score) in enumerate(pairs, start=1):
+            meta = doc.metadata or {}
+            results.append(
+                {
+                    "rank": rank,
+                    "score": round(float(score), 4),
+                    "source_path": meta.get("source_path", ""),
+                    "file_name": meta.get("file_name", ""),
+                    "alt_text": meta.get("alt_text", ""),
+                    "caption": meta.get("caption", ""),
+                    "source": meta.get("source", ""),
+                    "block_type": "figure",
+                }
+            )
+
+        return json.dumps({"results": results}, ensure_ascii=False, indent=2)
+
+    tools = [
+        knowledge_base_search,
+        knowledge_base_search_with_filter,
+        multi_round_search,
+        image_search,
+    ]
 
     # query_rewrite 依赖 LLM，仅在提供时注册
     if llm is not None:
