@@ -84,11 +84,8 @@ class QwenVLLocalEmbeddings(Embeddings):
     def _load_embedding_class(model_name: str):
         """动态导入 model repo 中 scripts/qwen3_vl_embedding.py 的 Qwen3VLForEmbedding。"""
         import importlib.util
-        from huggingface_hub import snapshot_download
-        try:
-            repo_dir = Path(snapshot_download(model_name, local_files_only=True))
-        except Exception:
-            repo_dir = Path(model_name)
+
+        repo_dir = QwenVLLocalEmbeddings._resolve_repo_dir(model_name)
         script_path = repo_dir / "scripts" / "qwen3_vl_embedding.py"
         if not script_path.exists():
             raise FileNotFoundError(f"找不到官方脚本: {script_path}")
@@ -96,6 +93,33 @@ class QwenVLLocalEmbeddings(Embeddings):
         mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
         return mod.Qwen3VLForEmbedding
+
+    @staticmethod
+    def _resolve_repo_dir(model_name: str) -> Path:
+        """解析模型仓库目录：本地绝对路径 → snapshot_download → HF cache 直接扫描。"""
+        direct = Path(model_name)
+        if direct.is_dir() and (direct / "config.json").exists():
+            return direct
+
+        from huggingface_hub import snapshot_download
+        try:
+            return Path(snapshot_download(model_name, local_files_only=True))
+        except Exception as exc:
+            logger.debug(f"[VL-Embedding] snapshot_download 失败，回退到缓存扫描: {exc}")
+
+        from huggingface_hub import constants
+        cache_root = Path(constants.HF_HUB_CACHE)
+        repo_folder = "models--" + model_name.replace("/", "--")
+        snapshots_dir = cache_root / repo_folder / "snapshots"
+        if snapshots_dir.is_dir():
+            candidates = [p for p in snapshots_dir.iterdir() if p.is_dir() and (p / "config.json").exists()]
+            if candidates:
+                # 选最近修改的一个
+                return max(candidates, key=lambda p: p.stat().st_mtime)
+
+        raise FileNotFoundError(
+            f"无法在本地解析模型仓库: {model_name}（检查 HF_HOME={cache_root} 下是否存在有效 snapshot）"
+        )
 
     # ──────────────────────────────────────────────────────────────────────
     # LangChain Embeddings 接口

@@ -32,6 +32,11 @@ class Settings(BaseSettings):
     embedding_model: str = "text-embedding-v4"  # API 模式使用的模型名称
     local_embedding_model: str = "Qwen/Qwen3-Embedding-0.6B"  # 本地模型路径
     embedding_dim: int = 1024                   # 向量维度
+
+    # ── 多模态图片向量化（VL Embedding） ────────────────────────────────────
+    local_vl_embedding_model: str = "Qwen/Qwen3-VL-Embedding-2B"  # 本地 VL 模型路径
+    vl_embedding_dim: int = -1                  # -1 表示使用模型原始维度
+    chroma_image_collection_name: str = "multimodal_rag_images"   # 图片向量集合名称
     
     enable_rerank: bool = False                   # 是否启用精排（ False True ）
     reranker_mode: str = "local"                # "local" 或 "api"
@@ -54,6 +59,7 @@ class Settings(BaseSettings):
     sparse_top_k: int = 10
     rerank_top_k: int = 10
     final_top_k: int = 5
+    image_top_k: int = 6              # 图像检索默认返回数量
     dense_weight: float = 0.7
     sparse_weight: float = 0.3
 
