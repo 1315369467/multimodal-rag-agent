@@ -1,6 +1,6 @@
 # 多模态 RAG 本地知识库问答 Agent
 
-企业级多模态文档解析 → RAG 问答全链路系统。复杂排版文档（含表格、图表、公式、扫描件）经 MinerU OCR 预处理统一转为结构化 Markdown，再通过语义感知切分写入向量库，最终支持混合检索与智能问答。内置 Streamlit 可视化前端，支持知识库浏览、增删改查及交互式问答。
+企业级多模态文档解析 → RAG 问答全链路系统。复杂排版文档（含表格、图表、公式、扫描件）经 MinerU OCR 预处理统一转为结构化 Markdown，再通过语义感知切分写入文本向量库；文档中引用的图片另走 Qwen3-VL-Embedding 跨模态向量化，存入独立图像集合，支持以文搜图。最终由 LangGraph ReAct Agent 统一编排文本与图像两条检索路径。内置 Streamlit 可视化前端，支持知识库浏览、图片检索、增删改查及交互式问答。
 
 
 ## 架构总览
@@ -10,51 +10,53 @@
        │
        ▼ MinerU OCR 预处理（布局识别 + OCR）
        │
-结构化 Markdown (.md)
-       │
-       ▼
+结构化 Markdown (.md)  +  提取出的图片 (images/*.png)
+       │                              │
+       ▼                              ▼
+┌─────────────────────────┐  ┌──────────────────────────────┐
+│  TextParser             │  │  ingest_images_from_md.py    │
+│  Markdown 结构化解析     │  │  扫描 md 中 ![](path) 引用,   │
+│  → ParsedBlock[]        │  │  取出本地图片去重              │
+│  HEADER / TEXT / TABLE  │  └───────────────┬──────────────┘
+│  / FIGURE               │                  │
+└───────────┬─────────────┘                  │
+            ▼                                ▼
+┌─────────────────────────┐  ┌──────────────────────────────┐
+│  SemanticChunker        │  │  QwenVLLocalEmbeddings       │
+│  版面感知切分            │  │  Qwen3-VL-Embedding-2B       │
+│  • 表格/图注原子块       │  │  图片 / 文本 → 同一向量空间    │
+│  • 标题作 context       │  └───────────────┬──────────────┘
+└───────────┬─────────────┘                  │
+            ▼                                ▼
+┌─────────────────────────┐  ┌──────────────────────────────┐
+│  ChromaVectorStore      │  │  ImageChromaStore            │
+│  文本集合                │  │  图片集合（独立）              │
+│  Qwen3-Embedding-0.6B   │  │  VL 跨模态向量                │
+│  → 1024 维              │  └───────────────┬──────────────┘
+└───────────┬─────────────┘                  │
+            │                                │
+   ┌────────┴─────────┐                      │
+   ▼                  ▼                      │
+DenseRetriever   SparseRetriever             │
+(Chroma 向量)    (BM25 词汇)                  │
+   └────────┬─────────┘                      │
+            ▼                                │
+     RRF 融合 → (可选) QwenReranker 精排      │
+            │                                │
+            ▼                                ▼
 ┌─────────────────────────────────────────────────────┐
-│              DocumentRouter  (路由层)                │
-│                                                     │
-│  .md / .txt  → TextParser  (结构化 Markdown 解析)   │
-│  图像文件    → VisionParser (Qwen-VL 多模态理解)     │
+│       HybridRetriever.retrieve / retrieve_images    │
 └──────────────────────┬──────────────────────────────┘
-                       │ ParsedBlock[]
-                       │  HEADER / TEXT / TABLE / FIGURE
-                       ▼
-┌─────────────────────────────────────────────────────┐
-│           SemanticChunker  (语义感知切分)            │
-│  • 表格/图注/公式 → 原子 chunk (不切断)              │
-│  • 标题作为 context 附加到后续 chunk                 │
-│  • 识别 Markdown 结构（标题层级、表格、代码块）       │
-└──────────────────────┬──────────────────────────────┘
-                       │ LangChain Document[]
-                       ▼
-┌─────────────────────────────────────────────────────┐
-│           ChromaVectorStore  (持久化向量库)          │
-│  本地模式：Qwen3-Embedding-0.6B → 1024维向量        │
-│  API 模式：text-embedding-v4   → 1024维向量         │
-└──────────────────────┬──────────────────────────────┘
-                       │
-           ┌───────────┴────────────┐
-           ▼                        ▼
-  DenseRetriever             SparseRetriever
-  (Chroma 向量检索)          (BM25 词汇检索)
-           │                        │
-           └───────────┬────────────┘
-                       ▼
-              RRF Fusion (倒数排名融合)
                        │
                        ▼
-          （可选）QwenReranker 精排
-                       │
-                       ▼
-          MultimodalRAGAgent (LangGraph ReAct)
-          Qwen3 生成最终答案
+         MultimodalRAGAgent (LangGraph ReAct)
+         工具：knowledge_base_search / image_search /
+               query_rewrite / multi_round_search / skills
+         LLM：Qwen3（DashScope 或本地推理）
                        │
                        ▼
 ┌─────────────────────────────────────────────────────┐
-│  FastAPI 后端 (REST + SSE)  ←→  Streamlit 前端      │
+│  FastAPI 后端 (REST + SSE)  ←→  Streamlit 前端       │
 └─────────────────────────────────────────────────────┘
 ```
 
@@ -64,13 +66,14 @@
 |------|------|------|
 | 主 LLM（API，默认） | `qwen3.6-plus` | 问答生成、推理（DashScope API） |
 | 主 LLM（本地模式） | `qwen3-8b` | 本地部署，通过 `LLM_MODE=local` 切换 |
-| 视觉理解 | `qwen-vl-max` | 独立图像文件内容理解 |
-| 向量化（本地，默认） | `Qwen/Qwen3-Embedding-0.6B` | 本地推理，无需 API（1024 维） |
-| 向量化（API 模式） | `text-embedding-v4` | DashScope API 调用（1024 维） |
+| 视觉理解（图片→文本） | `qwen3-vl-plus` | VisionParser / image_describer skill 调用 |
+| 文本 Embedding（本地，默认） | `Qwen/Qwen3-Embedding-0.6B` | 本地推理，1024 维 |
+| 文本 Embedding（API 模式） | `text-embedding-v4` | DashScope API 调用（1024 维） |
+| **图像/跨模态 Embedding** | **`Qwen/Qwen3-VL-Embedding-2B`** | **本地推理，图像与文本共享同一向量空间** |
 | 重排序（本地，默认） | `Qwen/Qwen3-Reranker-0.6B` | 本地 cross-encoder 精排 |
 | 重排序（API 模式） | `qwen3-rerank` | DashScope API 调用，通过 `RERANKER_MODE=api` 切换 |
 
-主 LLM 和视觉模型通过 DashScope OpenAI-compatible API 调用；Embedding 和 Reranker 支持本地/API 两种模式，可在配置文件中切换。LLM 同样支持本地部署模式（`LLM_MODE=local`），通过 `LOCAL_LLM_BASE_URL` 指向本地推理服务。
+主 LLM 与视觉理解模型通过 DashScope OpenAI-compatible API 调用；文本 Embedding 和 Reranker 支持本地/API 两种模式；**图像 Embedding 固定本地推理**（Qwen3-VL-Embedding-2B，通过 `trust_remote_code` 加载官方 `Qwen3VLForEmbedding` 脚本）。LLM 同样支持本地部署模式（`LLM_MODE=local`），通过 `LOCAL_LLM_BASE_URL` 指向本地推理服务。
 
 ## Agent 工具清单
 
@@ -80,10 +83,13 @@ MultimodalRAGAgent 基于 LangGraph ReAct 框架，配备以下工具：
 
 | 工具 | 说明 |
 |------|------|
-| `knowledge_base_search` | 通用知识库混合检索（稠密 + 稀疏 + RRF 融合） |
-| `knowledge_base_search_with_filter` | 限定来源文件的检索（精准定位特定文档） |
+| `knowledge_base_search` | 文本知识库混合检索（稠密 + 稀疏 + RRF 融合 + 可选精排） |
+| `knowledge_base_search_with_filter` | 限定来源文件的文本检索（精准定位特定文档） |
+| `image_search` | **图像库跨模态检索**：文本 query → Qwen3-VL-Embedding → 相关图片 |
 | `query_rewrite` | 将复杂问题改写为多个子查询，提升命中率 |
 | `multi_round_search` | 对子查询列表依次检索并合并去重结果 |
+
+文本与图像走完全独立的两路检索——`knowledge_base_search` 只返回文本片段（不混入图片），`image_search` 只返回图片。Agent 根据问题语义自行决定调用哪一个或两个都调。
 
 ### 扩展技能（Skills）
 
@@ -115,9 +121,14 @@ cp .env.example .env
 ```env
 DASHSCOPE_API_KEY=sk-xxx          # 必填
 
-# Embedding 模式（local=本地推理，api=DashScope API）
+# 文本 Embedding 模式（local=本地推理，api=DashScope API）
 EMBEDDING_MODE=local              # 默认 local
 LOCAL_EMBEDDING_MODEL=Qwen/Qwen3-Embedding-0.6B
+
+# 图像/跨模态 Embedding（固定本地推理）
+LOCAL_VL_EMBEDDING_MODEL=Qwen/Qwen3-VL-Embedding-2B
+CHROMA_IMAGE_COLLECTION_NAME=multimodal_rag_images
+IMAGE_TOP_K=5                     # image_search 默认返回数量
 
 # 是否启用 Reranker 精排（False=跳过，节省延迟）
 ENABLE_RERANK=true                # 默认开启
@@ -144,7 +155,7 @@ data/ocr_output/
       images/          ← 提取出的图片
 ```
 
-### 4. 文档入库
+### 4. 文档入库（文本向量库）
 
 ```bash
 # 批量入库 OCR 输出目录下所有 Markdown
@@ -160,7 +171,34 @@ python scripts/ingest_ocr_output.py --reset
 python scripts/ingest_ocr_output.py --chunk-strategy markdown
 ```
 
-### 5. 启动 API 服务
+### 5. 图片入库（图像向量库）
+
+将 Markdown 中引用的本地图片通过 Qwen3-VL-Embedding 向量化，存入独立的图片集合，后续即可通过 `image_search` 工具或 `/v1/images/search` 接口以文搜图：
+
+```bash
+# 扫描 OCR 输出目录下所有 md 的 ![](path) 引用并入库
+python scripts/ingest_images_from_md.py --input-dir ./data/ocr_output
+
+# 指定单个 md 文件
+python scripts/ingest_images_from_md.py --files ./data/ocr_output/report.md
+
+# 重置图片集合后重新入库
+python scripts/ingest_images_from_md.py --input-dir ./data/ocr_output --reset
+```
+
+特性：
+- 仅处理本地相对/绝对路径的图片（http(s):// URL 自动跳过）；
+- 同一图片被多个 md 引用时自动去重（以图片绝对路径作为 Chroma ID，幂等写入）；
+- 图片的 `alt_text` / `caption` / 来源 md 文件名作为 metadata 一同保存。
+
+可选：清理未被任何 md 引用的孤儿图片：
+
+```bash
+python scripts/cleanup_unused_images.py --dry-run   # 先预览
+python scripts/cleanup_unused_images.py             # 确认后实际删除
+```
+
+### 6. 启动 API 服务
 
 ```bash
 # 开发模式（热重载）
@@ -170,22 +208,25 @@ python run_server.py --reload
 python run_server.py --host 0.0.0.0 --port 8000 --workers 4
 ```
 
-### 6. 启动前端
+服务启动时会同时加载 `ChromaVectorStore`（文本）和 `ImageChromaStore`（图片）两个集合，后者会懒加载 Qwen3-VL-Embedding 模型。
+
+### 7. 启动前端
 
 ```bash
 streamlit run frontend/app.py
 ```
 
-前端提供四个功能模块：
+前端提供五个功能模块：
 
 | 模块 | 功能 |
 |------|------|
-| 知识库浏览 | 分页列表、展开查看、单条/批量删除 |
 | 智能问答 | 流式 Agent 问答（实时显示工具调用步骤）、来源引用、多轮对话 |
+| 图片检索 | 以文搜图画廊展示，显示相似度分数、alt / caption、来源 md |
+| 知识库浏览 | 分页列表、展开查看、单条/批量删除 |
 | 文档入库 | 上传文件（TXT/MD/PNG/JPG）、查看处理结果 |
-| 系统管理 | 健康状态、文档统计、重置集合 |
+| 系统管理 | 健康状态、文档与图片统计、重置集合 |
 
-### 7. API 接口
+### 8. API 接口
 
 ```bash
 # 健康检查
@@ -230,8 +271,21 @@ curl -X PUT http://localhost:8000/v1/documents/{doc_id} \
 # 删除文档
 curl -X DELETE http://localhost:8000/v1/documents/{doc_id}
 
-# 重置集合
+# 重置文本集合
 curl -X DELETE http://localhost:8000/v1/collection
+
+# ── 图片检索接口 ────────────────────────────────────────────
+
+# 跨模态图片检索（文本 query → 相关图片）
+curl -X POST http://localhost:8000/v1/images/search \
+  -H "Content-Type: application/json" \
+  -d '{"query": "模型架构图", "top_k": 5}'
+
+# 获取图片原文件（供前端展示）
+curl "http://localhost:8000/v1/images/file?path=/absolute/path/to/image.png" --output img.png
+
+# 查询图片库总数
+curl http://localhost:8000/v1/images/count
 ```
 
 #### 流式接口事件格式
@@ -245,7 +299,7 @@ data: {"type": "answer", "answer": "...", "sources": [...], "total_elapsed_ms": 
 data: [DONE]
 ```
 
-### 8. 运行评估
+### 9. 运行评估
 
 ```bash
 # 离线模式（BM25，无需 API Key）
@@ -304,10 +358,13 @@ python scripts/evaluate.py --chunk-ablation all --chunk-size 512
 
 消融结果自动保存至 `eval_results_chunk_ablation.json`。
 
-### 9. 运行测试
+### 10. 运行测试
 
 ```bash
 pytest tests/ -v
+
+# 仅诊断 VL embedding 环境（模型加载 / 文本-图像相似度对齐）
+python tests/diagnose_vl_embedding.py
 ```
 
 ## 项目结构
@@ -320,21 +377,23 @@ multimodal-rag-agent/
 │   ├── document_parser/
 │   │   ├── base_parser.py       # ParsedBlock 数据结构 + 抽象基类
 │   │   ├── text_parser.py       # Markdown / TXT 结构化解析
-│   │   ├── vision_parser.py     # Qwen-VL 视觉理解（独立图像文件）
+│   │   ├── vision_parser.py     # Qwen-VL 视觉理解（独立图像文件转 md）
 │   │   ├── router.py            # 文件类型路由
 │   │   └── chunker.py           # 版面感知语义切分
 │   ├── embeddings/
-│   │   └── qwen_embedding.py    # Qwen3-Embedding LangChain 封装（本地/API 双模式）
+│   │   ├── qwen_embedding.py    # Qwen3-Embedding（文本，本地/API 双模式）
+│   │   └── qwen_vl_embedding.py # Qwen3-VL-Embedding（图像 + 文本跨模态）
 │   ├── retrieval/
 │   │   ├── dense_retriever.py   # 稠密向量检索
 │   │   ├── sparse_retriever.py  # BM25 稀疏检索
-│   │   ├── hybrid_retriever.py  # RRF 融合 + Reranker 编排
+│   │   ├── hybrid_retriever.py  # RRF 融合 + Reranker + 图像检索编排
 │   │   └── reranker.py          # Qwen3-Reranker（本地/API 双模式，可选）
 │   ├── vectorstore/
-│   │   └── chroma_store.py      # Chroma 持久化向量库 + CRUD
+│   │   ├── chroma_store.py      # 文本向量库 + CRUD
+│   │   └── image_store.py       # 图片向量库（跨模态 Chroma 集合）
 │   ├── agent/
 │   │   ├── rag_agent.py         # LangGraph ReAct Agent（同步 + 流式）
-│   │   ├── tools.py             # 检索工具（knowledge_base_search 等）
+│   │   ├── tools.py             # 检索工具（knowledge_base_search / image_search 等）
 │   │   └── skills/
 │   │       ├── __init__.py      # build_skill_tools 工厂函数
 │   │       ├── calculator.py    # 安全数学表达式求值
@@ -343,19 +402,25 @@ multimodal-rag-agent/
 │   │       ├── image_describer.py# Qwen-VL 图像内容描述
 │   │       └── summarizer.py    # LLM 文本摘要压缩
 │   └── api/
-│       ├── main.py              # FastAPI 应用（REST + SSE 流式接口）
+│       ├── main.py              # FastAPI 应用（REST + SSE + 图片接口）
 │       └── schemas.py           # Pydantic 请求/响应模型
 ├── frontend/
-│   ├── app.py                   # Streamlit 可视化前端
+│   ├── app.py                   # Streamlit 前端（问答 / 图片检索 / 管理）
 │   └── style.css                # 自定义样式
 ├── scripts/
 │   ├── mineru_ocr.py            # MinerU OCR 预处理（PDF → Markdown）
-│   ├── ingest_ocr_output.py     # OCR 结果批量入库 CLI
+│   ├── ingest_ocr_output.py     # OCR 结果批量入库 CLI（文本集合）
+│   ├── ingest_images_from_md.py # 扫描 md 中图片引用并入图像集合
+│   ├── cleanup_unused_images.py # 清理未被任何 md 引用的孤儿图片
+│   ├── ingest_documents.py      # 通用入库脚本（走 DocumentRouter）
+│   ├── generate_eval_dataset.py # LLM 自动生成 QA 评估集
+│   ├── dedup_dataset.py         # 评估集去重
 │   └── evaluate.py              # Recall/MRR/Precision 评估
 ├── tests/
 │   ├── test_parser.py           # 解析层单元测试（含 TextParser）
 │   ├── test_retrieval.py        # 检索层单元测试
-│   └── test_agent.py            # Agent 层单元测试
+│   ├── test_agent.py            # Agent 层单元测试
+│   └── diagnose_vl_embedding.py # VL embedding 环境诊断脚本
 ├── docs/
 │   └── qwen_api_models.md       # Qwen API 模型参考文档
 ├── run_server.py                # uvicorn 启动入口
@@ -403,7 +468,23 @@ multimodal-rag-agent/
 | ` ``` ``` ` 代码块 | `TEXT` | 整体保留，携带 `subtype=code_block` |
 | 其余段落 | `TEXT` | 按 chunk_size 滚动切分 |
 
-独立图像文件（PNG/JPG 等）直接由 `VisionParser` 通过 Qwen-VL 转录为 Markdown 文本。
+独立图像文件（PNG/JPG 等）直接由 `VisionParser` 通过 Qwen-VL 转录为 Markdown 文本。Markdown 中通过 `![]()` 引用的本地图片则走另一条独立的图像向量化路径，见下节。
+
+### 跨模态图像检索（双集合设计）
+
+为了在不牺牲文本检索精度的前提下支持以文搜图，系统维护两个独立的 Chroma 集合：
+
+| 集合 | 内容 | Embedding | 典型调用 |
+|------|------|-----------|----------|
+| `multimodal_rag` | 文本片段（Markdown 切块） | Qwen3-Embedding-0.6B（1024 维） | `knowledge_base_search` |
+| `multimodal_rag_images` | 图片 | Qwen3-VL-Embedding-2B（原生维度） | `image_search` |
+
+**关键选择：**
+
+- **两条独立路径，不做融合**：文本走 dense+sparse+RRF+rerank，图片走 VL 向量直接余弦召回。实验表明文本/图像向量分布差异极大，简单 RRF 融合会让图片结果被文本稀释；交由 Agent 根据问题语义自行决定调用哪一个更稳。
+- **以图片绝对路径作 Chroma ID**：`scripts/ingest_images_from_md.py` 重复运行幂等，同一图片被多个 md 引用也只写一次。
+- **Metadata 保留 alt_text / caption**：便于前端展示，也能在 `knowledge_base_search` 返回的文本片段中通过 `source_path` 字段回指原图。
+- **本地推理固定**：VL embedding 模型 Qwen3-VL-Embedding-2B 通过 `trust_remote_code` 动态加载模型仓库里的 `scripts/qwen3_vl_embedding.py`，无 API 版本；系统会自动扫描 HF 缓存目录，兼容 `refs/main` 与实际 snapshot 不一致的场景。
 
 ### Embedding 双模式
 系统支持本地推理和 API 调用两种 Embedding 模式：
