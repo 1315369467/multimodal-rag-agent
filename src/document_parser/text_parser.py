@@ -16,7 +16,7 @@ Markdown 解析策略
 • 表格前的 "Table N. / | / :" 标题行 → 捕获为 TABLE 块的 caption 元数据
 • 其余段落                      → TEXT 块（按空行分段）
 
-这些类型信息将被 SemanticChunker 用于版面感知切分：
+这些类型信息将被 StructureAwareChunker 用于结构感知切分：
 TABLE / FIGURE / FORMULA 作为原子块整体保留，不跨块截断。
 """
 from __future__ import annotations

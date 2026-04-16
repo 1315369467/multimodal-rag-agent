@@ -10,7 +10,7 @@ sentence  : 按中文/英文句子边界切分，每 chunk 至多 5 句。
 paragraph : 按连续空行切分，短段自动合并。
 markdown  : 按 Markdown 标题（#/##/###）切分。
 recursive : LangChain RecursiveCharacterTextSplitter，优先段落→句子→字符。
-semantic  : 版面感知切分（SemanticChunker），保留 ParsedBlock 结构信息。
+semantic  : 结构感知切分（StructureAwareChunker），保留 ParsedBlock 结构信息。
 """
 from __future__ import annotations
 
@@ -201,9 +201,9 @@ class _ChunkBuffer:
         return not any(p.strip() for p in self.parts)
 
 
-class SemanticChunker:
+class StructureAwareChunker:
     """
-    将 ParsedBlock 转换为版面感知切分的 LangChain Document。
+    将 ParsedBlock 转换为结构感知切分的 LangChain Document。
 
     参数
     ----
@@ -337,11 +337,11 @@ def chunk_blocks(
 ) -> list[Document]:
     """
     对 ParsedBlock 列表应用指定策略，返回 Document 列表。
-    strategy == "semantic" 时使用 SemanticChunker 保留版面结构；
+    strategy == "semantic" 时使用 StructureAwareChunker 保留版面结构；
     其余策略将块内容合并为文本后调用 chunk_text。
     """
     if strategy == "semantic":
-        return SemanticChunker(
+        return StructureAwareChunker(
             chunk_size=chunk_size,
             chunk_overlap=chunk_overlap,
             source_name=source_name,

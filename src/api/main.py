@@ -29,7 +29,7 @@ from loguru import logger
 
 from config.settings import get_settings
 from src.agent.rag_agent import MultimodalRAGAgent
-from src.document_parser.chunker import SemanticChunker
+from src.document_parser.chunker import StructureAwareChunker
 from src.document_parser.router import DocumentRouter
 from src.retrieval.dense_retriever import DenseRetriever
 from src.retrieval.hybrid_retriever import HybridRetriever
@@ -233,7 +233,7 @@ async def ingest(request: IngestRequest, store: StoreDep) -> IngestResponse:
 
         logger.info(f"[Ingest] 处理：{file_path.name}")
         blocks = router.route(file_path)
-        chunker = SemanticChunker(source_name=file_path.name)
+        chunker = StructureAwareChunker(source_name=file_path.name)
         chunks = chunker.chunk(blocks)
         all_chunks.extend(chunks)
         processed.append(file_path.name)
@@ -273,7 +273,7 @@ async def ingest_upload(
 
             logger.info(f"[Ingest] 已上传：{upload.filename}")
             blocks = router.route(tmp_path)
-            chunker = SemanticChunker(source_name=upload.filename or tmp_path.name)
+            chunker = StructureAwareChunker(source_name=upload.filename or tmp_path.name)
             chunks = chunker.chunk(blocks)
             all_chunks.extend(chunks)
             processed.append(upload.filename or tmp_path.name)

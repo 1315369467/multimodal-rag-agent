@@ -22,10 +22,10 @@
 └───────────┬─────────────┘                  │
             ▼                                ▼
 ┌─────────────────────────┐  ┌──────────────────────────────┐
-│  SemanticChunker        │  │  QwenVLLocalEmbeddings       │
-│  版面感知切分            │  │  Qwen3-VL-Embedding-2B       │
+│  StructureAwareChunker  │  │  QwenVLLocalEmbeddings       │
+│  结构感知切分            │  │  Qwen3-VL-Embedding-2B       │
 │  • 表格/图注原子块       │  │  图片 / 文本 → 同一向量空间    │
-│  • 标题作 context       │  └───────────────┬──────────────┘
+│  • 标题作 context        │ └───────────────┬──────────────┘
 └───────────┬─────────────┘                  │
             ▼                                ▼
 ┌─────────────────────────┐  ┌──────────────────────────────┐
@@ -518,9 +518,9 @@ multimodal-rag-agent/
 | `recursive` | **是** | 切断点可能落在句子中间，重叠保证跨块上下文 |
 | `semantic` | **是** | 长文本块边界不一定是完整语义断点，重叠弥补跨块语义断层 |
 
-### 语义感知切分（semantic 策略）
+### 结构感知切分（semantic 策略）
 
-`semantic` 策略由 `SemanticChunker` 实现，以 `ParsedBlock` 列表为输入，逐块处理并维护一个滚动缓冲区：
+`semantic` 策略由 `StructureAwareChunker` 实现，以 `ParsedBlock` 列表为输入，逐块处理并维护一个滚动缓冲区：
 
 ```
 ParsedBlock[]

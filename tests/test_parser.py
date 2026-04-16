@@ -12,7 +12,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 
 from src.document_parser.base_parser import BlockType, BoundingBox, ParsedBlock
-from src.document_parser.chunker import SemanticChunker
+from src.document_parser.chunker import StructureAwareChunker
 from src.document_parser.text_parser import TextParser
 
 
@@ -142,9 +142,9 @@ class TestTextParser:
             path.unlink()
 
 
-# ── SemanticChunker ───────────────────────────────────────────────────────
+# ── StructureAwareChunker ───────────────────────────────────────────────────────
 
-class TestSemanticChunker:
+class TestStructureAwareChunker:
     def _make_text_block(self, content: str, page: int = 0) -> ParsedBlock:
         return ParsedBlock(
             content=content,
@@ -169,11 +169,11 @@ class TestSemanticChunker:
         )
 
     def test_empty_input(self):
-        chunker = SemanticChunker(chunk_size=512, source_name="test.pdf")
+        chunker = StructureAwareChunker(chunk_size=512, source_name="test.pdf")
         assert chunker.chunk([]) == []
 
     def test_single_text_block(self):
-        chunker = SemanticChunker(chunk_size=512, source_name="test.pdf")
+        chunker = StructureAwareChunker(chunk_size=512, source_name="test.pdf")
         blocks = [self._make_text_block("Short paragraph.")]
         docs = chunker.chunk(blocks)
         assert len(docs) == 1
@@ -181,7 +181,7 @@ class TestSemanticChunker:
         assert docs[0].metadata["source"] == "test.pdf"
 
     def test_table_is_atomic(self):
-        chunker = SemanticChunker(chunk_size=512, source_name="test.pdf")
+        chunker = StructureAwareChunker(chunk_size=512, source_name="test.pdf")
         blocks = [
             self._make_text_block("Before table."),
             self._make_table_block("col1 | col2\nval1 | val2"),
@@ -195,7 +195,7 @@ class TestSemanticChunker:
         assert any("col1" in d.page_content for d in docs)
 
     def test_header_becomes_context(self):
-        chunker = SemanticChunker(chunk_size=512, source_name="test.pdf")
+        chunker = StructureAwareChunker(chunk_size=512, source_name="test.pdf")
         blocks = [
             self._make_header_block("Chapter 1: Introduction"),
             self._make_text_block("This chapter covers the basics."),
@@ -207,7 +207,7 @@ class TestSemanticChunker:
         assert "Introduction" in combined_text
 
     def test_chunk_size_respected(self):
-        chunker = SemanticChunker(chunk_size=10, source_name="test.pdf")
+        chunker = StructureAwareChunker(chunk_size=10, source_name="test.pdf")
         # 每个块约 20 token，应产生至少 2 个 chunk
         blocks = [
             self._make_text_block(
@@ -219,7 +219,7 @@ class TestSemanticChunker:
         assert len(docs) >= 2
 
     def test_metadata_source_set(self):
-        chunker = SemanticChunker(source_name="my_doc.pdf")
+        chunker = StructureAwareChunker(source_name="my_doc.pdf")
         blocks = [self._make_text_block("content")]
         docs = chunker.chunk(blocks)
         for doc in docs:

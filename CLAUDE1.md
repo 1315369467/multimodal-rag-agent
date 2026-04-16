@@ -27,7 +27,7 @@ DocumentRouter (src/document_parser/router.py)
     └─ VisionParser → ParsedBlock[]（Qwen-VL 图像理解）
     │
     ▼
-SemanticChunker (src/document_parser/chunker.py)
+StructureAwareChunker (src/document_parser/chunker.py)
     │  标题 → 上下文前缀；表格/图注 → 原子块；文本 → 滑动窗口切分
     ▼
 ChromaVectorStore (src/vectorstore/chroma_store.py)

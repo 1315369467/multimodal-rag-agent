@@ -7,7 +7,7 @@
   图像格式                 →  VisionParser（Qwen-VL 多模态解析）
 
 所有待切分文档均为 Markdown 格式；TextParser 会将标题、表格、图片、
-代码块分别映射为带类型标注的 ParsedBlock，供下游 SemanticChunker 使用。
+代码块分别映射为带类型标注的 ParsedBlock，供下游 StructureAwareChunker 使用。
 """
 from __future__ import annotations
 
