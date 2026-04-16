@@ -129,12 +129,14 @@ with st.sidebar:
 
     _NAV_ICONS = {
         "智能问答": "💬",
+        "图片检索": "🖼️",
         "知识库浏览": "📂",
         "文档入库": "📤",
         "系统管理": "⚙️",
     }
     _NAV_DESCS = {
         "智能问答": "多轮 Agent 问答",
+        "图片检索": "以文搜图可视化",
         "知识库浏览": "浏览、检索文档块",
         "文档入库": "上传文件入库",
         "系统管理": "状态监控与维护",
@@ -359,6 +361,7 @@ elif page == "智能问答":
     _TOOL_LABELS = {
         "knowledge_base_search": ("🔍", "知识库检索"),
         "knowledge_base_search_with_filter": ("📄", "按文件检索"),
+        "image_search": ("🖼️", "图像检索"),
         "query_rewrite": ("✏️", "查询改写"),
         "multi_round_search": ("🔄", "多轮检索"),
         "calculator": ("🔢", "数值计算"),
@@ -395,9 +398,65 @@ elif page == "智能问答":
                 )
             st.markdown("</div>", unsafe_allow_html=True)
 
-    def _render_sources(sources: list[dict]) -> None:
-        with st.expander(f"📎 参考来源（{len(sources)} 条）"):
-            for i, src in enumerate(sources, 1):
+    def _render_image_gallery(images: list[dict], key_prefix: str = "img") -> None:
+        """以画廊形式展示检索到的图片（每行 3 张）。"""
+        if not images:
+            return
+        st.markdown(f"**🖼️ 检索到的图片（{len(images)} 张）**")
+        cols_per_row = 3
+        for row_start in range(0, len(images), cols_per_row):
+            cols = st.columns(cols_per_row)
+            for idx, img in enumerate(images[row_start:row_start + cols_per_row]):
+                rank = row_start + idx + 1
+                with cols[idx]:
+                    img_url = img.get("image_url", "")
+                    if img_url:
+                        try:
+                            st.image(f"{API_BASE}{img_url}", use_container_width=True)
+                        except Exception as e:
+                            st.error(f"图片加载失败：{e}")
+                    else:
+                        st.warning("无图片 URL")
+
+                    source_path = img.get("source_path", "")
+                    file_name = (
+                        img.get("source")
+                        or (Path(source_path).name if source_path else "-")
+                    )
+                    score = img.get("score")
+                    score_html = (
+                        f'<div style="font-size:0.78rem;color:#6366f1;margin-top:2px;">'
+                        f'相似度：{float(score):.4f}</div>'
+                        if score is not None else ""
+                    )
+                    st.markdown(
+                        f"""
+                        <div style="padding:6px 2px;">
+                            <div style="font-size:0.85rem;font-weight:600;color:#1a1a1a;word-break:break-all;">
+                                #{rank} · {file_name}
+                            </div>
+                            {score_html}
+                        </div>
+                        """,
+                        unsafe_allow_html=True,
+                    )
+                    alt = img.get("content", "")
+                    if alt:
+                        st.caption(truncate(alt, 120))
+
+    def _render_sources(sources: list[dict], key_prefix: str = "") -> None:
+        # 按类型拆分：图片 vs 文本
+        images = [s for s in sources if s.get("block_type") == "figure"]
+        texts = [s for s in sources if s.get("block_type") != "figure"]
+
+        if images:
+            _render_image_gallery(images, key_prefix=key_prefix or "img")
+
+        if not texts:
+            return
+
+        with st.expander(f"📎 参考来源（{len(texts)} 条）"):
+            for i, src in enumerate(texts, 1):
                 c1, c2, c3 = st.columns(3)
                 with c1:
                     st.markdown(f"**来源 {i}**　📁 {src.get('source', '未知')}")
@@ -413,9 +472,9 @@ elif page == "智能问答":
                         height=120,
                         disabled=True,
                         label_visibility="collapsed",
-                        key=f"src_content_{i}_{hash(content)}",
+                        key=f"src_content_{key_prefix}_{i}_{hash(content)}",
                     )
-                if i < len(sources):
+                if i < len(texts):
                     st.divider()
 
     if "chat_history" not in st.session_state:
@@ -433,7 +492,7 @@ elif page == "智能问答":
                 st.rerun()
 
     # 聊天历史
-    for msg in st.session_state.chat_display:
+    for mi, msg in enumerate(st.session_state.chat_display):
         with st.chat_message(msg["role"]):
             if msg["role"] == "assistant" and msg.get("tool_steps"):
                 with st.expander(
@@ -443,7 +502,7 @@ elif page == "智能问答":
                     _render_tool_steps(msg["tool_steps"])
             st.markdown(msg["content"])
             if msg.get("sources"):
-                _render_sources(msg["sources"])
+                _render_sources(msg["sources"], key_prefix=f"hist{mi}")
 
     # 输入框
     question = st.chat_input("请输入您的问题，按 Enter 发送…")
@@ -541,7 +600,7 @@ elif page == "智能问答":
             else:
                 st.markdown(answer)
                 if sources:
-                    _render_sources(sources)
+                    _render_sources(sources, key_prefix=f"live{len(st.session_state.chat_display)}")
 
                 tool_steps_list = [
                     tool_steps_data[i] for i in sorted(tool_steps_data.keys())
@@ -674,7 +733,91 @@ elif page == "文档入库":
                 progress_bar.empty()
                 st.error(f"上传异常：{e}")
 
-# ==================== 页面 4：系统管理 ====================
+# ==================== 页面 4：图片检索 ====================
+
+elif page == "图片检索":
+    st.markdown("## 🖼️ 图片检索")
+    st.caption("输入文本描述，使用跨模态向量检索最相关的图片并可视化展示。")
+
+    count_data = api_get("/v1/images/count")
+    img_total = count_data.get("count", 0) if count_data else 0
+
+    info_col1, info_col2 = st.columns([1, 4])
+    with info_col1:
+        st.metric("图片库总数", img_total)
+    with info_col2:
+        if img_total == 0:
+            st.warning("图片库为空，请先运行 `scripts/ingest_images_from_md.py` 入库图片。")
+
+    with st.form("image_search_form", clear_on_submit=False):
+        q_col, k_col, btn_col = st.columns([6, 1, 1])
+        with q_col:
+            query_text = st.text_input(
+                "检索文本",
+                placeholder="例如：一张柱状图、发动机结构示意图…",
+                label_visibility="collapsed",
+            )
+        with k_col:
+            top_k = st.number_input("Top K", min_value=1, max_value=50, value=6, step=1)
+        with btn_col:
+            submitted = st.form_submit_button("🔍 检索", type="primary", use_container_width=True)
+
+    if submitted and query_text.strip():
+        with st.spinner("正在检索相关图片…"):
+            resp = api_post(
+                "/v1/images/search",
+                json_body={"query": query_text.strip(), "top_k": int(top_k)},
+            )
+
+        if resp:
+            results = resp.get("results", [])
+            st.markdown(f"**共返回 {len(results)} 条结果**")
+
+            if not results:
+                st.info("未检索到相关图片。")
+            else:
+                cols_per_row = 3
+                for row_start in range(0, len(results), cols_per_row):
+                    cols = st.columns(cols_per_row)
+                    for idx, item in enumerate(results[row_start:row_start + cols_per_row]):
+                        rank = row_start + idx + 1
+                        with cols[idx]:
+                            img_url = item.get("image_url", "")
+                            if img_url:
+                                try:
+                                    st.image(f"{API_BASE}{img_url}", use_container_width=True)
+                                except Exception as e:
+                                    st.error(f"图片加载失败：{e}")
+                            else:
+                                st.warning("无图片 URL")
+
+                            score = item.get("score", 0.0)
+                            st.markdown(
+                                f"""
+                                <div style="padding:6px 2px;">
+                                    <div style="font-size:0.85rem;font-weight:600;color:#1a1a1a;word-break:break-all;">
+                                        #{rank} · {item.get("file_name", "-")}
+                                    </div>
+                                    <div style="font-size:0.78rem;color:#6366f1;margin-top:2px;">
+                                        相似度：{score:.4f}
+                                    </div>
+                                </div>
+                                """,
+                                unsafe_allow_html=True,
+                            )
+                            alt = item.get("alt_text", "") or item.get("caption", "")
+                            if alt:
+                                st.caption(truncate(alt, 120))
+                            with st.expander("详情"):
+                                st.markdown(f"- **来源文档**：{item.get('source', '-')}")
+                                st.markdown(f"- **alt_text**：{item.get('alt_text', '-') or '-'}")
+                                st.markdown(f"- **caption**：{item.get('caption', '-') or '-'}")
+                                st.code(item.get("source_path", ""), language="text")
+    elif submitted:
+        st.warning("请输入检索文本。")
+
+
+# ==================== 页面 5：系统管理 ====================
 
 elif page == "系统管理":
     st.markdown("## ⚙️ 系统管理")
