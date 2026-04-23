@@ -65,7 +65,7 @@ DenseRetriever   SparseRetriever             │
 | 角色 | 模型 | 说明 |
 |------|------|------|
 | 主 LLM（API，默认） | `qwen3.6-plus` | 问答生成、推理（DashScope API） |
-| 主 LLM（本地模式） | `qwen3-8b` | 本地部署，通过 `LLM_MODE=local` 切换 |
+| 主 LLM（本地模式） | `qwen3.5-9b` | 本地部署，通过 `LLM_MODE=local` 切换 |
 | 视觉理解（图片→文本） | `qwen3-vl-plus` | VisionParser / image_describer skill 调用 |
 | 文本 Embedding（本地，默认） | `Qwen/Qwen3-Embedding-0.6B` | 本地推理，1024 维 |
 | 文本 Embedding（API 模式） | `text-embedding-v4` | DashScope API 调用（1024 维） |
